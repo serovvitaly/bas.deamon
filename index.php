@@ -4,6 +4,14 @@
 * 
 */
 
+ini_set('max_execution_time', 5);
+ini_set('memory_limit', '24M');
+
+define('BASE_DIR', dirname(__FILE__));
+
+include_once(BASE_DIR . "/include/Curl.class.php");
+
+
 $config = array(
     'db' => array(
         'host' => 'localhost',
@@ -32,24 +40,37 @@ class Processor{
         
         if (is_array($urls) AND count($urls) > 0) {
             
-            $streams = array();
+            $curls = array();
+            $curl_num = 1;
             
-            foreach ($urls AS $url) {
-                $streams[] = static::stream( new Conveer($url) );
-            }
+            $multi_curl = curl_multi_init();
+            /*
+            foreach ($urls AS $row) {
+                
+                $url = $row['url'];
+                
+                Curl::add_request($url);
+            }    */
             
-            $write  = NULL;
-            $except = NULL;
-            if (false === ($num_changed_streams = stream_select($streams, $write, $except, 0))) {
-                echo "Какая то ошибка\n";
-            } elseif ($num_changed_streams > 0) {
-                echo "О, чета пришло\n";
-            }
+            //Curl::add_request('http://appros.ru');
+            //Curl::add_request('http://masterbiznesa.ru');
+            Curl::add_request('http://www.yandex.ru');
+            Curl::add_request('http://www.google.ru');
+            
+            Curl::set_options(array(
+                CURLOPT_POST => 0
+            ));
+            
+            Curl::set_handler(function($content, $info){
+                print_r($info);
+            });
+                
+            Curl::execute();
         }
     }
     
     
-    static public function stream(Conveer $conveer)
+    static public function stream(Conveyer $conveer)
     {
         $stream = stream_socket_client("localhost:80", $errno, $errstr, 30);                  
         return $stream;
@@ -63,7 +84,7 @@ class Processor{
 * Получает на вход URL для парсинга и проводит всю последовательность работы с этим URL,
 * включая запись конечного результата в БД. 
 */
-class Conveer{
+class Conveyer{
     
     public function __construct($url)
     {
