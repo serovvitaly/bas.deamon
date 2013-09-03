@@ -63,7 +63,7 @@ class Curl
             static::$_handler = $handler; 
         } else {
             try{
-                throw new Exception('ERR: Handler is not a function.', 1010);
+                throw new Exception('ERROR: Handler is not a function.', 1010);
             } catch (Exception $e) {
                 echo $e->getMessage() . "\n";
             }
