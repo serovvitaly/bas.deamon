@@ -120,7 +120,7 @@ class DB{
     static protected function _db()
     {
         if (static::$_DB == NULL) {
-            static::$_DB = new mysqli('localhost', 'root', '', 'test');
+            static::$_DB = new mysqli('localhost', 'root', 'Sy9YGKbG', 'test');
         }
         
         return static::$_DB;
