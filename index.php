@@ -36,7 +36,9 @@ class Processor{
     
     static public function iteration()
     {
-        $urls = DB::select('id,url', array('status <=' => 2));
+        //$urls = DB::select('id,url', array('status <=' => 2));
+        
+        $urls = array(1);
         
         if (is_array($urls) AND count($urls) > 0) {
             
