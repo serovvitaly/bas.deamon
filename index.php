@@ -205,8 +205,10 @@ class DB{
         $result = static::query($sql);
         
         $rows = array();
-        while ($row = $result->fetch_assoc()) {
-            $rows[] = $row;
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }    
         }
             
         return $rows;
