@@ -10,6 +10,10 @@ ini_set('memory_limit', '24M');
 define('BASE_DIR', dirname(__FILE__));
 
 include_once(BASE_DIR . "/include/Curl.class.php");
+include_once(BASE_DIR . "/include/phpQuery-onefile.php");
+
+
+$table_name = 'foobar';
 
 
 $config = array(
@@ -36,46 +40,101 @@ class Processor{
     
     static public function iteration()
     {
-        //$urls = DB::select('id,url', array('status <=' => 2));
-        
-        $urls = array(1);
+        $urls = static::get_urls();
         
         if (is_array($urls) AND count($urls) > 0) {
             
-            $curls = array();
-            $curl_num = 1;
-            
-            $multi_curl = curl_multi_init();
-            /*
-            foreach ($urls AS $row) {
-                
+            $parent_curl = new Curl;
+             
+            foreach ($urls AS $row) {                
                 $url = $row['url'];
-                
-                Curl::add_request($url);
-            }    */
+                $parent_curl->add_request($url);
+            }
             
-            //Curl::add_request('http://appros.ru');
-            //Curl::add_request('http://masterbiznesa.ru');
-            Curl::add_request('http://www.yandex.ru');
-            Curl::add_request('http://www.google.ru');
-            
-            Curl::set_options(array(
+            $parent_curl->set_options(array(
                 CURLOPT_POST => 0
             ));
             
-            Curl::set_handler(function($content, $info){
-                print_r($info);
+            $parent_curl->set_handler(function($content, $info){
+                
+                $url = rtrim($info['url'], '/');
+                
+                $sql = 'UPDATE foobar SET '
+                      . "`last_update`='".date('Y-m-d H:i:s')."'"
+                      . ",`last_http_code`='{$info['http_code']}'"
+                      . ",`last_redirect_url`='{$info['redirect_url']}'";
+                
+                if ($info['http_code'] == 200) {
+                    $sql .= ",`status`=1";
+                    
+                    $document = phpQuery::newDocument($content);
+                    
+                    $links = $document->find('a');
+                    
+                    $total_links_count = count($links);
+                    $internal_links = array();
+                    $internal_links_count = 0;
+                    
+                    if ($total_links_count > 0) {
+                        foreach ($links AS $link) {
+                            $link = pq($link);
+                            $href = $link->attr('href');
+                            
+                            $_url = parse_url($url);
+                            if (isset($_url['host'])) {
+                                $_url = $_url['host'];
+                            }
+                            $parse_url = parse_url($href);
+                            
+                            if (isset($parse_url['host']) AND ($parse_url['host'] == $_url OR $parse_url['host'] == 'www.' . $_url)) {
+                                $internal_links[] = $href;
+                            }
+                        }
+                        
+                        $internal_links_count = count($internal_links);
+                        
+                        if ($internal_links_count > 0) {
+                            $curl = new Curl;
+                            foreach ($internal_links AS $internal_link) {
+                                $curl->add_request($internal_link);
+                            }
+                            $curl->set_options(array(
+                                CURLOPT_POST => 0
+                            ));
+                            $curl->set_handler(function($content, $info){
+                                switch ($info['http_code']) {
+                                    case 200:
+                                        //
+                                        break;
+                                    case 301:
+                                        //
+                                        break;
+                                    case 302:
+                                        //
+                                        break;
+                                }
+                            });
+                            $curl->execute();
+                        }
+                    }
+                    
+                    $sql .= ",`total_links_count`={$total_links_count}";
+                    $sql .= ",`internal_links_count`={$internal_links_count}";
+                }
+                
+                $sql .= " WHERE `url`='{$url}'";
+                
+                DB::query($sql);
             });
                 
-            Curl::execute();
+            $parent_curl->execute();
         }
     }
     
     
-    static public function stream(Conveyer $conveer)
+    static protected function get_urls()
     {
-        $stream = stream_socket_client("localhost:80", $errno, $errstr, 30);                  
-        return $stream;
+        return DB::select('SELECT `id`,`url` FROM `foobar` WHERE `status` <= 2');
     }
     
 }
@@ -138,24 +197,19 @@ class DB{
     {
         $db = static::_db();
         
-        if (!($query = $db->prepare($sql))) {
-            static::_exception($db);
-        }
-        
-        if (!$query->execute()) {
-            static::_exception($query);
-        }
-        
-        if (!(static::$_last_result = $query->get_result())) {
-            static::_exception($query);
-        }
-        
-        return static::$_last_result->fetch_all(MYSQLI_ASSOC);
+        return $db->query($sql);
     }
     
-    static public function select($fields = '*')
-    {           
-        return static::query("SELECT {$fields} FROM `foobar`");
+    static public function select($sql)
+    {   
+        $result = static::query($sql);
+        
+        $rows = array();
+        while ($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
+            
+        return $rows;
     }
     
     static public function update()

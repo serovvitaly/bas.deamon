@@ -11,8 +11,8 @@ class Curl
     const REQUEST_FIELD_CHARSET = 'charset';
     const REQUEST_FIELD_HANDLER = 'handler';
     
-    protected static $_options = array(
-        CURLOPT_HEADER         => 0,
+    protected $_options = array(
+        CURLOPT_HEADER         => 1,
         CURLOPT_SSL_VERIFYPEER => 0,
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_CONNECTTIMEOUT => 10,
@@ -20,12 +20,18 @@ class Curl
     );
     
     
-    protected static $_requests = array();
+    protected $_requests = array();
     
     
-    protected static $_handler = NULL;
+    protected $_handler = NULL;
     
-    protected static $_charset = 'UTF-8';
+    protected $_charset = 'UTF-8';
+    
+    
+    public function __construct()
+    {
+        //
+    }
     
     
     /**
@@ -33,9 +39,9 @@ class Curl
     * 
     * @param mixed $options
     */
-    public static function set_options(array $options)
+    public function set_options(array $options)
     {
-        return static::$_options = $options + static::$_options;
+        return $this->_options = $options + $this->_options;
     }
     
     
@@ -44,10 +50,10 @@ class Curl
     * 
     * @param mixed $charset
     */
-    public static function set_charset($charset)
+    public function set_charset($charset)
     {
         if (is_string($charset) AND !empty($charset)) {
-            static::$_charset = $charset;
+            $this->$_charset = $charset;
         }
     }
     
@@ -57,10 +63,10 @@ class Curl
     * 
     * @param mixed $handler
     */
-    public static function set_handler($handler)
+    public function set_handler($handler)
     {
         if (is_callable($handler)) {
-            static::$_handler = $handler; 
+            $this->_handler = $handler; 
         } else {
             try{
                 throw new Exception('ERROR: Handler is not a function.', 1010);
@@ -79,7 +85,7 @@ class Curl
     * @param mixed $options
     * @param mixed $handler
     */
-    public static function add_request($url, array $options = array(), $charset = NULL, $handler = NULL)
+    public function add_request($url, array $options = array(), $charset = NULL, $handler = NULL)
     {
         if (!is_callable($handler)) {
             $handler = NULL;
@@ -89,7 +95,7 @@ class Curl
             $charset = NULL;
         }
         
-        static::$_requests[] = array(
+        $this->_requests[] = array(
             static::REQUEST_FIELD_URL     => trim($url),
             static::REQUEST_FIELD_OPTIONS => $options,
             static::REQUEST_FIELD_CHARSET => $charset,
@@ -103,7 +109,7 @@ class Curl
     * 
     * @param mixed $requests
     */
-    public static function add_requests_array(array $requests)
+    public function add_requests_array(array $requests)
     {
         if (count($requests) < 1) {
             return;
@@ -113,7 +119,7 @@ class Curl
             
             if (isset($request[static::REQUEST_FIELD_URL]) AND is_string($request[static::REQUEST_FIELD_URL]) AND !empty($request[static::REQUEST_FIELD_URL])) {
                 
-                static::add_request(array(
+                $this->add_request(array(
                     static::REQUEST_FIELD_URL     => $request[static::REQUEST_FIELD_URL],
                     static::REQUEST_FIELD_OPTIONS => is_array($request[static::REQUEST_FIELD_OPTIONS])    ? $request[static::REQUEST_FIELD_OPTIONS] : array(),
                     static::REQUEST_FIELD_CHARSET => is_string($request[static::REQUEST_FIELD_CHARSET])   ? $request[static::REQUEST_FIELD_CHARSET] : NULL,
@@ -131,9 +137,9 @@ class Curl
     * 
     * @param mixed $multi
     */
-    public static function execute($multi = true)
+    public function execute($multi = false)
     {
-        $requests = static::$_requests;
+        $requests = $this->_requests;
         
         if (!is_array($requests) OR count($requests) < 1) {
             
@@ -152,9 +158,11 @@ class Curl
         }
         
         if ($multi) {
-            return static::multi_curl($requests);
+            $this->multi_curl($requests);
         } else {
-            return static::single_curl($requests[0]);
+            foreach ($requests AS $request) {
+                $this->single_curl($request);
+            }
         }
     }
     
@@ -164,10 +172,10 @@ class Curl
     * 
     * @param mixed $request
     */
-    protected static function single_curl(array $request)
+    protected function single_curl(array $request)
     {
         $options = isset($request[static::REQUEST_FIELD_OPTIONS]) ? $request[static::REQUEST_FIELD_OPTIONS] : array();
-        $options = $options + static::$_options;
+        $options = $options + $this->_options;
         
         $curl = curl_init();
         
@@ -189,9 +197,9 @@ class Curl
             
             return;
                         
-        } elseif (static::$_handler) {
+        } elseif ($this->_handler) {
             
-            $handler = static::$_handler;
+            $handler = $this->_handler;
             
             $handler($response, $info);
             
@@ -211,11 +219,11 @@ class Curl
     * 
     * @param mixed $requests
     */
-    protected static function multi_curl(array $requests)
+    protected function multi_curl(array $requests)
     { 
         
         
-        $options = static::$_options;
+        $options = $this->_options;
         
         $exec_curls = $exec_requests = array();
         
@@ -279,9 +287,9 @@ class Curl
                             
                             $handler($response, $info);
                                         
-                        } elseif (static::$_handler) {
+                        } elseif ($this->_handler) {
                             
-                            $handler = static::$_handler;
+                            $handler = $this->_handler;
                             
                             $handler($response, $info);
                         }
