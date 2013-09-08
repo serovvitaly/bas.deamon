@@ -4,10 +4,21 @@
 * 
 */
 
-ini_set('max_execution_time', 5);
+ini_set('max_execution_time', 50);
 ini_set('memory_limit', '24M');
 
 define('BASE_DIR', dirname(__FILE__));
+
+/*
+$handle = fopen('data/ru_expiring_list.csv','r');
+while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+    $host = strtolower($data[0]);
+    DB::query("INSERT INTO foobar (`url`) VALUES ('{$host}')");
+}
+fclose($handle);
+
+exit;  */
+
 
 include_once(BASE_DIR . "/include/Curl.class.php");
 include_once(BASE_DIR . "/include/phpQuery-onefile.php");
@@ -48,17 +59,18 @@ class Processor{
              
             foreach ($urls AS $row) {                
                 $url = $row['url'];
+              echo "in: {$url}\n"; 
                 $parent_curl->add_request($url);
             }
             
             $parent_curl->set_options(array(
                 CURLOPT_POST => 0
             ));
-            
+         echo "----------------------------------\nProcess:\n";   
             $parent_curl->set_handler(function($content, $info){
                 
                 $url = rtrim($info['url'], '/');
-                
+              echo "go: {$url} - {$info['http_code']}\n";  
                 $sql = 'UPDATE foobar SET '
                       . "`last_update`='".date('Y-m-d H:i:s')."'"
                       . ",`last_http_code`='{$info['http_code']}'"
@@ -134,7 +146,7 @@ class Processor{
     
     static protected function get_urls()
     {
-        return DB::select('SELECT `id`,`url` FROM `foobar` WHERE `status` <= 2');
+        return DB::select('SELECT `id`,`url` FROM `foobar` WHERE `status` <= 2 LIMIT 10');
     }
     
 }
