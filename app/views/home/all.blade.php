@@ -13,27 +13,30 @@
     </tr>
   </thead>
   <tbody>
+  <?
+  if (isset($sites) AND count($sites) > 0) {
+      foreach ($sites AS $site) {
+          ?>
     <tr>
-      <td>foobar.ru</td>
-      <td>3</td>
-      <td>да</td>
-      <td>есть контакты</td>
-      <td>89234567</td>
-      <td>89234567</td>
-      <td>foo@bar.ru</td>
-      <td>23.08.2013</td>
-      <td>23.08.2013</td>
+      <td><?= $site->url ?></td>
+      <td><?= $site->internal_links_count ?></td>
+      <td>?</td>
+      <td><?= $site->status ?></td>
+      <td>?</td>
+      <td>?</td>
+      <td>?</td>
+      <td><?= $site->updatedat ?></td>
+      <td><?= $site->updatedat ?></td>
     </tr>
+          <?
+      }
+  } else {
+      ?>
     <tr>
-      <td>foobar.ru</td>
-      <td>3</td>
-      <td>да</td>
-      <td>есть контакты</td>
-      <td>89234567</td>
-      <td>89234567</td>
-      <td>foo@bar.ru</td>
-      <td>23.08.2013</td>
-      <td>23.08.2013</td>
+      <td colspan="9" style="text-align: center; color: gray;">Список пуст</td>
     </tr>
+      <?
+  }
+  ?>
   </tbody>
 </table>

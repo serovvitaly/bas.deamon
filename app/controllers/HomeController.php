@@ -25,7 +25,9 @@ class HomeController extends BaseController {
     
     public function getAll()
     {
-        $this->layout->content = View::make('home.all');
+        $sites = Site::take(40)->get();
+        
+        $this->layout->content = View::make('home.all', array('sites' => $sites));
     }
     
     public function getMeet()
