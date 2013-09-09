@@ -15,42 +15,42 @@ class HomeController extends BaseController {
     
     public function getIndex()
     {
-        $this->layout->content = 'Главная';
+        $this->layout->content = View::make('home.index');
     }
     
     public function getLoad()
     {
-        $this->layout->content = 'Загрузка';
+        $this->layout->content = View::make('home.load');
     }
     
     public function getAll()
     {
-        $this->layout->content = 'Все';
+        $this->layout->content = View::make('home.all');
     }
     
     public function getMeet()
     {
-        $this->layout->content = 'Отвечают';
+        $this->layout->content = View::make('home.meet');
     }
     
     public function getPages()
     {
-        $this->layout->content = 'Есть странцы';
+        $this->layout->content = View::make('home.pages');
     }
     
     public function getConts()
     {
-        $this->layout->content = 'Есть контакты';
+        $this->layout->content = View::make('home.conts');
     }
     
     public function getChecker()
     {
-        $this->layout->content = 'Проверка';
+        $this->layout->content = View::make('home.checker');
     }
     
 	public function getProven()
 	{
-		$this->layout->content = 'Проверенные';
+		$this->layout->content = View::make('home.proven');
 	}
 
 }
