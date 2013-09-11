@@ -1,0 +1,20 @@
+{
+    "name": "apollo/expedia",
+    "description": "",
+    "authors": [
+        {
+            "name": "Vitaly Serov",
+            "email": "serovvitaly@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.x"
+    },
+    "autoload": {
+        "psr-0": {
+            "Apollo\\Expedia": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}

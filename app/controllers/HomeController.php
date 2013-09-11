@@ -54,5 +54,27 @@ class HomeController extends BaseController {
 	{
 		$this->layout->content = View::make('home.proven');
 	}
+    
+    public function postUpload()
+    {
+        error_reporting(E_ALL | E_STRICT);
+        require_once('../workbench/vs/fileupload/src/VS/FileUpload/UploadHandler.php');
+        
+        $file_name = md5( microtime() ) . '.zip';
+        
+        $file = new UploadFile;
+        $file->file_name = $file_name;
+        $file->save();
+        
+        $upload_handler = new UploadHandler(array(
+            'file_name' => $file_name,
+            'complete_handler' => function($f)use(&$file){
+                $file->size = $f->size;
+                
+                $file->save();
+            }
+        ));
+        return NULL;
+    }
 
 }
