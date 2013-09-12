@@ -4,8 +4,12 @@ class HomeController extends BaseController {
 
     public $layout = 'home.base';
     
+    protected $_store_path = NULL;
+    
     public function __construct()
     {
+        $this->_store_path = dirname($_SERVER['DOCUMENT_ROOT']) . '/store/';
+        
         $controller = $this;
         
         $this->afterFilter(function()use($controller){
@@ -20,7 +24,7 @@ class HomeController extends BaseController {
     
     public function getLoad()
     {
-        $files = UploadFile::orderBy('created_at', 'DESC')->get();
+        $files = UploadFile::orderBy('created_at', 'ASC')->get();
         
         $this->layout->content = View::make('home.load', array('files' => $files));
     }
@@ -82,6 +86,52 @@ class HomeController extends BaseController {
         $file->save();
         
         return '';
+    }
+    
+    
+    public function postUnpack()
+    {
+        $id = Input::get('id');
+        
+        $out = array(
+            'success' => false,
+            'result'  => NULL
+        );
+        
+        if ($id> 0) {
+            $file = UploadFile::where('status', '=', 0)->get();
+            if ($this->unpacker( $file[0]['id'] )) {
+                $out['success'] = true;
+            }
+        }
+        
+        return json_encode($out);
+    }
+    
+    
+    public function unpacker($file_id)
+    {
+        $file = UploadFile::find($file_id);
+        
+        $file_path = $this->_store_path . $file->file_name;
+        
+        if (file_exists($file_path)) {
+            
+            $zip = new ZipArchive;
+            
+            if ($zip->open($file_path)) {
+                if ( $zip->extractTo($this->_store_path . 'unpacked/') ) {
+                    $file->status = 1;
+                    $file->save();
+                    
+                    return true;
+                }
+                $zip->close();
+            }
+            
+        }
+        
+        return false;
     }
 
 }

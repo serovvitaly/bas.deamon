@@ -26,7 +26,23 @@ $(function () {
         },
         done: function (e, data) {
             $('#table-file-list .during').html('загружен');
-            $('#table-file-list .during').removeClass('during');
+            //$('#table-file-list .during').removeClass('during');
+            
+            $('#table-file-list .during').html('<em>извлечение...</em>');
+            $.ajax({
+                url: '/unpack',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    id: 1
+                },
+                success: function(data){
+                    if (data.success === true) {
+                        $('#table-file-list .during').html('извлечен');
+                    }
+                }
+            });
+            
         },
         progressall: function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);            
@@ -45,16 +61,24 @@ $(function () {
 
 <span style="padding-left: 10px; font-size: 14px;" id="progress"></span>
 
+<?
+    $statuses = array(
+        0 => 'загружен',
+        1 => 'извлечен',
+        2 => 'обработан'
+    );
+?>
+
 <fieldset style="margin-top: 20px;">
   <legend>Статистика</legend>
   
-  <table id="table-file-list" class="table table-bordered table-striped">
+  <table id="table-file-list" class="table table-bordered table-striped table-condensed">
     <thead><tr>
       <th style="width: 200px;">Имя файла</th>
       <th>Дата загрузки</th>
-      <th style="text-align: center; width: 100px;">Загрузка</th>
+      <th style="text-align: center; width: 100px;">Статус</th>
       <th style="text-align: center;">Время загрузки</th>
-      <th>Объем файла</th>
+      <th>Размер архива</th>
       <th>Найдено ссылок</th>
       <th>Добавлено в базу</th>
     </tr></thead>
@@ -63,7 +87,7 @@ $(function () {
       <tr>
         <td>{{ $file->name }}</td>
         <td>{{ $file->created_at }}</td>
-        <td style="text-align: center;">загружен</td>
+        <td style="text-align: center;">{{ $statuses[ $file->status ] }}</td>
         <td style="text-align: center;">{{ $file->load_stop - $file->load_start  }} мин.</td>
         <td style="text-align: right;">{{ ceil($file->size / 1000000) }} МБ</td>
         <td></td>
