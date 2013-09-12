@@ -28,6 +28,8 @@ class UploadHandler
         'min_height' => 'Image requires a minimum height'
     );
     
+    public $original_file_names = array();
+    
     function __construct($options = null, $initialize = true, $error_messages = null) {
         $this->options = array(
             'file_name' => NULL,
@@ -724,9 +726,6 @@ class UploadHandler
             $this->set_additional_file_properties($file);
         }
         
-        $complete_handler = $this->options['complete_handler'];
-        $complete_handler($file);
-        
         return $file;
     }
 
@@ -935,6 +934,7 @@ class UploadHandler
             // param_name is an array identifier like "files[]",
             // $_FILES is a multi-dimensional array:
             foreach ($upload['tmp_name'] as $index => $value) {
+                $this->original_file_names[] = $upload['name'][$index];
                 $files[] = $this->handle_file_upload(
                     $upload['tmp_name'][$index],
                     $file_name ? $file_name : $upload['name'][$index],
@@ -961,6 +961,10 @@ class UploadHandler
                 $content_range
             );
         }
+        
+        $complete_handler = $this->options['complete_handler'];
+        $complete_handler($files);
+        
         return $this->generate_response(
             array($this->options['param_name'] => $files),
             $print_response

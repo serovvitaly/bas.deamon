@@ -6,6 +6,22 @@
     <link rel="stylesheet" type="text/css" href="/packages/bootstrap/css/docs.css">
     <link rel="stylesheet" type="text/css" href="/packages/bootstrap/css/bootstrap.min.css">
     
+    <style>
+      .uloader{
+          height: 18px;
+          border: 1px solid #AEC7A5;
+          background: #EFF5ED;
+      }
+      .uloader .ufiller{
+          height: 18px;
+          background: #BDE6B0;
+      }
+      .uloader .ucounter {
+          margin-top: -19px;
+          text-align: center;
+      }
+    </style>
+    
 </head>
 <body>
 

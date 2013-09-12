@@ -20,7 +20,9 @@ class HomeController extends BaseController {
     
     public function getLoad()
     {
-        $this->layout->content = View::make('home.load');
+        $files = UploadFile::orderBy('created_at', 'DESC')->get();
+        
+        $this->layout->content = View::make('home.load', array('files' => $files));
     }
     
     public function getAll()
@@ -63,18 +65,23 @@ class HomeController extends BaseController {
         $file_name = md5( microtime() ) . '.zip';
         
         $file = new UploadFile;
-        $file->file_name = $file_name;
+        $file->file_name  = $file_name;
+        $file->load_start = time();
         $file->save();
         
         $upload_handler = new UploadHandler(array(
             'file_name' => $file_name,
-            'complete_handler' => function($f)use(&$file){
+            'complete_handler' => function($files)use(&$file){
+                $f = $files[0];
                 $file->size = $f->size;
-                
-                $file->save();
+                $file->load_stop = time();
             }
         ));
-        return NULL;
+        
+        $file->name = $upload_handler->original_file_names[0];
+        $file->save();
+        
+        return '';
     }
 
 }

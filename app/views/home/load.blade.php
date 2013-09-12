@@ -9,16 +9,29 @@
 $(function () {
     $('#fileupload').fileupload({
         dataType: 'json',
+        add: function (e, data) {
+            var file = data.files[0];
+            $('#table-file-list tbody').prepend('<tr>'
+                    + '<td>' + file.name + '</td>'
+                    + '<td></td>'
+                    + '<td class="during" style="text-align: center;"><div class="uloader"><div class="ufiller" style="width:0%"></div><div class="ucounter">0%</div></div></td>'
+                    + '<td style="text-align: center;"></td>'
+                    + '<td style="text-align: right;">' + Math.ceil( file.size / 1000000 ) + ' МБ</td>'
+                    + '<td></td>'
+                    + '<td></td>'
+                  + '</tr>'
+            );
+            
+            data.submit();
+        },
         done: function (e, data) {
-            $('#progress').html('Загрузка завершена');
-            console.log(data);
-            $.each(data.result.files, function (index, file) {
-                $('<p/>').text(file.name).appendTo(document.body);
-            });
+            $('#table-file-list .during').html('загружен');
+            $('#table-file-list .during').removeClass('during');
         },
         progressall: function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress').html(progress + '%');
+            var progress = parseInt(data.loaded / data.total * 100, 10);            
+            $('#table-file-list .during .ufiller').css('width', progress + '%');
+            $('#table-file-list .during .ucounter').html(progress + '%');
         }
     });
 });
@@ -35,14 +48,29 @@ $(function () {
 <fieldset style="margin-top: 20px;">
   <legend>Статистика</legend>
   
-  <table class="table table-bordered table-striped">
+  <table id="table-file-list" class="table table-bordered table-striped">
     <thead><tr>
-      <th>Имя файла</th>
+      <th style="width: 200px;">Имя файла</th>
       <th>Дата загрузки</th>
+      <th style="text-align: center; width: 100px;">Загрузка</th>
+      <th style="text-align: center;">Время загрузки</th>
       <th>Объем файла</th>
       <th>Найдено ссылок</th>
       <th>Добавлено в базу</th>
     </tr></thead>
+    <tbody>
+    @foreach ($files as $file)
+      <tr>
+        <td>{{ $file->name }}</td>
+        <td>{{ $file->created_at }}</td>
+        <td style="text-align: center;">загружен</td>
+        <td style="text-align: center;">{{ $file->load_stop - $file->load_start  }} мин.</td>
+        <td style="text-align: right;">{{ ceil($file->size / 1000000) }} МБ</td>
+        <td></td>
+        <td></td>
+      </tr>
+    @endforeach
+    </tbody>
   </table>
   
 </fieldset>
