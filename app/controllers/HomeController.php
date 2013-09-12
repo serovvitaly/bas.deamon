@@ -113,6 +113,7 @@ class HomeController extends BaseController {
     
     public function getPo()
     {
+        //echo phpinfo();return '';
         
         $this->_processing(1);
         
@@ -177,7 +178,7 @@ class HomeController extends BaseController {
                         $processing_file_path = rtrim($unpacked_dir_path, '/') . '/' . $fitem;
                         
                         if (file_exists($processing_file_path)) {
-                            $this->_process_go($processing_file_path);
+                            $this->_process_go($processing_file_path, $file_id);
                             break;
                         }
                         
@@ -195,22 +196,22 @@ class HomeController extends BaseController {
     * 
     * @param mixed $file_path
     */
-    protected function _process_go($file_path)
-    {
-        //return;
-        
-        /*
+    protected function _process_go($file_path, $file_id)
+    {        
         $child_pid = pcntl_fork();
         if ($child_pid) {
             exit();
         }
         posix_setsid();
-        */
+        
         if (($handle = fopen($file_path, "r")) !== FALSE) {
             
-            print_r( explode(' ', trim(exec("wc -l $file_path"))) );
+            $dex = explode(' ', trim(exec("wc -l $file_path")));
             
-            return;
+            $file = UploadFile::find($file_id);
+            
+            $file->number_lines = $dex[0];
+            $file->save();
             
             while (($data = fgetcsv($handle, 1000, ';')) !== FALSE) {
                 $site = new Site;
