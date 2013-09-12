@@ -2,6 +2,8 @@
 
 class HomeController extends BaseController {
 
+    const ZIP_EXT = 'zip';
+    
     public $layout = 'home.base';
     
     protected $_store_path = NULL;
@@ -56,25 +58,25 @@ class HomeController extends BaseController {
         $this->layout->content = View::make('home.checker');
     }
     
-	public function getProven()
-	{
-		$this->layout->content = View::make('home.proven');
-	}
+    public function getProven()
+    {
+        $this->layout->content = View::make('home.proven');
+    }
     
     public function postUpload()
     {
         error_reporting(E_ALL | E_STRICT);
         require_once('../workbench/vs/fileupload/src/VS/FileUpload/UploadHandler.php');
         
-        $file_name = md5( microtime() ) . '.zip';
+        $unique_name = md5( microtime() );
         
         $file = new UploadFile;
-        $file->file_name  = $file_name;
+        $file->unique_name  = $unique_name;
         $file->load_start = time();
         $file->save();
         
         $upload_handler = new UploadHandler(array(
-            'file_name' => $file_name,
+            'file_name' => $unique_name . '.' . self::ZIP_EXT,
             'complete_handler' => function($files)use(&$file){
                 $f = $files[0];
                 $file->size = $f->size;
@@ -109,18 +111,29 @@ class HomeController extends BaseController {
     }
     
     
-    public function unpacker($file_id)
+    /**
+    * Выполняет извлечение файла со списком сайтов из загруженного архива
+    * 
+    * @param mixed $file_id
+    */
+    protected function unpacker($file_id)
     {
         $file = UploadFile::find($file_id);
         
-        $file_path = $this->_store_path . $file->file_name;
+        $file_path = $this->_store_path . $file->unique_name . '.' . self::ZIP_EXT;
         
         if (file_exists($file_path)) {
             
             $zip = new ZipArchive;
             
+            $unpacked_path = $this->_store_path . 'unpacked/' . $file->unique_name;
+            
+            if (!file_exists($unpacked_path)) {
+                mkdir($unpacked_path, 0755);
+            }
+            
             if ($zip->open($file_path)) {
-                if ( $zip->extractTo($this->_store_path . 'unpacked/') ) {
+                if ( $zip->extractTo($unpacked_path) ) {
                     $file->status = 1;
                     $file->save();
                     
