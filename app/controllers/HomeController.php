@@ -208,7 +208,7 @@ class HomeController extends BaseController {
         */
         if (($handle = fopen($file_path, "r")) !== FALSE) {
             
-            echo 'count ' . trim(exec("wc -l $file_path"));
+            print_r( explode(' ', trim(exec("wc -l $file_path"))) );
             
             return;
             
