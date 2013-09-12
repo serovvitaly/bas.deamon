@@ -102,7 +102,7 @@ class HomeController extends BaseController {
         
         if ($id> 0) {
             $file = UploadFile::where('status', '=', 0)->get();
-            if ($this->unpacker( $file[0]['id'] )) {
+            if ($this->_unpacker( $file[0]['id'] )) {
                 $out['success'] = true;
             }
         }
@@ -111,12 +111,21 @@ class HomeController extends BaseController {
     }
     
     
+    public function getPo()
+    {
+        
+        $this->_processing(1);
+        
+        return '';
+    }
+    
+    
     /**
     * Выполняет извлечение файла со списком сайтов из загруженного архива
     * 
     * @param mixed $file_id
     */
-    protected function unpacker($file_id)
+    protected function _unpacker($file_id)
     {
         $file = UploadFile::find($file_id);
         
@@ -147,4 +156,68 @@ class HomeController extends BaseController {
         return false;
     }
 
-}
+    
+    /**
+    * Выполняет обработку извлеченного файла со списком сайтов
+    * 
+    * @param mixed $file_id
+    */
+    protected function _processing($file_id)
+    {
+        $file = UploadFile::find($file_id);
+        
+        $unpacked_dir_path = $this->_store_path . 'unpacked/' . $file->unique_name;
+        
+        if (file_exists($unpacked_dir_path)) {
+            $collection = scandir($unpacked_dir_path);
+            if (count($collection) > 0) {
+                foreach ($collection AS $fitem) {
+                    if( !is_dir($fitem) ) {
+                        
+                        $processing_file_path = rtrim($unpacked_dir_path, '/') . '/' . $fitem;
+                        
+                        if (file_exists($processing_file_path)) {
+                            $this->_process_go($processing_file_path);
+                            break;
+                        }
+                        
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    
+    /**
+    * Выполняет обработку одного файла со списком сайтов
+    * 
+    * @param mixed $file_path
+    */
+    protected function _process_go($file_path)
+    {
+        //return;
+        
+        /*
+        $child_pid = pcntl_fork();
+        if ($child_pid) {
+            exit();
+        }
+        posix_setsid();
+        */
+        if (($handle = fopen($file_path, "r")) !== FALSE) {
+            
+            echo 'count ' . trim(exec("wc -l $file_path"));
+            
+            return;
+            
+            while (($data = fgetcsv($handle, 1000, ';')) !== FALSE) {
+                $site = new Site;
+                $site->url = $data[0];
+                $site->save();
+            }
+            fclose($handle);
+        }
+    }
+}                                                                                  
