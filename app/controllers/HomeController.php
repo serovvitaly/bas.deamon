@@ -78,7 +78,7 @@ class HomeController extends BaseController {
         $upload_handler = new UploadHandler(array(
             'file_name' => $unique_name . '.' . self::ZIP_EXT,
             'complete_handler' => function($files)use(&$file){
-                $f = $files[0];
+                $f = $files;
                 $file->size = $f->size;
                 $file->load_stop = time();
             }

@@ -726,6 +726,9 @@ class UploadHandler
             $this->set_additional_file_properties($file);
         }
         
+        $complete_handler = $this->options['complete_handler'];
+        $complete_handler($file);
+        
         return $file;
     }
 
@@ -961,9 +964,6 @@ class UploadHandler
                 $content_range
             );
         }
-        
-        $complete_handler = $this->options['complete_handler'];
-        $complete_handler($files);
         
         return $this->generate_response(
             array($this->options['param_name'] => $files),

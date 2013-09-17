@@ -16,7 +16,7 @@ $(function () {
                     + '<td></td>'
                     + '<td class="during" style="text-align: center;"><div class="uloader"><div class="ufiller" style="width:0%"></div><div class="ucounter">0%</div></div></td>'
                     + '<td style="text-align: center;"></td>'
-                    + '<td style="text-align: right;">' + Math.ceil( file.size / 1000000 ) + ' МБ</td>'
+                    + '<td style="text-align: right;">~ ' + Math.ceil( file.size / 1000000 ) + ' МБ</td>'
                     + '<td></td>'
                     + '<td></td>'
                   + '</tr>'
@@ -89,7 +89,7 @@ $(function () {
         <td>{{ $file->created_at }}</td>
         <td style="text-align: center;">{{ $statuses[ $file->status ] }}</td>
         <td style="text-align: center;">{{ $file->load_stop - $file->load_start  }} мин.</td>
-        <td style="text-align: right;">{{ ceil($file->size / 1000000) }} МБ</td>
+        <td style="text-align: right;">~ {{ ceil($file->size / 1000000) }} МБ</td>
         <td></td>
         <td></td>
       </tr>
