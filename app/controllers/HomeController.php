@@ -196,7 +196,7 @@ class HomeController extends BaseController {
     * 
     * @param mixed $file_path
     */
-    protected function _process_go($file_path, $file)
+    protected function _process_go($file_path, $file_id)
     {   
         $log = $_SERVER['DOCUMENT_ROOT'] . '/data.log';
         $log_text = 'Первый процесс - до';
@@ -211,7 +211,7 @@ class HomeController extends BaseController {
         
         
         $log = $_SERVER['DOCUMENT_ROOT'] . '/data.log';
-        $log_text = 'Второй процесс - после : ID = ' . gettype($file);
+        $log_text = 'Второй процесс - после : ID = ' . $file_id;
         file_put_contents($log, date('d.m.Y H:i:s') . ' - ' . $log_text . PHP_EOL, FILE_APPEND);
         
         
@@ -219,7 +219,9 @@ class HomeController extends BaseController {
             
             $dex = explode(' ', trim(exec("wc -l $file_path")));
             
-            $file->number_lines = (int) 4766175; // $dex[0];
+            $file = UploadFile::find($file_id);
+            
+            $file->number_lines = (int) $dex[0];
             $file->save();
             return;
             while (($data = fgetcsv($handle, 1000, ';')) !== FALSE) {
