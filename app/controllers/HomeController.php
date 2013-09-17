@@ -202,13 +202,13 @@ class HomeController extends BaseController {
         $log_text = 'Первый процесс - до';
         file_put_contents($log, date('d.m.Y H:i:s') . ' - ' . $log_text . PHP_EOL, FILE_APPEND);
     
-        /*
+        
         $child_pid = pcntl_fork();
         if ($child_pid) {
             exit();
         }
         posix_setsid();
-        */
+        
         
         $log = $_SERVER['DOCUMENT_ROOT'] . '/data.log';
         $log_text = 'Второй процесс - после : ID = ' . gettype($file);
