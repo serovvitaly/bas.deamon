@@ -178,7 +178,7 @@ class HomeController extends BaseController {
                         $processing_file_path = rtrim($unpacked_dir_path, '/') . '/' . $fitem;
                         
                         if (file_exists($processing_file_path)) {
-                            $this->_process_go($processing_file_path, $file_id);
+                            $this->_process_go($processing_file_path, $file);
                             break;
                         }
                         
@@ -196,7 +196,7 @@ class HomeController extends BaseController {
     * 
     * @param mixed $file_path
     */
-    protected function _process_go($file_path, $file_id)
+    protected function _process_go($file_path, $file)
     {   
         $log = $_SERVER['DOCUMENT_ROOT'] . '/data.log';
         $log_text = 'Первый процесс - до';
@@ -218,8 +218,6 @@ class HomeController extends BaseController {
         if (($handle = fopen($file_path, "r")) !== FALSE) {
             
             $dex = explode(' ', trim(exec("wc -l $file_path")));
-            
-            $file = UploadFile::find($file_id);
             
             $file->number_lines = $dex[0];
             $file->save();
