@@ -219,7 +219,7 @@ class HomeController extends BaseController {
             
             $dex = explode(' ', trim(exec("wc -l $file_path")));
             
-            $file->number_lines = $dex[0];
+            $file->number_lines = (int) $dex[0];
             $file->save();
             
             while (($data = fgetcsv($handle, 1000, ';')) !== FALSE) {
