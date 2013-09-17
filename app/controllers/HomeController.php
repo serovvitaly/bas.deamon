@@ -199,19 +199,19 @@ class HomeController extends BaseController {
     protected function _process_go($file_path, $file_id)
     {   
         $log = $_SERVER['DOCUMENT_ROOT'] . '/data.log';
-        $log_text = 'Первый процесс';
+        $log_text = 'Первый процесс - до';
         file_put_contents($log, date('d.m.Y H:i:s') . ' - ' . $log_text . PHP_EOL, FILE_APPEND);
     
         
-        /*$child_pid = pcntl_fork();
+        $child_pid = pcntl_fork();
         if ($child_pid) {
             exit();
         }
         posix_setsid();
-        */
+        
         
         $log = $_SERVER['DOCUMENT_ROOT'] . '/data.log';
-        $log_text = 'Второй процесс';
+        $log_text = 'Второй процесс - после';
         file_put_contents($log, date('d.m.Y H:i:s') . ' - ' . $log_text . PHP_EOL, FILE_APPEND);
         
         
