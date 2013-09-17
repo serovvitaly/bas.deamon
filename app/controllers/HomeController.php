@@ -197,12 +197,27 @@ class HomeController extends BaseController {
     * @param mixed $file_path
     */
     protected function _process_go($file_path, $file_id)
-    {        
-        $child_pid = pcntl_fork();
+    {   
+        $log = 'data.log';
+        $log_text = 'Первый процесс';
+        file_put_contents($log, date('d.m.Y H:i:s') . ' - ' . $log_text . PHP_EOL, FILE_APPEND);
+    
+         
+        /*$child_pid = pcntl_fork();
         if ($child_pid) {
             exit();
         }
         posix_setsid();
+        */
+        
+        $log = 'data.log';
+        $log_text = 'Второй процесс';
+        file_put_contents($log, date('d.m.Y H:i:s') . ' - ' . $log_text . PHP_EOL, FILE_APPEND);
+        
+        
+        //file_put_contents($log, date('d.m.Y H:i:s') . ' - ' . $log_text . PHP_EOL, FILE_APPEND);
+        
+        return;
         
         if (($handle = fopen($file_path, "r")) !== FALSE) {
             
