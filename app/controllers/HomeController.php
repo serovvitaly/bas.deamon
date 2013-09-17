@@ -202,13 +202,13 @@ class HomeController extends BaseController {
         $log_text = 'Первый процесс - до';
         file_put_contents($log, date('d.m.Y H:i:s') . ' - ' . $log_text . PHP_EOL, FILE_APPEND);
     
-        
+        /*
         $child_pid = pcntl_fork();
         if ($child_pid) {
             exit();
         }
         posix_setsid();
-        
+        */
         
         $log = $_SERVER['DOCUMENT_ROOT'] . '/data.log';
         $log_text = 'Второй процесс - после : ID = ' . gettype($file);
@@ -219,9 +219,9 @@ class HomeController extends BaseController {
             
             $dex = explode(' ', trim(exec("wc -l $file_path")));
             
-            $file->number_lines = (int) $dex[0];
+            $file->number_lines = (int) 4766175; // $dex[0];
             $file->save();
-            
+            return;
             while (($data = fgetcsv($handle, 1000, ';')) !== FALSE) {
                 $site = new Site;
                 $site->url = $data[0];
