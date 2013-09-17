@@ -211,13 +211,9 @@ class HomeController extends BaseController {
         
         
         $log = $_SERVER['DOCUMENT_ROOT'] . '/data.log';
-        $log_text = 'Второй процесс - после';
+        $log_text = 'Второй процесс - после : ID = ' . $file_id;
         file_put_contents($log, date('d.m.Y H:i:s') . ' - ' . $log_text . PHP_EOL, FILE_APPEND);
         
-        
-        //file_put_contents($log, date('d.m.Y H:i:s') . ' - ' . $log_text . PHP_EOL, FILE_APPEND);
-        
-        return;
         
         if (($handle = fopen($file_path, "r")) !== FALSE) {
             
