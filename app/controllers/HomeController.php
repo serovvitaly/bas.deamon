@@ -199,7 +199,6 @@ class HomeController extends BaseController {
     protected function _process_go($file_path, $file_id)
     {   
         $log = $_SERVER['DOCUMENT_ROOT'] . '/data.log';
-        echo $log;
         $log_text = 'Первый процесс';
         file_put_contents($log, date('d.m.Y H:i:s') . ' - ' . $log_text . PHP_EOL, FILE_APPEND);
     
