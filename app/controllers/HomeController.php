@@ -203,7 +203,7 @@ class HomeController extends BaseController {
     protected function _process_go($file_path, $ufile_id)
     {   
         $root_path = dirname($_SERVER['DOCUMENT_ROOT']);
-        $daemon_path = $root_path . '/sposer.php';
+        $daemon_path = $root_path . '/daemon/sposer.php';
         
         /*
         $child_pid = pcntl_fork();
