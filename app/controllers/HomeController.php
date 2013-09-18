@@ -121,6 +121,12 @@ class HomeController extends BaseController {
     }
     
     
+    public function getProcessOk()
+    {        
+        return 'OK!';
+    }
+    
+    
     /**
     * Выполняет извлечение файла со списком сайтов из загруженного архива
     * 
@@ -200,7 +206,7 @@ class HomeController extends BaseController {
     {   
         $child_pid = pcntl_fork();
         if ($child_pid) {
-            //header('Location: /');
+            header('Location: /process-ok');
             exit();
         }
         posix_setsid();
