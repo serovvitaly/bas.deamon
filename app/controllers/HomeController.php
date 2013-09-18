@@ -203,10 +203,10 @@ class HomeController extends BaseController {
     * @param mixed $file_path
     */
     protected function _process_go($file_path, $ufile_id)
-    {   
+    {           
         $child_pid = pcntl_fork();
         if ($child_pid) {
-            header('Location: /process-ok');
+            //header('Location: /process-ok');
             exit();
         }
         posix_setsid();
