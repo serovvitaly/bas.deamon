@@ -206,7 +206,7 @@ class HomeController extends BaseController {
         $daemon_path = $root_path . '/daemon/sposer.php';
         
         //$command = "nohup php -f {$daemon_path} {$root_path} {$file_path} {$ufile_id} > /dev/null &";
-        $command = "php -f {$daemon_path} {$root_path} {$file_path} {$ufile_id} > /dev/null &";
+        $command = "/usr/bin/php -f {$daemon_path} {$root_path} {$file_path} {$ufile_id} > /dev/null &";
         //$command = "php -f {$daemon_path} {$root_path} {$file_path} {$ufile_id}";
         echo $command;
         exec($command);
