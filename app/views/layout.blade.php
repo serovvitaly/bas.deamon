@@ -54,7 +54,7 @@
   <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="/">Загружалко 2.0</a>
+          <a class="brand" href="/">Загрузко 2.0</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li{{ (Request::is('/')       ? ' class="active"' : '') }}><a href="/"><i class="icon-home icon-white" title="Главная"></i></a></li>
