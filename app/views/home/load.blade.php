@@ -52,7 +52,9 @@ $(function () {
                         dataType: 'json',
                         minTimeout: 5000,
                     }, function (data) {
-                        console.log(data);
+                        if (data.number_lines_proc >= data.number_lines) {
+                            $('#table-file-list #ufile-'+uid).smartupdaterStop();
+                        }
                     });
                     
                 }
