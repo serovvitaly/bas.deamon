@@ -1,2 +1,2 @@
-composer install
+install composer
 pause

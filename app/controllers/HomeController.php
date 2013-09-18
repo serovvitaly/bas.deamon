@@ -163,11 +163,11 @@ class HomeController extends BaseController {
     * 
     * @param mixed $file_id
     */
-    protected function _processing($file_id)
+    protected function _processing($ufile_id)
     {
-        $file = UploadFile::find($file_id);
+        $ufile = UploadFile::find($ufile_id);
         
-        $unpacked_dir_path = $this->_store_path . 'unpacked/' . $file->unique_name;
+        $unpacked_dir_path = $this->_store_path . 'unpacked/' . $ufile->unique_name;
         
         if (file_exists($unpacked_dir_path)) {
             $collection = scandir($unpacked_dir_path);
@@ -178,7 +178,7 @@ class HomeController extends BaseController {
                         $processing_file_path = rtrim($unpacked_dir_path, '/') . '/' . $fitem;
                         
                         if (file_exists($processing_file_path)) {
-                            $this->_process_go($processing_file_path, $file);
+                            $this->_process_go($processing_file_path, $ufile_id);
                             break;
                         }
                         
@@ -196,40 +196,14 @@ class HomeController extends BaseController {
     * 
     * @param mixed $file_path
     */
-    protected function _process_go($file_path, $file_id)
-    {   
-        $log = $_SERVER['DOCUMENT_ROOT'] . '/data.log';
-        $log_text = 'Первый процесс - до';
-        file_put_contents($log, date('d.m.Y H:i:s') . ' - ' . $log_text . PHP_EOL, FILE_APPEND);
-    
-        
+    protected function _process_go($file_path, $ufile_id)
+    {   /*     
         $child_pid = pcntl_fork();
         if ($child_pid) {
             exit();
         }
-        posix_setsid();
+        posix_setsid();  */
         
-        
-        $log = $_SERVER['DOCUMENT_ROOT'] . '/data.log';
-        $log_text = 'Второй процесс - после : ID = ' . $file_id;
-        file_put_contents($log, date('d.m.Y H:i:s') . ' - ' . $log_text . PHP_EOL, FILE_APPEND);
-        
-        
-        if (($handle = fopen($file_path, "r")) !== FALSE) {
-            
-            $dex = explode(' ', trim(exec("wc -l $file_path")));
-            
-            $file = UploadFile::find($file_id);
-            
-            $file->number_lines = (int) $dex[0];
-            $file->save();
-            return;
-            while (($data = fgetcsv($handle, 1000, ';')) !== FALSE) {
-                $site = new Site;
-                $site->url = $data[0];
-                $site->save();
-            }
-            fclose($handle);
-        }
+        include_once('../daemon/sposer.php');
     }
 }                                                                                  
