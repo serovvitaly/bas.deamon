@@ -136,7 +136,7 @@ $(function () {
         <td style="text-align: center;" class="during">{{ $statuses[ $file->status ] }}</td>
         <!--td style="text-align: center;">{{ $file->load_stop - $file->load_start  }} мин.</td-->
         <td style="text-align: right;">~ {{ ceil($file->size / 1000000) }} МБ</td>
-        <td></td>
+        <td>{{ $file->number_lines }}</td>
         <td></td>
       </tr>
     @endforeach
