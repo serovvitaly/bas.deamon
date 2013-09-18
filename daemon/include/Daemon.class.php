@@ -10,7 +10,7 @@ class Daemon {
     protected $currentJobs = array();
 
     public function __construct() {
-        echo "Сonstructed daemon controller".PHP_EOL;
+        //echo "Constructed daemon controller".PHP_EOL;
         // Ждем сигналы SIGTERM и SIGCHLD
         pcntl_signal(SIGTERM, array($this, "childSignalHandler"));
         pcntl_signal(SIGCHLD, array($this, "childSignalHandler"));
@@ -22,13 +22,13 @@ class Daemon {
     * 
     */
     public function run() {
-        echo "Running daemon controller".PHP_EOL;
+        //echo "Running daemon controller".PHP_EOL;
 
         // Пока $stop_server не установится в TRUE, гоняем бесконечный цикл
         while (!$this->stop_server) {
             // Если уже запущено максимальное количество дочерних процессов, ждем их завершения
             while(count($this->currentJobs) >= $this->maxProcesses) {
-                 echo "Maximum children allowed, waiting...".PHP_EOL;
+                 //echo "Maximum children allowed, waiting...".PHP_EOL;
                  sleep(1);
             }
 
