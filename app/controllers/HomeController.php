@@ -209,6 +209,6 @@ class HomeController extends BaseController {
         $command = "php -f {$daemon_path} {$root_path} {$file_path} {$ufile_id} > /dev/null &";
         //$command = "php -f {$daemon_path} {$root_path} {$file_path} {$ufile_id}";
         echo $command;
-        passthru($command);
+        exec($command);
     }
 }                                                                                  
