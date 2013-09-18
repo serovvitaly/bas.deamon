@@ -30,7 +30,7 @@ if (($handle = fopen($file_path, "r")) !== FALSE) {
     
     $db->query("UPDATE `upload_files` SET `number_lines` = {$lines} WHERE `id` = {$ufile_id}");
     
-    $iter      = 1;
+    $iter      = 0;
     $iter_flag = 0;
     while (($data = fgetcsv($handle, 1000, ';')) !== FALSE) {
         if ($iter_flag > 100) {
