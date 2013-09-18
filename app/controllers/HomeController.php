@@ -205,13 +205,6 @@ class HomeController extends BaseController {
         $root_path = dirname($_SERVER['DOCUMENT_ROOT']);
         $daemon_path = $root_path . '/daemon/sposer.php';
         
-        /*
-        $child_pid = pcntl_fork();
-        if ($child_pid) {
-            exit();
-        }
-        posix_setsid();
-        */
         //include_once '../daemon/sposer.php';
         $command = "nohup php -f {$daemon_path} {$root_path} {$file_path} {$ufile_id} > /dev/null &";
         echo $command;

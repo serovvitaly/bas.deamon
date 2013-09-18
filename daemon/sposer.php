@@ -9,6 +9,12 @@ $root_path = $argv[1];
 $file_path = $argv[2];
 $ufile_id  = $argv[3];
 
+$child_pid = pcntl_fork();
+if ($child_pid) {
+    exit();
+}
+posix_setsid();
+
 //ignore_user_abort(1);
 
 /** Загрузка конфига */
