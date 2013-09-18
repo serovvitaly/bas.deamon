@@ -1,3 +1,6 @@
 <?php
-  echo phpinfo();
-?>
+
+
+$url = 'http://foobar.ru';
+
+echo substr($url, 0, 7);

@@ -47,6 +47,25 @@ if (($handle = fopen($file_path, "r")) !== FALSE) {
             $iter_flag = 0;
         };
         //print_r($data);
+        
+        $url = isset($data[0]) ? $data[0] : NULL;
+        $reg = isset($data[1]) ? $data[1] : NULL;
+        $dt1 = isset($data[2]) ? $data[2] : NULL;
+        $dt2 = isset($data[3]) ? $data[3] : NULL;
+        $del = isset($data[4]) ? $data[4] : NULL;
+        
+        $url = strtoupper($url);
+        
+        if (substr($url, 0, 8) == 'HTTPS://') {
+            //
+        } elseif (substr($url, 0, 7) == 'HTTP://') {
+            //
+        } else {
+            $url = 'HTTP://' . $url;
+        }
+        
+        $db->query("INSERT INTO `sites_list` SET `url`='{$url}', `reg`='{$reg}', `delegated`={$del}, `domain_created`='{$dt1}', `domain_paidtill`='{$dt2}'");
+        
         $iter++;
         $iter_flag++;
     }
