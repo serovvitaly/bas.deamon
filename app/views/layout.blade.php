@@ -20,6 +20,13 @@
           margin-top: -19px;
           text-align: center;
       }
+      .uloader.blue{
+          border: 1px solid #6B94D3;
+          background: #EAEEF5;
+      }
+      .uloader.blue .ufiller{
+          background: #B3C9F0;
+      }
     </style>
     
     <script>

@@ -15,11 +15,10 @@ var periodic = $.periodic({
     decay:  1
 }, function(){
     post('/smartupdater', {ids: inprocessData}, function(data){
-        
         if (data.success === true && data.result && data.result.length > 0) {
             $.each(data.result, function(index, item){
                 var proc = Math.ceil( item.number_lines_proc / item.number_lines * 100 );
-                $('#table-file-list #ufile-'+item.id+' .during').html('<div class="uloader"><div class="ufiller" style="width:'+proc+'%"></div><div class="ucounter">'+proc+'%</div></div>');
+                $('#table-file-list #ufile-'+item.id+' .during').html('<div class="uloader blue"><div class="ufiller" style="width:'+proc+'%"></div><div class="ucounter">'+proc+'%</div></div>');
                 
                 if (proc >= 100) {
                     delete inprocessData[item.id];
