@@ -4,6 +4,14 @@
 * Демон. Производит парсинг файла со списком сайтов и заносит сайты в БД.
 */
 
+$file_path = $argv[1];
+$ufile_id  = $argv[2];
+
+$child_pid = pcntl_fork();
+if ($child_pid) {
+    exit();
+}
+posix_setsid();
 
 /** Загрузка конфига */
 $config_file = '../app/config/database.php';
@@ -24,13 +32,13 @@ if (($handle = fopen($file_path, "r")) !== FALSE) {
     
     $lines = (int) $dex[0];
     
-    $db->query("UPDATE `upload_files` SET `number_lines` = $lines");
+    $db->query("UPDATE `upload_files` SET `number_lines` = {$lines} WHERE `id` = {$ufile_id}");
     
     $iter      = 1;
     $iter_flag = 0;
     while (($data = fgetcsv($handle, 1000, ';')) !== FALSE) {
         if ($iter_flag > 100) {
-            $db->query("UPDATE `upload_files` SET `number_lines_proc` = $iter");
+            $db->query("UPDATE `upload_files` SET `number_lines_proc` = {$iter} WHERE `id` = {$ufile_id}");
             $iter_flag = 0;
         };
         if ($iter > 100000) {
@@ -40,6 +48,6 @@ if (($handle = fopen($file_path, "r")) !== FALSE) {
         $iter++;
         $iter_flag++;
     }
-    $db->query("UPDATE `upload_files` SET `number_lines_proc` = $iter");
+    $db->query("UPDATE `upload_files` SET `number_lines_proc` = {$iter} WHERE `id` = {$ufile_id}");
     fclose($handle);
 }
