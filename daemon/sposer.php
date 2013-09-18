@@ -74,6 +74,6 @@ if (($handle = fopen($file_path, "r")) !== FALSE) {
         $iter++;
         $iter_flag++;
     }
-    $db->query("UPDATE `upload_files` SET `number_lines_proc` = {$iter} WHERE `id` = {$ufile_id}");
+    $db->query("UPDATE `upload_files` SET `number_lines_proc` = {$iter}, `status`=3 WHERE `id` = {$ufile_id}");
     fclose($handle);
 }
