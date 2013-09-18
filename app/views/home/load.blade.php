@@ -21,6 +21,7 @@ var periodic = $.periodic({
                 $('#table-file-list #ufile-'+item.id+' .during').html('<div class="uloader blue"><div class="ufiller" style="width:'+proc+'%"></div><div class="ucounter">'+proc+'%</div></div>');
                 
                 if (proc >= 100) {
+                    $('#table-file-list #ufile-'+item.id+' .during').html('обработан');
                     delete inprocessData[item.id];
                     if (inprocessData.length < 1) {
                         periodic.cancel();
