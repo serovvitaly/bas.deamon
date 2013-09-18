@@ -7,6 +7,11 @@
 <script src="/packages/Smartupdater/smartupdater.js"></script>
 
 <script>
+
+function inprocess(uid){
+    //
+}
+
 $(function () {
     $('#fileupload').fileupload({
         dataType: 'json',
@@ -66,6 +71,10 @@ $(function () {
             $('#table-file-list .during .ufiller').css('width', progress + '%');
             $('#table-file-list .during .ucounter').html(progress + '%');
         }
+    });
+    
+    $('#table-file-list .inprocess').each(function(item){
+        console.log( $(this).attr('data-uid') );
     });
 });
 </script>
