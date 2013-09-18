@@ -14,7 +14,7 @@ $ufile_id  = $argv[2];
 $config_file = dirname($_SERVER['DOCUMENT_ROOT']) . '/app/config/database.php';
 if (!file_exists($config_file)) {
     // Exception
-    echo "Config file not found.\n";
+    echo "Config file not found ({$config_file}).\n";
     return false;
 }
 $cfg = include($config_file);
