@@ -102,7 +102,7 @@ $(function () {
     </tr></thead>
     <tbody>
     @foreach ($files as $file)
-      <tr data-uid="{{ $file->id }}" id="ufile-{{ $file->id }}">
+      <tr data-uid="{{ $file->id }}" id="ufile-{{ $file->id }}"@if ($file->number_lines_proc >= $file->number_lines) class="inprocess" @endif>
         <td>{{ $file->name }}</td>
         <td>{{ $file->created_at }}</td>
         <td style="text-align: center;">{{ $statuses[ $file->status ] }}</td>
