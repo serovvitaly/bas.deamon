@@ -58,6 +58,7 @@ class Daemon {
         else { 
             // А этот код выполнится дочерним процессом
             echo "Процесс с ID ".getmypid().PHP_EOL;
+            $this->handler(getmypid());
             exit(); 
         } 
         return TRUE; 
