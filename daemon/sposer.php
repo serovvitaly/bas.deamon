@@ -66,7 +66,7 @@ if (($handle = fopen($file_path, "r")) !== FALSE) {
                 $url = 'HTTP://' . $url;
             }
             
-            $db->query("INSERT INTO `sites_list` SET `url`='{$url}', `reg`='{$reg}', `delegated`={$del}, `domain_created`='{$dt1}', `domain_paidtill`='{$dt2}', `file_id`='{$ufile_id}'");
+            $db->query("INSERT INTO `sites_list` SET `url`='{$url}', `reg`='{$reg}', `delegated`='{$del}', `domain_created`='{$dt1}', `domain_paidtill`='{$dt2}', `file_id`='{$ufile_id}'");
             
             
         }
