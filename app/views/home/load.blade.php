@@ -11,20 +11,37 @@
 var inprocessData = [];
 
 var periodic = $.periodic({
-    period: 5000
+    period: 5000,
+    decay:  1
 }, function(){
     post('/smartupdater', {ids: inprocessData}, function(data){
-        console.log(data);
+        
+        if (data.success === true && data.result && data.result.length > 0) {
+            $.each(data.result, function(index, item){
+                var proc = Math.ceil( item.number_lines_proc / item.number_lines * 100 );
+                $('#table-file-list #ufile-'+item.id+' .during').html('<div class="uloader"><div class="ufiller" style="width:'+proc+'%"></div><div class="ucounter">'+proc+'%</div></div>');
+                
+                if (proc >= 100) {
+                    delete inprocessData[item.id];
+                    if (inprocessData.length < 1) {
+                        periodic.cancel();
+                    } else {
+                        periodic.reset();
+                    }
+                }
+            });
+        }
+        
+        if (inprocessData.length < 1) {
+            periodic.cancel();
+        }
     });
 });
 periodic.cancel();
 
 function inprocess(uid){
     inprocessData.push(uid);
-    
     periodic.reset();
-    
-    console.log(inprocessData);
 }
 
 $(function () {
@@ -117,7 +134,7 @@ $(function () {
       <tr data-uid="{{ $file->id }}" id="ufile-{{ $file->id }}"@if ($file->number_lines_proc < $file->number_lines) class="inprocess" @endif>
         <td>{{ $file->name }}</td>
         <td>{{ $file->created_at }}</td>
-        <td style="text-align: center;">{{ $statuses[ $file->status ] }}</td>
+        <td style="text-align: center;" class="during">{{ $statuses[ $file->status ] }}</td>
         <!--td style="text-align: center;">{{ $file->load_stop - $file->load_start  }} мин.</td-->
         <td style="text-align: right;">~ {{ ceil($file->size / 1000000) }} МБ</td>
         <td></td>

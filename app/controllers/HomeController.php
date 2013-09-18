@@ -65,14 +65,25 @@ class HomeController extends BaseController {
     
     public function postSmartupdater()
     {
-        $file_id = Input::get('id');
+        $ids = Input::get('ids');
         
-        $file = UploadFile::find($file_id);
+        $files = UploadFile::whereIn('id', $ids)->get();
+        
+        $result = array();
+        if ($files) {
+            foreach ($files AS $file) {
+                $result[] = array(
+                    'id'                => $file->id,
+                    'status'            => $file->status,
+                    'number_lines'      => $file->number_lines,
+                    'number_lines_proc' => $file->number_lines_proc,
+                );
+            }
+        }
         
         return json_encode(array(
-            'success'           => true,
-            'number_lines'      => $file->number_lines,
-            'number_lines_proc' => $file->number_lines_proc
+            'success' => true,
+            'result'  => $result
         ));
     }
     
