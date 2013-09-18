@@ -54,18 +54,23 @@ if (($handle = fopen($file_path, "r")) !== FALSE) {
         $dt2 = isset($data[3]) ? $data[3] : NULL;
         $del = isset($data[4]) ? $data[4] : NULL;
         
-        $url = strtoupper($url);
-        
-        if (substr($url, 0, 8) == 'HTTPS://') {
-            //
-        } elseif (substr($url, 0, 7) == 'HTTP://') {
-            //
-        } else {
-            $url = 'HTTP://' . $url;
+        if (!empty($url)) {
+          
+            $url = strtoupper($url);
+            
+            if (substr($url, 0, 8) == 'HTTPS://') {
+                //
+            } elseif (substr($url, 0, 7) == 'HTTP://') {
+                //
+            } else {
+                $url = 'HTTP://' . $url;
+            }
+            
+            $db->query("INSERT INTO `sites_list` SET `url`='{$url}', `reg`='{$reg}', `delegated`={$del}, `domain_created`='{$dt1}', `domain_paidtill`='{$dt2}'");
+            
+            
         }
-        
-        $db->query("INSERT INTO `sites_list` SET `url`='{$url}', `reg`='{$reg}', `delegated`={$del}, `domain_created`='{$dt1}', `domain_paidtill`='{$dt2}'");
-        
+
         $iter++;
         $iter_flag++;
     }
