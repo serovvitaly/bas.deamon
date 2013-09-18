@@ -4,3 +4,4 @@ composer.phar
 composer.lock
 .DS_Store
 /public/data.log
+/daemon/logs/*
