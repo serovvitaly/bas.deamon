@@ -4,7 +4,6 @@
 * Демон. Производит парсинг файла со списком сайтов и заносит сайты в БД.
 */
 
-print_r($argv);
 
 $file_path = $argv[1];
 $ufile_id  = $argv[2];
@@ -15,6 +14,7 @@ $ufile_id  = $argv[2];
 $config_file = '../app/config/database.php';
 if (!file_exists($config_file)) {
     // Exception
+    echo 'Config file not found.';
     return false;
 }
 $cfg = include($config_file);
