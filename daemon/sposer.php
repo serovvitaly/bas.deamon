@@ -37,10 +37,7 @@ if (($handle = fopen($file_path, "r")) !== FALSE) {
             $db->query("UPDATE `upload_files` SET `number_lines_proc` = {$iter} WHERE `id` = {$ufile_id}");
             $iter_flag = 0;
         };
-        if ($iter > 100000) {
-            return;
-        };
-        print_r($data);
+        //print_r($data);
         $iter++;
         $iter_flag++;
     }
