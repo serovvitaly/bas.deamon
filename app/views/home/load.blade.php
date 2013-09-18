@@ -8,8 +8,15 @@
 
 <script>
 
+var inprocessData = [];
+
 function inprocess(uid){
-    //
+    inprocessData.push({
+        id: uid,
+        data: {}
+    });
+    
+    console.log(inprocessData);
 }
 
 $(function () {
@@ -47,21 +54,7 @@ $(function () {
             }, function(data){
                 if (data.success === true) {
                     $('#table-file-list #ufile-'+uid+' .during').html('извлечен');
-                    
-                    $('#table-file-list #ufile-'+uid).smartupdater({
-                        url : "/smartupdater",
-                        type: 'POST',
-                        data: {
-                            id: uid
-                        },
-                        dataType: 'json',
-                        minTimeout: 5000,
-                    }, function (data) {
-                        if (data.number_lines_proc >= data.number_lines) {
-                            $('#table-file-list #ufile-'+uid).smartupdaterStop();
-                        }
-                    });
-                    
+                    inprocess(uid);                    
                 }
             });
         },
@@ -74,7 +67,7 @@ $(function () {
     });
     
     $('#table-file-list .inprocess').each(function(item){
-        console.log( $(this).attr('data-uid') );
+        inprocess( $(this).attr('data-uid') );
     });
 });
 </script>
