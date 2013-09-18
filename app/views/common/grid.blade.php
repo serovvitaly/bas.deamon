@@ -40,3 +40,5 @@
   ?>
   </tbody>
 </table>
+
+<?php echo $items->links(); ?>

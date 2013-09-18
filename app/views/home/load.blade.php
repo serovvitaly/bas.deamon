@@ -47,7 +47,6 @@ $(function () {
     
     $('#fileupload').fileupload({
         dataType: 'json',
-        acceptFileTypes:  /(zip)$/i,
         add: function (e, mix) {
             var file = mix.files[0];
             post('/fadd', {}, function(data){

@@ -24,10 +24,10 @@ class HomeController extends BaseController {
         $take = 40;
         
         if ($status === NULL) {
-            return Site::take($take)->get();
+            return Site::paginate($take);
         }
         
-        return $sites = Site::where('status', $status)->take($take)->get();
+        return $sites = Site::where('status', $status)->paginate($take);
     }
     
     public function getIndex()
