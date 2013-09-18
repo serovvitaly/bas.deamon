@@ -4,38 +4,30 @@
 <script src="/packages/jQuery-File-Upload-8.8.5/js/jquery.iframe-transport.js"></script>
 <script src="/packages/jQuery-File-Upload-8.8.5/js/jquery.fileupload.js"></script>
 
-<script src="/packages/Smartupdater/smartupdater.js"></script>
+<script src="/packages/jquery.periodic.js"></script>
 
 <script>
 
 var inprocessData = [];
 
+var periodic = $.periodic({
+    period: 5000
+}, function(){
+    post('/smartupdater', {ids: inprocessData}, function(data){
+        console.log(data);
+    });
+});
+periodic.cancel();
+
 function inprocess(uid){
     inprocessData.push(uid);
     
-    $(document).smartupdater('restart');
+    periodic.reset();
     
     console.log(inprocessData);
 }
 
 $(function () {
-    
-    $(document).smartupdater({
-        url : "/smartupdater",
-        type: 'POST',
-        //selfStart: false,
-        data: inprocessData,
-        dataType: 'json',
-        minTimeout: 5000,
-    }, function (data) {
-        
-        console.log(data);
-        return;
-                
-        if (data.number_lines_proc >= data.number_lines) {
-            $('#table-file-list #ufile-'+uid).smartupdaterStop();
-        }
-    });
     
     $('#fileupload').fileupload({
         dataType: 'json',
