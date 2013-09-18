@@ -203,6 +203,6 @@ class HomeController extends BaseController {
     protected function _process_go($file_path, $ufile_id)
     {        
         //include_once '../daemon/sposer.php';
-        system("php -f ../daemon/sposer.php {$file_path} {$ufile_id}");
+        system("nohup php -f ../daemon/sposer.php {$file_path} {$ufile_id}");
     }
 }                                                                                  
