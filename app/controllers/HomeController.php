@@ -201,7 +201,10 @@ class HomeController extends BaseController {
     * @param mixed $file_path
     */
     protected function _process_go($file_path, $ufile_id)
-    {    
+    {   
+        $root_path = dirname($_SERVER['DOCUMENT_ROOT']);
+        $daemon_path = $root_path . '/sposer.php';
+        
         /*
         $child_pid = pcntl_fork();
         if ($child_pid) {
@@ -210,8 +213,9 @@ class HomeController extends BaseController {
         posix_setsid();
         */
         //include_once '../daemon/sposer.php';
-        $command = "nohup php -f ../daemon/sposer.php {$file_path} {$ufile_id} > /dev/null &";
+        $command = "nohup php -f {$daemon_path} {$file_path} {$ufile_id} > /dev/null &";
         echo $command;
+        return;
         exec($command);
     }
 }                                                                                  
