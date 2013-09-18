@@ -23,7 +23,7 @@ $(function () {
     $(document).smartupdater({
         url : "/smartupdater",
         type: 'POST',
-        selfStart: false,
+        //selfStart: false,
         data: inprocessData,
         dataType: 'json',
         minTimeout: 5000,
