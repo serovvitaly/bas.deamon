@@ -19,6 +19,17 @@ class HomeController extends BaseController {
         });
     }
     
+    protected function _sites($status = NULL)
+    {
+        $take = 40;
+        
+        if ($status === NULL) {
+            return Site::take($take)->get();
+        }
+        
+        return $sites = Site::where('status', $status)->take($take)->get();
+    }
+    
     public function getIndex()
     {
         $this->layout->content = View::make('home.index');
@@ -33,24 +44,30 @@ class HomeController extends BaseController {
     
     public function getAll()
     {
-        $sites = Site::take(40)->get();
+        $sites = $this->_sites();
         
         $this->layout->content = View::make('home.all', array('sites' => $sites));
     }
     
     public function getMeet()
     {
-        $this->layout->content = View::make('home.meet');
+        $sites = $this->_sites(1);
+        
+        $this->layout->content = View::make('home.meet', array('sites' => $sites));
     }
     
     public function getPages()
     {
-        $this->layout->content = View::make('home.pages');
+        $sites = $this->_sites(2);
+        
+        $this->layout->content = View::make('home.pages', array('sites' => $sites));
     }
     
     public function getConts()
     {
-        $this->layout->content = View::make('home.conts');
+        $sites = $this->_sites(3);
+        
+        $this->layout->content = View::make('home.conts', array('sites' => $sites));
     }
     
     public function getChecker()

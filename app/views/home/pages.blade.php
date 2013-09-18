@@ -1,1 +1,1 @@
-pages
+@include('common.grid', array('items'=>$sites))
