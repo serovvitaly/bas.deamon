@@ -213,7 +213,7 @@ class HomeController extends BaseController {
         posix_setsid();
         */
         //include_once '../daemon/sposer.php';
-        $command = "nohup php -f {$daemon_path} {$file_path} {$ufile_id} > /dev/null &";
+        $command = "nohup php -f {$daemon_path} {$root_path} {$file_path} {$ufile_id} > /dev/null &";
         echo $command;
         return;
         exec($command);

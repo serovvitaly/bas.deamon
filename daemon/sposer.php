@@ -5,13 +5,14 @@
 */
 
 
-$file_path = $argv[1];
-$ufile_id  = $argv[2];
+$root_path = $argv[1];
+$file_path = $argv[2];
+$ufile_id  = $argv[3];
 
 //ignore_user_abort(1);
 
 /** Загрузка конфига */
-$config_file = dirname($_SERVER['DOCUMENT_ROOT']) . '/app/config/database.php';
+$config_file = $root_path . '/app/config/database.php';
 if (!file_exists($config_file)) {
     // Exception
     echo "Config file not found ({$config_file}).\n";
