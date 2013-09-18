@@ -11,15 +11,32 @@
 var inprocessData = [];
 
 function inprocess(uid){
-    inprocessData.push({
-        id: uid,
-        data: {}
-    });
+    inprocessData.push(uid);
+    
+    $(document).smartupdater('restart');
     
     console.log(inprocessData);
 }
 
 $(function () {
+    
+    $(document).smartupdater({
+        url : "/smartupdater",
+        type: 'POST',
+        selfStart: false,
+        data: inprocessData,
+        dataType: 'json',
+        minTimeout: 5000,
+    }, function (data) {
+        
+        console.log(data);
+        return;
+                
+        if (data.number_lines_proc >= data.number_lines) {
+            $('#table-file-list #ufile-'+uid).smartupdaterStop();
+        }
+    });
+    
     $('#fileupload').fileupload({
         dataType: 'json',
         add: function (e, mix) {
@@ -54,6 +71,7 @@ $(function () {
             }, function(data){
                 if (data.success === true) {
                     $('#table-file-list #ufile-'+uid+' .during').html('извлечен');
+                    
                     inprocess(uid);                    
                 }
             });
