@@ -198,6 +198,7 @@ class HomeController extends BaseController {
     */
     protected function _process_go($file_path, $ufile_id)
     {   
+        header('Location: /');
         system("php -f ../daemon/sposer.php {$file_path} {$ufile_id}");
     }
 }                                                                                  
