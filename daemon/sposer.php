@@ -7,13 +7,14 @@
 $file_path = $argv[1];
 $ufile_id  = $argv[2];
 
+
 $child_pid = pcntl_fork();
 if ($child_pid) {
     exit();
 }
 posix_setsid();
 
-ignore_user_abort(1);
+//ignore_user_abort(1);
 
 /** Загрузка конфига */
 $config_file = '../app/config/database.php';
