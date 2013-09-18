@@ -26,7 +26,7 @@ class HomeController extends BaseController {
     
     public function getLoad()
     {
-        $files = UploadFile::orderBy('created_at', 'ASC')->get();
+        $files = UploadFile::orderBy('created_at', 'DESC')->get();
         
         $this->layout->content = View::make('home.load', array('files' => $files));
     }
@@ -63,23 +63,48 @@ class HomeController extends BaseController {
         $this->layout->content = View::make('home.proven');
     }
     
+    public function postSmartupdater()
+    {
+        $file_id = Input::get('id');
+        
+        $file = UploadFile::find($file_id);
+        
+        return json_encode(array(
+            'success'           => true,
+            'number_lines'      => $file->number_lines,
+            'number_lines_proc' => $file->number_lines_proc
+        ));
+    }
+    
     public function postUpload()
     {
-        error_reporting(E_ALL | E_STRICT);
-        require_once('../workbench/vs/fileupload/src/VS/FileUpload/UploadHandler.php');
+        $file_id = Input::get('id');
+        
+        if ($file_id < 1) {
+            return '';
+        }
+        
+        $file = UploadFile::find($file_id);
+        
+        if (!$file) {
+            return '';
+        }
         
         $unique_name = md5( microtime() );
         
-        $file = new UploadFile;
         $file->unique_name  = $unique_name;
         $file->load_start = time();
         $file->save();
+        
+        error_reporting(E_ALL | E_STRICT);
+        require_once('../workbench/vs/fileupload/src/VS/FileUpload/UploadHandler.php');
         
         $upload_handler = new UploadHandler(array(
             'file_name' => $unique_name . '.' . self::ZIP_EXT,
             'complete_handler' => function($files)use(&$file){
                 $f = $files;
-                $file->size = $f->size;
+                $file->size      = $f->size;
+                $file->status    = 1;
                 $file->load_stop = time();
             }
         ));
@@ -88,6 +113,18 @@ class HomeController extends BaseController {
         $file->save();
         
         return '';
+    }
+    
+    
+    public function postFadd()
+    {
+        $file = new UploadFile;
+        $file->save();
+        
+        return json_encode(array(
+            'success' => true,
+            'id' => $file->id
+        )); 
     }
     
     
@@ -100,28 +137,14 @@ class HomeController extends BaseController {
             'result'  => NULL
         );
         
-        if ($id> 0) {
-            $file = UploadFile::where('status', '=', 0)->get();
-            if ($this->_unpacker( $file[0]['id'] )) {
+        if ($id > 0) {
+            if ($this->_unpacker( $id )) {
+                $this->_processing( $id );
                 $out['success'] = true;
             }
         }
         
         return json_encode($out);
-    }
-    
-    
-    public function getPo()
-    {
-        $this->_processing(1);
-        
-        return '';
-    }
-    
-    
-    public function getProcessOk()
-    {        
-        return 'OK!';
     }
     
     
@@ -148,9 +171,9 @@ class HomeController extends BaseController {
             
             if ($zip->open($file_path)) {
                 if ( $zip->extractTo($unpacked_path) ) {
-                    $file->status = 1;
+                    $file->status = 2;
                     $file->save();
-                    
+                    $zip->close();
                     return true;
                 }
                 $zip->close();
@@ -206,10 +229,8 @@ class HomeController extends BaseController {
         $daemon_path = $root_path . '/daemon/sposer.php';
         $daemon_log_path = $root_path . '/daemon/logs/sposer.log';
         
-        //$command = "nohup php -f {$daemon_path} {$root_path} {$file_path} {$ufile_id} > /dev/null &";
         $command = "/usr/bin/php -f {$daemon_path} {$root_path} {$file_path} {$ufile_id} > {$daemon_log_path} &";
-        //$command = "php -f {$daemon_path} {$root_path} {$file_path} {$ufile_id}";
-        echo $command;
+        
         exec($command);
     }
 }                                                                                  

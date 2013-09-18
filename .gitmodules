@@ -1,0 +1,3 @@
+[submodule "public/packages/Smartupdater"]
+	path = public/packages/Smartupdater
+	url = https://github.com/vkiryukhin/Smartupdater.git

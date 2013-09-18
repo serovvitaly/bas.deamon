@@ -22,6 +22,25 @@
       }
     </style>
     
+    <script>
+    
+    function post(url, data, success){
+        
+        if (!data) data = {};
+        if (!success) success = function(){};
+        
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: data,
+            success: success
+            
+        });
+    }
+    
+    </script>
+    
 </head>
 <body>
 
