@@ -11,10 +11,10 @@ $ufile_id  = $argv[2];
 //ignore_user_abort(1);
 
 /** Загрузка конфига */
-$config_file = '../app/config/database.php';
+$config_file = dirname($_SERVER['DOCUMENT_ROOT']) . '/app/config/database.php';
 if (!file_exists($config_file)) {
     // Exception
-    echo 'Config file not found.';
+    echo "Config file not found.\n";
     return false;
 }
 $cfg = include($config_file);
