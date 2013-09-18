@@ -197,12 +197,12 @@ class HomeController extends BaseController {
     * @param mixed $file_path
     */
     protected function _process_go($file_path, $ufile_id)
-    {   /*     
+    {        
         $child_pid = pcntl_fork();
         if ($child_pid) {
             exit();
         }
-        posix_setsid();  */
+        posix_setsid();
         
         include_once('../daemon/sposer.php');
     }
