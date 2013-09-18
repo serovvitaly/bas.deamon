@@ -201,18 +201,8 @@ class HomeController extends BaseController {
     * @param mixed $file_path
     */
     protected function _process_go($file_path, $ufile_id)
-    {   
-        App::after(function($request, $response){
-           $response->headers->set('Location','/process-ok');
-        });
-           
-        $child_pid = pcntl_fork();
-        if ($child_pid) {
-            exit();
-        }
-        posix_setsid();
-        
-        include_once '../daemon/sposer.php';
-        //system("php -f ../daemon/sposer.php {$file_path} {$ufile_id}");
+    {        
+        //include_once '../daemon/sposer.php';
+        system("php -f ../daemon/sposer.php {$file_path} {$ufile_id}");
     }
 }                                                                                  

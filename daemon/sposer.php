@@ -4,8 +4,14 @@
 * Демон. Производит парсинг файла со списком сайтов и заносит сайты в БД.
 */
 
-//$file_path = $argv[1];
-//$ufile_id  = $argv[2];
+$file_path = $argv[1];
+$ufile_id  = $argv[2];
+
+$child_pid = pcntl_fork();
+if ($child_pid) {
+    exit();
+}
+posix_setsid();
 
 //ignore_user_abort(1);
 
