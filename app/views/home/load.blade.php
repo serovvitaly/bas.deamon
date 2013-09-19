@@ -159,3 +159,5 @@ $(function () {
   </table>
   
 </fieldset>
+
+<script src="/packages/bootstrap/js/bootstrap.min.js"></script>
