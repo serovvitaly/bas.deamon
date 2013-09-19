@@ -279,7 +279,7 @@ while ($inworking) {
             
             $re = $db->query($sql);
             
-            var_dump($re);
+            echo "<p>$sql</p>";
         }
     }
     
