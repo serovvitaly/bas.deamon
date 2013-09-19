@@ -6,7 +6,7 @@
   <table class="table table-condensed" style="margin-top: 20px; width: 50%;">
     <tbody>
     <?
-        if (count($mix) > 0) {
+        if (false AND count($mix) > 0) {
             foreach ($mix AS $item) {
                 if (isset($item['PID'])) {
     ?>
