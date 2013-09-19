@@ -33,7 +33,8 @@ class HomeController extends BaseController {
     public function getIndex()
     {
         $domains = array(
-            'all'    => Site::all()->count(),
+            //'all'    => Site::all()->count(),
+            'all'    => 0,
             //'meet'   => Site::where('status', 1)->count(),
             'meet'   => 0,
             'pages'  => 0,
