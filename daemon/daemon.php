@@ -1,15 +1,15 @@
 <?php
-/*
+
 $child_pid = pcntl_fork();
 if ($child_pid) {
     exit();
 }
-posix_setsid();*/
+posix_setsid();
 
 
 $baseDir   = dirname(__FILE__);
 $root_path = dirname($baseDir);
-/*
+
 ini_set('error_log', $baseDir . '/logs/daemon.log');
 
 fclose(STDIN);
@@ -19,7 +19,7 @@ fclose(STDERR);
 $STDIN  = fopen('/dev/null', 'r');
 $STDOUT = fopen($baseDir.'/logs/daemon.log', 'ab');
 $STDERR = fopen($baseDir.'/logs/daemon.log', 'ab');
-*/
+
 
 /** Загрузка конфига */
 $config_file = $root_path . '/app/config/database.php';
@@ -196,7 +196,7 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
         
     } else {
         $http_code = -1;
-        $error = mysql_escape_string(curl_error($curl));
+        $error = mysql_escape_string(htmlspecialchars(curl_error($curl)));
     }
     
     $output = array(
@@ -278,12 +278,10 @@ while ($inworking) {
                  . " WHERE `id`={$row->id}";
             
             $re = $db->query($sql);
-            
-            echo "<p>$sql</p>";
         }
     }
     
-    $inworking = false;
+    //$inworking = false;
 }
 
 
