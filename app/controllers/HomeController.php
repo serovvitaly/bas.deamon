@@ -201,15 +201,19 @@ class HomeController extends BaseController {
     */
     protected function _unpacker($file_id)
     {
-        $file = UploadFile::find($file_id);
+        $ufile = UploadFile::find($file_id);
         
-        $file_path = $this->_store_path . $file->unique_name . '.' . self::ZIP_EXT;
+        if ($ufile->status != 1) {
+            return false;
+        }
+        
+        $file_path = $this->_store_path . $ufile->unique_name . '.' . self::ZIP_EXT;
         
         if (file_exists($file_path)) {
             
             $zip = new ZipArchive;
             
-            $unpacked_path = $this->_store_path . 'unpacked/' . $file->unique_name;
+            $unpacked_path = $this->_store_path . 'unpacked/' . $ufile->unique_name;
             
             if (!file_exists($unpacked_path)) {
                 mkdir($unpacked_path, 0755);
@@ -217,8 +221,8 @@ class HomeController extends BaseController {
             
             if ($zip->open($file_path)) {
                 if ( $zip->extractTo($unpacked_path) ) {
-                    $file->status = 2;
-                    $file->save();
+                    $ufile->status = 2;
+                    $ufile->save();
                     $zip->close();
                     return true;
                 }
@@ -239,6 +243,10 @@ class HomeController extends BaseController {
     protected function _processing($ufile_id)
     {
         $ufile = UploadFile::find($ufile_id);
+        
+        if ($ufile->status != 2) {
+            return false;
+        }
         
         $unpacked_dir_path = $this->_store_path . 'unpacked/' . $ufile->unique_name;
         

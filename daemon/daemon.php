@@ -73,8 +73,9 @@ function one_query($row, $is_redirect = false) {
                 
                 if ($links AND is_array($links) AND count($links) > 0) {
                     foreach ($links AS $link) {
+                        $link = strtolower($link);
                         $parse = parse_url($link);
-                        print_r($parse);
+                        print_r($parse);                
                         if (isset($parse['host'])) {
                             //
                         } elseif (isset($parse['path'])) {
@@ -111,7 +112,7 @@ $inworking = true;
 
 
 while ($inworking) {
-    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 LIMIT 10");
+    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 LIMIT 5");
     
     if ($result AND $result->num_rows > 0) {
         while($row = $result->fetch_object()){ 
