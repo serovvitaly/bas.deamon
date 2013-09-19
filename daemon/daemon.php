@@ -215,13 +215,13 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
 
 $inworking = true;
 
-
+echo "<p>START</p>";
 
 while ($inworking) {
     $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `updated_at`,`created_at` LIMIT 5");
     if ($result AND $result->num_rows > 0) {
         while($row = $result->fetch_object()){ 
-            
+            echo "<p>ITEM {$row->id}</p>";
             $start_time = time();
             
             $output = one_query($row->url);
@@ -262,7 +262,7 @@ while ($inworking) {
                 $status = 3;
             }
             
-            
+            echo "<p>stop {$row->id}</p>";
             $time_process = time() - $start_time;
             
             $sql = "UPDATE `sites_list` SET "
