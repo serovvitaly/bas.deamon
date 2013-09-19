@@ -3,7 +3,7 @@
   
   <button class="btn btn-danger" onclick="startDaemon();">Запустить ДЕМОН</button>
   
-  <table class="table" style="margin-top: 20px;">
+  <table class="table table-condensed" style="margin-top: 20px; width: auto;">
     <tbody>
     <?
         if (count($mix) > 0) {
