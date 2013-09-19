@@ -45,7 +45,13 @@ function inprocess(uid){
 }
 
 function doProcess(uid){
-    alert('doProcess-'+uid);
+    if (uid < 1) return;
+    
+    post('/process', {id: uid}, function(data){
+        if (data.success === true) {                            
+            inprocess(uid);                    
+        }
+    });
 }
 
 $(function () {
@@ -84,8 +90,11 @@ $(function () {
             }, function(data){
                 if (data.success === true) {
                     $('#table-file-list #ufile-'+uid+' .during').html('извлечен');
-                    
-                    inprocess(uid);                    
+                    post('/process', {id: uid}, function(data){
+                        if (data.success === true) {                            
+                            inprocess(uid);                    
+                        }
+                    });                   
                 }
             });
         },
@@ -97,10 +106,10 @@ $(function () {
         }
     });
     
-    $('#table-file-list .during').each(function(item){
+    $('#table-file-list tr').each(function(item){
         var uid = $(this).attr('data-uid');
-        $(this).append('<div class="btn-group">'
-                +'<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-align-justify"></i> <span class="caret"></span></button>'
+        $(this).find('.during').append('<div class="btn-group" style="margin-left:10px">'
+                +'<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown"><i class="icon-align-justify"></i> <span class="caret"></span></button>'
                 +'<ul class="dropdown-menu">'
                   +'<li><a href="#" onclick="doProcess('+uid+'); return false;">Обработать</a></li>'
                 +'</ul>'
@@ -148,7 +157,7 @@ $(function () {
       <tr data-uid="{{ $file->id }}" id="ufile-{{ $file->id }}"@if ($file->number_lines_proc < $file->number_lines) class="inprocess" @endif>
         <td>{{ $file->name }}</td>
         <td>{{ $file->created_at }}</td>
-        <td style="text-align: center;" class="during">{{ $statuses[ $file->status ] }}</td>
+        <td style="text-align: center; width: 120px;" class="during">{{ $statuses[ $file->status ] }}</td>
         <!--td style="text-align: center;">{{ $file->load_stop - $file->load_start  }} мин.</td-->
         <td style="text-align: right;">~ {{ ceil($file->size / 1000000) }} МБ</td>
         <td style="text-align: right;">{{ $file->number_lines }}</td>

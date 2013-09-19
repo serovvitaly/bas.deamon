@@ -167,7 +167,25 @@ class HomeController extends BaseController {
         
         if ($id > 0) {
             if ($this->_unpacker( $id )) {
-                $this->_processing( $id );
+                $out['success'] = true;
+            }
+        }
+        
+        return json_encode($out);
+    }
+    
+    
+    public function postProcess()
+    {
+        $id = Input::get('id');
+        
+        $out = array(
+            'success' => false,
+            'result'  => NULL
+        );
+        
+        if ($id > 0) {
+            if ($this->_processing( $id )) {
                 $out['success'] = true;
             }
         }
@@ -239,6 +257,8 @@ class HomeController extends BaseController {
                         
                     }
                 }
+                
+                return true;
             }
         }
         
