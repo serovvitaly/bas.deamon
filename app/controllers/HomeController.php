@@ -94,7 +94,7 @@ class HomeController extends BaseController {
     {
         $mix = explode(PHP_EOL, exec("ps -ela"));
         
-        //print_r($mix);
+        print_r($mix);
         
         $this->layout->content = View::make('home.daemons');
     }
