@@ -8,14 +8,16 @@
     <?
         if (count($mix) > 0) {
             foreach ($mix AS $item) {
+                if (isset($item['PID'])) {
     ?>
       <tr>
-        <td><?= isset($item['PID']) ? $item['PID'] : '?' ?></td>
+        <td><?= isset($item['PID']) ?></td>
         <td><?= isset($item['WCHAN']) ? $item['WCHAN'] : '?' ?></td>
         <td><?= isset($item['TIME']) ? $item['TIME'] : '?' ?></td>
         <td><?= isset($item['CMD']) ? $item['CMD'] : '' ?></td>
       </tr>
     <?
+                }
             }
         }
     ?>
