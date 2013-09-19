@@ -44,6 +44,10 @@ function inprocess(uid){
     periodic.reset();
 }
 
+function doProcess(uid){
+    alert('doProcess-'+uid);
+}
+
 $(function () {
     
     $('#fileupload').fileupload({
@@ -91,6 +95,16 @@ $(function () {
             $('#table-file-list .during .ufiller').css('width', progress + '%');
             $('#table-file-list .during .ucounter').html(progress + '%');
         }
+    });
+    
+    $('#table-file-list .during').each(function(item){
+        var uid = $(this).attr('data-uid');
+        $(this).append('<div class="btn-group">'
+                +'<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-align-justify"></i> <span class="caret"></span></button>'
+                +'<ul class="dropdown-menu">'
+                  +'<li><a href="#" onclick="doProcess('+uid+'); return false;">Обработать</a></li>'
+                +'</ul>'
+              +'</div>');
     });
     
     $('#table-file-list .inprocess').each(function(item){
