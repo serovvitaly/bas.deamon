@@ -1,15 +1,15 @@
 <?php
-
+/*
 $child_pid = pcntl_fork();
 if ($child_pid) {
     exit();
 }
-posix_setsid();
+posix_setsid();*/
 
 
 $baseDir   = dirname(__FILE__);
 $root_path = dirname($baseDir);
-
+/*
 ini_set('error_log', $baseDir . '/logs/daemon.log');
 
 fclose(STDIN);
@@ -19,7 +19,7 @@ fclose(STDERR);
 $STDIN  = fopen('/dev/null', 'r');
 $STDOUT = fopen($baseDir.'/logs/daemon.log', 'ab');
 $STDERR = fopen($baseDir.'/logs/daemon.log', 'ab');
-
+*/
 
 /** Загрузка конфига */
 $config_file = $root_path . '/app/config/database.php';
@@ -216,7 +216,7 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
 $inworking = true;
 
 while ($inworking) {
-    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `updated_at`,`created_at` LIMIT 30");
+    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `updated_at`,`created_at` LIMIT 5");
     if ($result AND $result->num_rows > 0) {
         while($row = $result->fetch_object()){ 
             
@@ -278,10 +278,12 @@ while ($inworking) {
                  . " WHERE `id`={$row->id}";
             
             $re = $db->query($sql);
+            
+            echo "<p>$sql</p>";
         }
     }
     
-    //$inworking = false;
+    $inworking = false;
 }
 
 
