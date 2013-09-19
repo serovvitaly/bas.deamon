@@ -115,7 +115,7 @@ class HomeController extends BaseController {
                 if (count($item) > 0) {
                     $colex = array();
                     foreach ($item AS $key => $val) {
-                        if (!empty($val)) {
+                        if (!empty($val) AND isset($head[$key])) {
                             $colex[ $head[$key] ] = $val;
                         }
                     }
