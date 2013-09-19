@@ -102,7 +102,7 @@ class HomeController extends BaseController {
         array_walk($mix, function(&$item, $key){
             $item = explode(' ', $item);
             array_walk($item, function(&$item, $key){
-                if (empty($item)) $item = 'EMPTY';
+                if (empty($item)) unset($item);
             });
         });
         
