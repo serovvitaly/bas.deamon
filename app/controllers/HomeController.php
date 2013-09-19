@@ -92,6 +92,10 @@ class HomeController extends BaseController {
     
     public function getDaemons()
     {
+        $exec = exec("ps -ela");
+        
+        print_r($exec);
+        
         $this->layout->content = View::make('home.daemons');
     }
     
