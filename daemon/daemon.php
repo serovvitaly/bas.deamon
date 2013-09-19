@@ -279,6 +279,10 @@ while ($inworking) {
             
             $re = $db->query($sql);
             
+            if (!$re) {
+                echo 'Query error';
+            }
+            
             //echo "<p>$sql</p>";
         }
     }
