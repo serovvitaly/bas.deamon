@@ -6,6 +6,12 @@
     <link rel="stylesheet" type="text/css" href="/packages/bootstrap/css/docs.css">
     <link rel="stylesheet" type="text/css" href="/packages/bootstrap/css/bootstrap.min.css">
     
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="/packages/jQuery-File-Upload-8.8.5/js/vendor/jquery.ui.widget.js"></script>
+    <script src="/packages/jQuery-File-Upload-8.8.5/js/jquery.iframe-transport.js"></script>
+    <script src="/packages/jQuery-File-Upload-8.8.5/js/jquery.fileupload.js"></script>
+    <script src="/packages/jquery.periodic.js"></script>
+    
     <style>
       .uloader{
           height: 18px;
@@ -65,6 +71,7 @@
               <li{{ (Request::is('conts')   ? ' class="active"' : '') }}><a href="/conts">Есть контакты</a></li>
               <li{{ (Request::is('checker') ? ' class="active"' : '') }}><a href="/checker">Проверка</a></li>
               <li{{ (Request::is('proven')  ? ' class="active"' : '') }}><a href="/proven">Проверенные</a></li>
+              <li{{ (Request::is('daemons') ? ' class="active"' : '') }}><a href="/daemons">Управление демонами</a></li>
             </ul>
           </div>
         </div>

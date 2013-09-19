@@ -1,16 +1,16 @@
 <?php
-/*
+
 $child_pid = pcntl_fork();
 if ($child_pid) {
     exit();
 }
 posix_setsid();
-*/
+
 
 $baseDir   = dirname(__FILE__);
 $root_path = dirname($baseDir);
-/*
-ini_set('error_log', $baseDir . '/logs/daemon_error.log');
+
+ini_set('error_log', $baseDir . '/logs/daemon.log');
 
 fclose(STDIN);
 fclose(STDOUT);
@@ -19,7 +19,7 @@ fclose(STDERR);
 $STDIN  = fopen('/dev/null', 'r');
 $STDOUT = fopen($baseDir.'/logs/daemon.log', 'ab');
 $STDERR = fopen($baseDir.'/logs/daemon.log', 'ab');
-*/
+
 
 /** Загрузка конфига */
 $config_file = $root_path . '/app/config/database.php';
@@ -121,12 +121,18 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
     
     global $curl_opts;
     
+    $http_code = NULL;
+    $result    = NULL;
+    $error     = NULL;
+    
     $curl = curl_init($qurl);
     curl_setopt_array($curl, $curl_opts);
     
     if ($content = curl_exec($curl)) { 
         
         $curl_info = curl_getinfo($curl);
+        
+        $http_code = $curl_info['http_code'];
          
         switch ($curl_info['http_code']) {
             case 200:
@@ -144,18 +150,17 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
                             }
                         }
                         
-                        $results = array();
                         if (count($available_links) > 0) {
                             foreach ($available_links AS $alink) {
-                                $results[] = one_query($alink, false, false);
+                                $result[] = one_query($alink, false, false);
                             }
                         }
-                        echo "count:".count($results)."\n";
-                        return $results;
                         
-                    }    
+                    }
+                        
                 } else { // если страница - внутренняя
                     preg_match_all('/([a-zA-Z0-9-_.]+)@([a-z0-9-]+)(\.)([a-z]{2,4})(\.?)([a-z]{0,4})+/', $content, $emails);
+                    preg_match_all('/(8|7|\+7){0,1}[- \\\\(]{0,}([9][0-9]{2})[- \\\\)]{0,}(([0-9]{2}[-]{0,}[0-9]{2}[- ]{0,}[0-9]{3})|([0-9]{3}[- ]{0,}[0-9]{2}[- ]{0,}[0-9]{2})|([0-9]{3}[-]{0,}[0-9]{1}[- ]{0,}[0-9]{3})|([0-9]{2}[- ]{0,}[0-9]{3}[- ]{0,}[0-9]{2}))/', $content, $phones);
                     
                     $elist = array(); // список email
                     $plist = array(); // список телефонов
@@ -167,9 +172,15 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
                             }
                         }
                     }
+                    if (is_array($phones) AND isset($phones[0]) AND is_array($phones[0]) AND count($phones[0]) > 0) {
+                        foreach ($phones[0] AS $phone) {
+                            if (!in_array($phone, $plist)) {
+                                $plist[] = trim($phone);
+                            }
+                        }
+                    }
                     
-                    return array(
-                        'url'    => $qurl,
+                    $result = array(
                         'emails' => $elist,
                         'phones' => $plist,
                     );
@@ -179,16 +190,27 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
                 
             case (301 OR 302):
                 if (!$is_redirect) {
-                    one_query($curl_info['redirect_url'], true);
+                    $out = one_query($curl_info['redirect_url'], true);
+                    $out['redirect_from'] = $qurl;
+                    return $out;
                 }
                 break;
         }
         
     } else {
-        //echo 'ERROR: ' . curl_error($curl) . "\n";
+        $http_code = -1;
+        $error = curl_error($curl);
     }
     
-    return false;
+    $output = array(
+        'url'           => $qurl,
+        'http_code'     => $http_code,
+    );
+    
+    if ($result) $output['result'] = $result;
+    if ($error)  $output['error']  = $error;
+    
+    return $output;
 };
 
 
@@ -198,20 +220,73 @@ $inworking = true;
 
 
 
-//while ($inworking) {
+while ($inworking) {
     $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 LIMIT 5");
     if ($result AND $result->num_rows > 0) {
         while($row = $result->fetch_object()){ 
             
+            $start_time = time();
+            
             $output = one_query($row->url);
             
-            print_r($output);
+            $status = 0;
+            
+            $total_links = 0; // общее количество внутренних ссылок
+            $meet_links  = 0; // количество внутренних ссылок отвечающих на запрос
+            
+            $elist = array(); // общий список найденных email
+            $plist = array(); // общий список найденных телефонов
+            
+            $last_http_code = isset($output['http_code']) ? $output['http_code'] : -1;
+            if ($last_http_code == 200) {
+                $status = 1;
+            }
+            
+            if (isset($output['result']) AND is_array($output['result']) AND count($output['result']) > 0) {
+                foreach ($output['result'] AS $res) {
+                    $total_links++;
+                    if (isset($res['result']) AND is_array($res['result'])) {
+                        $meet_links++;
+                        if (isset($res['result']['emails']) AND is_array($res['result']['emails']) AND count($res['result']['emails']) > 0) {
+                            $elist = array_merge_recursive($elist, $res['result']['emails']);
+                        }
+                        if (isset($res['result']['phones']) AND is_array($res['result']['phones']) AND count($res['result']['phones']) > 0) {
+                            $plist = array_merge_recursive($plist, $res['result']['phones']);
+                        }
+                    }
+                }
+            }
+            
+            if ($meet_links > 0) {
+                $status = 2;
+            }
+            
+            if (count($elist) > 0 OR count($plist) > 0) {
+                $status = 3;
+            }
+            
+            
+            $time_process = time() - $start_time;
+            
+            $sql = "UPDATE `sites_list` SET "
+                 . "`total_links`='{$total_links}',"
+                 . "`meet_links`='{$meet_links}',"
+                 . "`emails_count`='".count($elist)."',"
+                 . "`phones_count`='".count($plist)."',"
+                 . "`emails`='".implode(',', $elist)."',"
+                 . "`phones`='".implode(',', $elist)."',"
+                 . "`last_http_code`='{$last_http_code}',"
+                 . "`time_process`='{$time_process}',"
+                 . "`status`='{$status}'"
+                 . " WHERE `id`={$row->id}";
+            
+            $db->query($sql);
             
         }
     }
     
     $inworking = false;
-//}
+}
 
 
 

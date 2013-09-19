@@ -90,6 +90,11 @@ class HomeController extends BaseController {
         $this->layout->content = View::make('home.proven');
     }
     
+    public function getDaemons()
+    {
+        $this->layout->content = View::make('home.daemons');
+    }
+    
     public function postSmartupdater()
     {
         $ids = Input::get('ids');
@@ -113,6 +118,23 @@ class HomeController extends BaseController {
             'result'  => $result
         ));
     }
+    
+    
+    public function postStartDaemon()
+    {
+        $root_path = dirname($_SERVER['DOCUMENT_ROOT']);
+        $daemon_path = $root_path . '/daemon/daemon.php';
+        $daemon_log_path = $root_path . '/daemon/logs/daemon.log';
+        
+        $command = "/usr/bin/php -f {$daemon_path} > {$daemon_log_path} &";
+        
+        exec($command);
+        
+        return json_encode(array(
+            'success' => true
+        ));
+    }
+    
     
     public function postUpload()
     {

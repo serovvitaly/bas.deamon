@@ -1,13 +1,7 @@
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="/packages/jQuery-File-Upload-8.8.5/js/vendor/jquery.ui.widget.js"></script>
-<script src="/packages/jQuery-File-Upload-8.8.5/js/jquery.iframe-transport.js"></script>
-<script src="/packages/jQuery-File-Upload-8.8.5/js/jquery.fileupload.js"></script>
 
-<script src="/packages/jquery.periodic.js"></script>
 
 <script>
-
 var inprocessData = [];
 
 var periodic = $.periodic({
