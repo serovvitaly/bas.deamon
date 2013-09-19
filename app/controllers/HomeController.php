@@ -92,7 +92,7 @@ class HomeController extends BaseController {
     
     public function getDaemons()
     {
-        $mix = explode(PHP_EOL, system("ps -ela"));
+        $mix = explode(PHP_EOL, exec("ps -ela"));
         
         //print_r($mix);
         
