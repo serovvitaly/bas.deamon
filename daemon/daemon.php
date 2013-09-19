@@ -91,7 +91,7 @@ function compare_urls($base_url, $compare_url) {
         
         if ($base_parse['host'] == $compare_parse['host'] OR $base_parse['host'] == 'www.' . $compare_parse['host']) {
             
-            if ($base_parse['path'] == $compare_parse['path']) {
+            if (isset($base_parse['path']) AND $base_parse['path'] == $compare_parse['path']) {
                 return false;
             }
             
