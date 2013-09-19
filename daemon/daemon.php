@@ -281,7 +281,7 @@ while ($inworking) {
             
             $re = $db->query($sql);
             echo "<p>";
-            echo mysql_errno() . ' : ' . mysql_error();
+            echo $sql;
             echo "</p>";
             echo "<p>stop {$row->id}</p>";
         }
