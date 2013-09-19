@@ -283,6 +283,9 @@ while ($inworking) {
             
         }
     }
+    
+    
+    $inworking = false;
 }
 
 
