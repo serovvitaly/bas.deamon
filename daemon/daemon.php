@@ -32,9 +32,6 @@ $cfg = include($config_file);
 $cfg = $cfg['connections']['mysql'];
 
 
-include_once $baseDir . '/include/phpQuery-onefile.php';
-
-
 $db = new mysqli($cfg['host'], $cfg['username'], $cfg['password'], $cfg['database']);
 
 $curl_opts = array(
