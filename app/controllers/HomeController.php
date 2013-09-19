@@ -34,10 +34,11 @@ class HomeController extends BaseController {
     {
         $domains = array(
             'all'    => Site::all()->count(),
-            'meet'   => Site::where('status', 1)->count(),
-            'pages'  => Site::where('status', 2)->count(),
-            'conts'  => Site::where('status', 3)->count(),
-            'proven' => Site::where('status', 4)->count(),
+            //'meet'   => Site::where('status', 1)->count(),
+            'meet'   => 0,
+            'pages'  => 0,
+            'conts'  => 0,
+            'proven' => 0,
         );
         
         $this->layout->content = View::make('home.index', array('domains' => $domains));
