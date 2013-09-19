@@ -278,9 +278,9 @@ while ($inworking) {
                  . " WHERE `id`={$row->id}";
             
             $re = $db->query($sql);
-            echo '-go';
+            error_log('-gogo');
             if (!$re) {
-                echo 'Query error';
+                error_log('Query error');
             }
             
             //echo "<p>$sql</p>";
