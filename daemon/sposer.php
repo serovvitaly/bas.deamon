@@ -56,14 +56,14 @@ if (($handle = fopen($file_path, "r")) !== FALSE) {
         
         if (!empty($url)) {
           
-            $url = strtoupper($url);
+            $url = strtolower($url);
             
-            if (substr($url, 0, 8) == 'HTTPS://') {
+            if (substr($url, 0, 8) == 'https://') {
                 //
-            } elseif (substr($url, 0, 7) == 'HTTP://') {
+            } elseif (substr($url, 0, 7) == 'http://') {
                 //
             } else {
-                $url = 'HTTP://' . $url;
+                $url = 'http://' . $url;
             }
             
             $db->query("INSERT INTO `sites_list` SET `url`='{$url}', `reg`='{$reg}', `delegated`='{$del}', `domain_created`='{$dt1}', `domain_paidtill`='{$dt2}', `file_id`='{$ufile_id}'");
