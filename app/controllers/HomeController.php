@@ -106,7 +106,12 @@ class HomeController extends BaseController {
             });
         });
         
-        print_r($mix);
+        $head = $mix[0];
+        unset($mix[0]);
+        $body = $mix;
+        
+        print_r($head);
+        print_r($body);
         
         $this->layout->content = View::make('home.daemons');
     }
