@@ -262,7 +262,7 @@ while ($inworking) {
                 $status = 3;
             }
             
-            echo "<p>stop {$row->id}</p>";
+            
             $time_process = time() - $start_time;
             
             $sql = "UPDATE `sites_list` SET "
@@ -279,8 +279,11 @@ while ($inworking) {
                  . "`status`='{$status}'"
                  . " WHERE `id`={$row->id}";
             
-            $db->query($sql);
-            
+            $re = $db->query($sql);
+            echo "<p>";
+            var_dump($re);
+            echo "</p>";
+            echo "<p>stop {$row->id}</p>";
         }
     }
     
