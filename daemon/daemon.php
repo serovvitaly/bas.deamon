@@ -218,7 +218,7 @@ $inworking = true;
 
 
 while ($inworking) {
-    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 LIMIT 5");
+    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `updated_at`,`created_at` LIMIT 5");
     if ($result AND $result->num_rows > 0) {
         while($row = $result->fetch_object()){ 
             
@@ -275,6 +275,7 @@ while ($inworking) {
                  . "`last_http_code`='{$last_http_code}',"
                  . "`time_process`='{$time_process}',"
                  . "`data`='".json_encode($output)."',"
+                 . "`updated_at`='".date('Y-m-d H:i:s')."',"
                  . "`status`='{$status}'"
                  . " WHERE `id`={$row->id}";
             
