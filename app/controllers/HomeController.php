@@ -125,9 +125,8 @@ class HomeController extends BaseController {
         }        
         $mix = $remix;
         
-        print_r($mix);
         
-        $this->layout->content = View::make('home.daemons');
+        $this->layout->content = View::make('home.daemons', array('mix' => $mix));
     }
     
     public function postSmartupdater()
