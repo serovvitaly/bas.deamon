@@ -32,7 +32,15 @@ class HomeController extends BaseController {
     
     public function getIndex()
     {
-        $this->layout->content = View::make('home.index');
+        $domains = array(
+            'all'    => Site::all()->count(),
+            'meet'   => Site::where('status', 1)->count(),
+            'pages'  => Site::where('status', 2)->count(),
+            'conts'  => Site::where('status', 3)->count(),
+            'proven' => Site::where('status', 4)->count(),
+        );
+        
+        $this->layout->content = View::make('home.index', array('domains' => $domains));
     }
     
     public function getLoad()

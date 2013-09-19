@@ -49,52 +49,137 @@ $curl_opts = array(
 
 /** Functions */
 
-function one_query($row, $is_redirect = false) {
+function compare_urls($base_url, $compare_url) {
+    
+    $base_url      = strtolower($base_url);
+    $compare_url   = strtolower($compare_url);
+    
+    $base_parse    = parse_url($base_url);
+    $compare_parse = parse_url($compare_url);
+    
+    if (!isset($base_parse['host']) OR empty($base_parse['host'])) {
+        return false;
+    }
+    if (!isset($compare_parse['host']) OR empty($compare_parse['host'])) {
+        $compare_parse['host'] = $base_parse['host'];
+    }
+    
+    if (!isset($base_parse['scheme']) OR empty($base_parse['scheme'])) {
+        $base_parse['scheme'] = 'http';
+    }
+    if (!isset($compare_parse['scheme']) OR empty($compare_parse['scheme'])) {
+        $compare_parse['scheme'] = 'http';
+    }
+    
+    if (!isset($compare_parse['path'])) {
+        $compare_parse['path'] = '';
+    }
+    
+    if (!isset($compare_parse['query'])) {
+        $compare_parse['query'] = '';
+    }
+                   
+    if ($base_parse['scheme'] == $compare_parse['scheme']) {
+        
+        if (!empty($compare_parse['path'])) {
+            if (substr($compare_parse['path'], 0, 1) != '/') {
+                $compare_parse['path'] = '/' . $compare_parse['path'];
+            }
+        }
+        if (!empty($compare_parse['query'])) {
+            if (substr($compare_parse['query'], 0, 1) != '?') {
+                $compare_parse['query'] = '?' . $compare_parse['query'];
+            }
+        }
+        
+        if ($base_parse['host'] == $compare_parse['host'] OR $base_parse['host'] == 'www.' . $compare_parse['host']) {
+            
+            if ($base_parse['path'] == $compare_parse['path']) {
+                return false;
+            }
+            
+            if ($base_parse['host'] == 'www.' . $compare_parse['host']) {
+                $compare_parse['host'] = 'www.' . $compare_parse['host'];
+            }
+            
+            return $compare_parse['scheme'] . '://' . $compare_parse['host'] . $compare_parse['path'] . $compare_parse['query'];
+        } else {
+            return false;
+        }
+    }
+    
+    return false;
+}
+
+function one_query($qurl, $is_redirect = false, $is_home = true) {
+    
+    $qurl = trim($qurl);
+    
+    if (!is_string($qurl) OR empty($qurl)) {
+        return false;
+    }
     
     global $curl_opts;
     
-    $curl = curl_init($row->url);
+    $curl = curl_init($qurl);
     curl_setopt_array($curl, $curl_opts);
-    
-    $origin_host_parse = parse_url($row->url);
-    print_r($origin_host_parse);
     
     if ($content = curl_exec($curl)) { 
         
         $curl_info = curl_getinfo($curl);
-        
+         
         switch ($curl_info['http_code']) {
             case 200:
                 
-                preg_match_all('/[^(\w)|(\@)|(\.)|(\-)]/i', $content, $emails);
-                preg_match_all("/<[Aa][\s]{1}[^>]*[Hh][Rr][Ee][Ff][^=]*=[ '\"\s]*([^ \"'>\s#]+)[^>]*>/", $content, $links);
-                
-                $links = isset($links[1]) ? $links[1] : NULL;
-                
-                if ($links AND is_array($links) AND count($links) > 0) {
-                    foreach ($links AS $link) {
-                        $link = strtolower($link);
-                        $parse = parse_url($link);
-                        print_r($parse);                
-                        if (isset($parse['host'])) {
-                            //
-                        } elseif (isset($parse['path'])) {
-                            //
+                if ($is_home) { // если страница - главная
+                    preg_match_all("/<[Aa][\s]{1}[^>]*[Hh][Rr][Ee][Ff][^=]*=[ '\"\s]*([^ \"'>\s#]+)[^>]*>/", $content, $links);
+                    
+                    $links = isset($links[1]) ? $links[1] : NULL;
+                    
+                    if ($links AND is_array($links) AND count($links) > 0) {
+                        $available_links = array();
+                        foreach ($links AS $link) {
+                            if ( ($url = compare_urls($qurl, $link)) !== false AND !in_array($url, $available_links)) {
+                                $available_links[] = $url;
+                            }
+                        }
+                        
+                        $results = array();
+                        if (count($available_links) > 0) {
+                            foreach ($available_links AS $alink) {
+                                $results[] = one_query($alink, false, false);
+                            }
+                        }
+                        echo "count:".count($results)."\n";
+                        return $results;
+                        
+                    }    
+                } else { // если страница - внутренняя
+                    preg_match_all('/([a-zA-Z0-9-_.]+)@([a-z0-9-]+)(\.)([a-z]{2,4})(\.?)([a-z]{0,4})+/', $content, $emails);
+                    
+                    $elist = array(); // список email
+                    $plist = array(); // список телефонов
+                    
+                    if (is_array($emails) AND isset($emails[0]) AND is_array($emails[0]) AND count($emails[0]) > 0) {
+                        foreach ($emails[0] AS $email) {
+                            if (!in_array($email, $elist)) {
+                                $elist[] = trim($email);
+                            }
                         }
                     }
+                    
+                    return array(
+                        'url'    => $qurl,
+                        'emails' => $elist,
+                        'phones' => $plist,
+                    );
                 }
                 
                 break;
-            case 301:
-                $row->url = $curl_info['redirect_url'];
+                
+            case (301 OR 302):
                 if (!$is_redirect) {
-                    one_query($row, true);
-                }
-                break;
-            case 302:
-                $row->url = $curl_info['redirect_url'];
-                if (!$is_redirect) {
-                    one_query($row, true);
+                    one_query($curl_info['redirect_url'], true);
                 }
                 break;
         }
@@ -102,6 +187,8 @@ function one_query($row, $is_redirect = false) {
     } else {
         //echo 'ERROR: ' . curl_error($curl) . "\n";
     }
+    
+    return false;
 };
 
 
@@ -111,19 +198,20 @@ $inworking = true;
 
 
 
-while ($inworking) {
+//while ($inworking) {
     $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 LIMIT 5");
-    
     if ($result AND $result->num_rows > 0) {
         while($row = $result->fetch_object()){ 
             
-            one_query($row);
+            $output = one_query($row->url);
+            
+            print_r($output);
             
         }
     }
     
     $inworking = false;
-}
+//}
 
 
 

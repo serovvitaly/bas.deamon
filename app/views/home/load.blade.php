@@ -140,7 +140,7 @@ $(function () {
 ?>
 
 <fieldset style="margin-top: 20px;">
-  <legend>Статистика</legend>
+  <legend>Список загруженных файлов</legend>
   
   <table id="table-file-list" class="table table-bordered table-striped table-condensed">
     <thead><tr>
