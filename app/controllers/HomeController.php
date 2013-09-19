@@ -97,7 +97,11 @@ class HomeController extends BaseController {
         $system = ob_get_contents();
         ob_end_clean();
         
-        $mix = explode(PHP_EOL, $system);
+        $mix = explode(PHP_EOL, trim($system, PHP_EOL));
+        
+        array_walk($mix, function(&$item, $key){
+            $item = explode(' ', $item);
+        });
         
         print_r($mix);
         
