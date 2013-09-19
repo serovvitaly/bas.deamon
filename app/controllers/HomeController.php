@@ -92,7 +92,8 @@ class HomeController extends BaseController {
     
     public function getDaemons()
     {
-        $mix = explode(' ', trim(exec("ps -ela")));
+        //$mix = system("ps -ela");
+        $mix = explode(' ', trim(system("ps -ela")));
         
         print_r($mix);
         
