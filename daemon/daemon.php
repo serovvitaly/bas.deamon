@@ -278,6 +278,8 @@ while ($inworking) {
                  . " WHERE `id`={$row->id}";
             
             $re = $db->query($sql);
+            
+            var_dump($re);
         }
     }
     
