@@ -106,12 +106,26 @@ class HomeController extends BaseController {
             });
         });
         
-        $head = $mix[0];
-        unset($mix[0]);
-        $body = $mix;
+        $remix = array();
+        if (count($mix) > 1) {
+            $head = $mix[0];
+            unset($mix[0]);
+            $body = $mix;
+            foreach ($body AS $item) {
+                if (count($item) > 0) {
+                    $colex = array();
+                    foreach ($item AS $key => $val) {
+                        if (!empty($val)) {
+                            $colex[ $head[$key] ] = $val;
+                        }
+                    }
+                    $remix[] = $colex;
+                }
+            }
+        }        
+        $mix = $remix;
         
-        print_r($head);
-        print_r($body);
+        print_r($mix);
         
         $this->layout->content = View::make('home.daemons');
     }
