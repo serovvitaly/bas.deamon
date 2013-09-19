@@ -274,6 +274,7 @@ while ($inworking) {
                  . "`phones`='".implode(',', $elist)."',"
                  . "`last_http_code`='{$last_http_code}',"
                  . "`time_process`='{$time_process}',"
+                 . "`data`='".json_encode($output)."',"
                  . "`status`='{$status}'"
                  . " WHERE `id`={$row->id}";
             
