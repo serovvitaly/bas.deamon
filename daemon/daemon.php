@@ -271,7 +271,7 @@ while ($inworking) {
                  . "`emails_count`='".count($elist)."',"
                  . "`phones_count`='".count($plist)."',"
                  . "`emails`='".implode(',', $elist)."',"
-                 . "`phones`='".implode(',', $elist)."',"
+                 . "`phones`='".implode(',', $plist)."',"
                  . "`last_http_code`='{$last_http_code}',"
                  . "`time_process`='{$time_process}',"
                  . "`data`='".json_encode($output)."',"
