@@ -1,15 +1,15 @@
 <?php
-
+/*
 $child_pid = pcntl_fork();
 if ($child_pid) {
     exit();
 }
 posix_setsid();
-
+*/
 
 $baseDir   = dirname(__FILE__);
 $root_path = dirname($baseDir);
-
+/*
 ini_set('error_log', $baseDir . '/logs/daemon.log');
 
 fclose(STDIN);
@@ -19,7 +19,7 @@ fclose(STDERR);
 $STDIN  = fopen('/dev/null', 'r');
 $STDOUT = fopen($baseDir.'/logs/daemon.log', 'ab');
 $STDERR = fopen($baseDir.'/logs/daemon.log', 'ab');
-
+*/
 
 /** Загрузка конфига */
 $config_file = $root_path . '/app/config/database.php';
@@ -292,7 +292,7 @@ while ($inworking) {
         }
     }
     
-    //$inworking = false;
+    $inworking = false;
 }
 
 
