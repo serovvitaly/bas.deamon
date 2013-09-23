@@ -221,7 +221,7 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
 $inworking = true;
 
 while ($inworking) {
-    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `updated_at`,`created_at` LIMIT 30");
+    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `updated_at`,`created_at` LIMIT 5");
     if ($result AND $result->num_rows > 0) {
         while($row = $result->fetch_object()){ 
             
@@ -283,9 +283,9 @@ while ($inworking) {
                  . " WHERE `id`={$row->id}";
             
             $re = $db->query($sql);
-            error_log('-gogo');
+            var_dump($re);
             if (!$re) {
-                error_log('Query error');
+                //
             }
             
             //echo "<p>$sql</p>";
