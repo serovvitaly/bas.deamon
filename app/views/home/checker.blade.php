@@ -31,10 +31,10 @@
       foreach ($pages AS $page) {
           ?>
     <tr>
-      <td><a href="/checker?url=<?= $page->url ?>"><?= $page->url ?></a></td>
-      <td><?= $item->http_code ?></td>
-      <td><?= implode(',', $item->emails) ?></td>
-      <td><?= implode(',', $item->phones) ?></td>
+      <td><a href="/checker?url=<?= $page['url'] ?>"><?= $page['url'] ?></a></td>
+      <td><?= $page['http_code'] ?></td>
+      <td><?= implode(',', $page['emails']) ?></td>
+      <td><?= implode(',', $page['phones']) ?></td>
     </tr>
           <?
       }
