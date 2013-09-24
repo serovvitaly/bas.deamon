@@ -47,7 +47,9 @@
   </tbody>
 </table>
 
-<form action="">
+<form action="/save-data" method="POST">
+    <input type="hidden" name="uid" value="{{ $uid }}">
+    <input type="hidden" name="next_url" value="{{ $next_url }}">
     <div class="row">
       <div class="span6">
         <fieldset>

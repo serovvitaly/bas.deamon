@@ -90,6 +90,8 @@ class HomeController extends BaseController {
         $phones = array();
         $emails = array();
         
+        $next_url = NULL;
+        
         if ($uid > 0) {
             $dm = Site::find($uid);
             $dm_url = $dm->url;
@@ -116,12 +118,42 @@ class HomeController extends BaseController {
         $url = Input::get('url', $dm_url);
         
         $this->layout->content = View::make('home.checker', array(
-            'uid' => $uid,
-            'url' => $url,
-            'pages' => $pages,
-            'phones' => $phones,
-            'emails' => $emails,
+            'uid'      => $uid,
+            'url'      => $url,
+            'next_url' => $next_url,
+            'pages'    => $pages,
+            'phones'   => $phones,
+            'emails'   => $emails,
         ));
+    }
+    
+    
+    public function postSaveData()
+    {
+        $uid      = Input::get('uid');
+        $next_url = Input::get('next_url');
+        $phones   = Input::get('phones');
+        $emails   = Input::get('emails');
+        
+        if ($uid > 0) {
+            $site = Site::find($uid);
+            if ($site) {
+                if ($phones) {
+                    $phones = implode(',', array_unique( explode("\n", $phones) ));
+                    $site->phones = $phones;
+                    $site->phones_count = count($phones);
+                }
+                if ($emails) {
+                    $emails = implode(',', array_unique( explode("\n", $emails) ));
+                    $site->emails = $emails;
+                    $site->emails_count = count($emails);
+                }
+                
+                $site->save();
+            }
+        }
+        
+        return Redirect::to("/checker?uid={$uid}&url={$next_url}");
     }
     
     
