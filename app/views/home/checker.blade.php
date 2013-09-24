@@ -1,6 +1,5 @@
 <div class="btn-group" style="margin-bottom: 10px;">
   <a class="btn" href="<?= $_SERVER['HTTP_REFERER'] ?>"><i class="icon-chevron-left"></i> К списку</a>
-  <button class="btn btn-inverse">Сохранить и далее</button>
 </div>
 
 <div id="alerts">
@@ -48,9 +47,33 @@
   </tbody>
 </table>
 
+<form action="">
+    <div class="row">
+      <div class="span6">
+        <fieldset>
+          <legend>Телефоны через запятую</legend>
+          <textarea style="width: 98%; height: 60px;" name="phones" cols="" rows=""><?= implode(',', $page['phones']) ?></textarea>
+        </fieldset>
+      </div>
+      <div class="span6">
+        <fieldset>
+          <legend>Email-ы через запятую</legend>
+          <textarea style="width: 98%; height: 60px;" name="emails" cols="" rows=""><?= implode(',', $page['emails']) ?></textarea>
+        </fieldset>
+      </div>
+      <div class="span12">
+        <button class="btn btn-inverse">Сохранить и далее</button>
+      </div>
+    </div>
+</form>
+
 <div>
   <iframe src="{{ $url }}" id="load-container" style="width: 100%; height: 600px; border: 1px solid #CECECE;" onload="frameLoaded()"></iframe>
 </div>
+
+
+
+
 
 
 <script>
