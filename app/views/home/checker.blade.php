@@ -1,6 +1,4 @@
-<div class="input-append">
-  <input class="span6" type="text" id="load-url" placeholder="Ведите URL для загрузки страницы" value="{{ $url }}">
-  <button class="btn btn-info" type="button" onclick="loadByUrl()">Загрузить</button>
+<div class="btn-group" style="margin-bottom: 20px;">
   <button class="btn btn-danger" onclick="checkContacts()">Проверить</button>
   <button class="btn btn-inverse">Сохранить и далее</button>
 </div>
