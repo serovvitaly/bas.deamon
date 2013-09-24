@@ -27,7 +27,7 @@ class HomeController extends BaseController {
             return Site::paginate($take);
         }
         
-        return $sites = Site::where('status', '>', $status)->paginate($take);
+        return $sites = Site::where('status', '>=', $status)->paginate($take);
     }
     
     public function getIndex()

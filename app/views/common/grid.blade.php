@@ -4,7 +4,7 @@
       <th>Домен</th>
       <th>Страницы</th>
       <th>Делигирован</th>
-      <th>Статус</th>
+      <th style="width: 86px;">Статус</th>
       <th>Телефон1</th>
       <th>Телефон2</th>
       <th>Email</th>
