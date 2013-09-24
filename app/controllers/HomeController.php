@@ -87,9 +87,15 @@ class HomeController extends BaseController {
         $dm_url = NULL;
         $pages  = NULL;
         
+        $phones = array();
+        $emails = array();
+        
         if ($uid > 0) {
             $dm = Site::find($uid);
             $dm_url = $dm->url;
+            
+            $phones = $dm->phones;
+            $emails = $dm->emails;
             
             $data = json_decode($dm->data);
             
@@ -112,7 +118,9 @@ class HomeController extends BaseController {
         $this->layout->content = View::make('home.checker', array(
             'uid' => $uid,
             'url' => $url,
-            'pages' => $pages
+            'pages' => $pages,
+            'phones' => $phones,
+            'emails' => $emails,
         ));
     }
     
