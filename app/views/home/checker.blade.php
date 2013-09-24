@@ -13,7 +13,7 @@
 ?>
 </div>
 
-
+<h4>URL : {{ $url }}</h4>
 
 <table class="table table-condensed table-bordered table-striped table-hover">
   <thead>
@@ -30,7 +30,7 @@
       foreach ($pages AS $page) {
           ?>
     <tr>
-      <td><a href="/checker?uid=<?= $uid ?>&url=<?= $page['url'] ?>"><?= $page['url'] ?></a></td>
+      <td><a href="/checker?uid=<?= $uid ?>&url=<?= $page['url'] ?>"><?= ($url == $page['url'] ) ? "<strong>{$page['url']}</strong>" : $page['url'] ?></a></td>
       <td><?= $page['http_code'] ?></td>
       <td><?= implode(',', $page['phones']) ?></td>
       <td><?= implode(',', $page['emails']) ?></td>
