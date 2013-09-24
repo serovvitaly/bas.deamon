@@ -83,8 +83,8 @@ class HomeController extends BaseController {
     public function getChecker()
     {
         $uid = Input::get('uid');
+        $url = Input::get('url');
         
-        $url   = NULL;
         $pages = NULL;
         
         if ($uid > 0) {

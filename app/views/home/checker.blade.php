@@ -33,8 +33,8 @@
     <tr>
       <td><a href="/checker?url=<?= $page['url'] ?>"><?= $page['url'] ?></a></td>
       <td><?= $page['http_code'] ?></td>
-      <td><?= implode(',', $page['emails']) ?></td>
       <td><?= implode(',', $page['phones']) ?></td>
+      <td><?= implode(',', $page['emails']) ?></td>
     </tr>
           <?
       }
