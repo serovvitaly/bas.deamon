@@ -35,7 +35,7 @@
       <td><?= $item->internal_links_count ?></td>
       <td><?= $delegated[$item->delegated] ?></td>
       <td><?= $statuses[$item->status] ?></td>
-      <td style="text-align: center;"><?= !empty($item->phones) ? '' : '<img class="popover" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-placement="right" src="/packages/icons/tick_6817.png" alt="">' ?></td>
+      <td style="text-align: center;"><?= empty($item->phones) ? '' : '<img class="popover" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-placement="right" src="/packages/icons/tick_6817.png" alt="">' ?></td>
       <td style="text-align: center;"><?= empty($item->emails) ? '' : '<img class="popover" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-placement="right" src="/packages/icons/tick_6817.png" alt="">' ?></td>
       <td><?= $item->updated_at ?></td>
       <td><?= $item->updated_at ?></td>
