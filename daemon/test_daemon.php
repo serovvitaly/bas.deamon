@@ -219,7 +219,7 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
 /** Начинаем работу */
 
 $inworking = true;
-
+echo "<p>START</p>";
 while ($inworking) {
     $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `updated_at`,`created_at` LIMIT 1");
     if ($result AND $result->num_rows > 0) {
@@ -227,7 +227,11 @@ while ($inworking) {
             
             $start_time = time();
             
-            $output = one_query($row->url);
+            //$output = one_query($row->url);
+            
+            echo $row->url;
+            
+            exit;
             
             $status = 0;
             
