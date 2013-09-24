@@ -116,7 +116,7 @@ function compare_urls($base_url, $compare_url) {
 function one_query($qurl, $is_redirect = false, $is_home = true) {
     
     $qurl = trim($qurl);
-    
+    echo "<p>- $qurl</p>";
     if (!is_string($qurl) OR empty($qurl)) {
         return false;
     }
@@ -227,9 +227,7 @@ while ($inworking) {
             
             $start_time = time();
             
-            //$output = one_query($row->url);
-            
-            echo $row->url;
+            $output = one_query($row->url);
             
             exit;
             
