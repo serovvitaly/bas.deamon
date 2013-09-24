@@ -32,7 +32,7 @@
           ?>
     <tr>
       <td><a href="/checker?uid=<?= $item->id ?>"><?= $item->url ?></a></td>
-      <td><?= $item->internal_links_count ?></td>
+      <td><?= $item->meet_links ?></td>
       <td><?= $delegated[$item->delegated] ?></td>
       <td><?= $statuses[$item->status] ?></td>
       <td style="text-align: center;"><?= !empty($item->phones) ? '' : '<div class="popover" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-placement="right" src="/packages/icons/tick_6817.png" alt=""></div><img src="/packages/icons/tick_6817.png" alt="">' ?></td>
