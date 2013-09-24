@@ -93,7 +93,18 @@ class HomeController extends BaseController {
             
             $data = json_decode($dm->data);
             
-            $pages = $data;
+            if (isset($data->result) AND is_array($data->result) AND count($data->result) > 0) {
+                foreach ($data->result AS $page) {
+                    if (isset($page->url)) {
+                        $pages[] = array(
+                            'url'       => $page->url,
+                            'http_code' => $page->http_code,
+                            'emails'    => $page->result->emails,
+                            'phones'    => $page->result->phones,
+                        );
+                    }
+                }
+            }
         }
         
         $this->layout->content = View::make('home.checker', array('url' => $url, 'pages' => $pages));

@@ -14,13 +14,44 @@
 ?>
 </div>
 
+
+
+<table class="table table-condensed table-bordered table-striped table-hover">
+  <thead>
+    <tr>
+      <th>URL</th>
+      <th>Код ответа</th>
+      <th>Телефоны</th>
+      <th>Email-ы</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?
+  if ($pages AND count($pages) > 0) {
+      foreach ($pages AS $page) {
+          ?>
+    <tr>
+      <td><a href="/checker?url=<?= $page->url ?>"><?= $page->url ?></a></td>
+      <td><?= $item->http_code ?></td>
+      <td><?= implode(',', $item->emails) ?></td>
+      <td><?= implode(',', $item->phones) ?></td>
+    </tr>
+          <?
+      }
+  } else {
+      ?>
+    <tr>
+      <td colspan="4" style="text-align: center; color: gray;">Список пуст</td>
+    </tr>
+      <?
+  }
+  ?>
+  </tbody>
+</table>
+
 <div>
   <iframe src="{{ $url }}" id="load-container" style="width: 100%; height: 600px; border: 1px solid #CECECE;" onload="frameLoaded()"></iframe>
 </div>
-
-<?
-    print_r( $pages );
-?>
 
 
 <script>
