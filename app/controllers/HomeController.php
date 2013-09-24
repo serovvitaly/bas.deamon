@@ -123,9 +123,11 @@ class HomeController extends BaseController {
                 }
                 
                 if ($this_page_key > 0) {
-                    $next_url = $data->result[$this_page_key]->url;
+                    $next_page_key = $this_page_key + 1;
+                    if (isset($data->result[$next_page_key]) AND isset($data->result[$next_page_key]->url) AND !empty($data->result[$next_page_key]->url)) {
+                        $next_url = $data->result[$next_page_key]->url;
+                    }
                 }
-                
             }
         }
         
