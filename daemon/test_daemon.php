@@ -229,8 +229,6 @@ while ($inworking) {
             
             $output = one_query($row->url);
             
-            exit;
-            
             $status = 0;
             
             $total_links = 0; // общее количество внутренних ссылок
