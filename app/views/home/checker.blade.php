@@ -25,11 +25,17 @@
   </thead>
   <tbody>
   <?
+  $phones = array(); 
+  $emails = array(); 
   if ($pages AND count($pages) > 0) {
       foreach ($pages AS $page) {
+          if ($url == $page['url']) {
+              $phones = $page['phones'];
+              $emails = $page['emails']; 
+          }
           ?>
     <tr>
-      <td><?= ($url == $page['url'] ) ? "<strong style='color:red'>{$page['url']}</strong>" : "<a href='/checker?uid={$uid}&url={$page['url']}'>{$page['url']}</a>" ?></td>
+      <td><?= ($url == $page['url']) ? "<strong style='color:red'>{$page['url']}</strong>" : "<a href='/checker?uid={$uid}&url={$page['url']}'>{$page['url']}</a>" ?></td>
       <td><?= $page['http_code'] ?></td>
       <td><?= implode(',', $page['phones']) ?></td>
       <td><?= implode(',', $page['emails']) ?></td>
@@ -52,13 +58,13 @@
       <div class="span6">
         <fieldset>
           <legend>Телефоны через запятую</legend>
-          <textarea style="width: 98%; height: 60px;" name="phones" cols="" rows=""><?= implode(',', $page['phones']) ?></textarea>
+          <textarea style="width: 98%; height: 60px;" name="phones" cols="" rows=""><?= implode(',', $phones) ?></textarea>
         </fieldset>
       </div>
       <div class="span6">
         <fieldset>
           <legend>Email-ы через запятую</legend>
-          <textarea style="width: 98%; height: 60px;" name="emails" cols="" rows=""><?= implode(',', $page['emails']) ?></textarea>
+          <textarea style="width: 98%; height: 60px;" name="emails" cols="" rows=""><?= implode(',', $emails) ?></textarea>
         </fieldset>
       </div>
       <div class="span12">
