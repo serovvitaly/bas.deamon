@@ -30,7 +30,7 @@
       foreach ($pages AS $page) {
           ?>
     <tr>
-      <td><a href="/checker?uid=<?= $uid ?>&url=<?= $page['url'] ?>"><?= ($url == $page['url'] ) ? "<strong style='color:red'>{$page['url']}</strong>" : $page['url'] ?></a></td>
+      <td><?= ($url == $page['url'] ) ? "<strong style='color:red'>{$page['url']}</strong>" : "<a href='/checker?uid={$uid}&url={$page['url']}'>{$page['url']}</a>" ?></td>
       <td><?= $page['http_code'] ?></td>
       <td><?= implode(',', $page['phones']) ?></td>
       <td><?= implode(',', $page['emails']) ?></td>
