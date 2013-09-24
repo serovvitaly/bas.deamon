@@ -84,7 +84,8 @@ class HomeController extends BaseController {
     {
         $uid = Input::get('uid');
         
-        $pages = NULL;
+        $dm_url = NULL;
+        $pages  = NULL;
         
         if ($uid > 0) {
             $dm = Site::find($uid);
