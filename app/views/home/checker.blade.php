@@ -52,13 +52,13 @@
       <div class="span6">
         <fieldset>
           <legend>Телефоны через запятую</legend>
-          <textarea style="width: 98%; height: 120px;" name="phones" cols="" rows=""><?= str_replace(',', "\n", $phones) ?></textarea>
+          <textarea style="width: 98%; height: 120px;" name="phones" cols="" rows=""><?= $phones ?></textarea>
         </fieldset>
       </div>
       <div class="span6">
         <fieldset>
           <legend>Email-ы через запятую</legend>
-          <textarea style="width: 98%; height: 120px;" name="emails" cols="" rows=""><?= str_replace(',', "\n", $emails) ?></textarea>
+          <textarea style="width: 98%; height: 120px;" name="emails" cols="" rows=""><?= $emails ?></textarea>
         </fieldset>
       </div>
       <div class="span12">

@@ -94,8 +94,8 @@ class HomeController extends BaseController {
             $dm = Site::find($uid);
             $dm_url = $dm->url;
             
-            $phones = array_unique($dm->phones);
-            $emails = array_unique($dm->emails);
+            $phones = implode("\n", array_unique( explode(',', $dm->phones) ));
+            $emails = implode("\n", array_unique( explode(',', $dm->emails) ));
             
             $data = json_decode($dm->data);
             
