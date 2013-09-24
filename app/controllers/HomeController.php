@@ -90,9 +90,13 @@ class HomeController extends BaseController {
         if ($uid > 0) {
             $dm = Site::find($uid);
             $url = $dm->url;
+            
+            $data = json_decode($dm->data);
+            
+            $pages = $data;
         }
         
-        $this->layout->content = View::make('home.checker', array('url' => $url));
+        $this->layout->content = View::make('home.checker', array('url' => $url, 'pages' => $pages));
     }
     
     
