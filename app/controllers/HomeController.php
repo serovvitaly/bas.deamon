@@ -82,12 +82,42 @@ class HomeController extends BaseController {
     
     public function getChecker()
     {
-        $this->layout->content = View::make('home.checker');
+        $uid = Input::get('uid');
+        
+        $url = NULL;
+        
+        if ($uid > 0) {
+            $dm = Site::find($uid);
+            $url = $dm->url;
+        }
+        
+        $this->layout->content = View::make('home.checker', array('url' => $url));
     }
+    
+    
+    public function postGetContent()
+    {
+        $url = Input::get('url');
+        
+        $url = strtolower($url);
+            
+        if (substr($url, 0, 8) == 'https://') {
+            //
+        } elseif (substr($url, 0, 7) == 'http://') {
+            //
+        } else {
+            $url = 'http://' . $url;
+        }
+        
+        return file_get_contents($url);
+    }
+    
     
     public function getProven()
     {
-        $this->layout->content = View::make('home.proven');
+        $sites = $this->_sites(4);
+        
+        $this->layout->content = View::make('home.proven', array('sites' => $sites));
     }
     
     public function getDaemons()

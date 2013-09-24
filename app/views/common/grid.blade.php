@@ -18,7 +18,7 @@
       foreach ($items AS $item) {
           ?>
     <tr>
-      <td><?= $item->url ?></td>
+      <td><a href="/checker?uid=<?= $item->id ?>"><?= $item->url ?></a></td>
       <td><?= $item->internal_links_count ?></td>
       <td><?= $item->delegated ?></td>
       <td><?= $item->status ?></td>
