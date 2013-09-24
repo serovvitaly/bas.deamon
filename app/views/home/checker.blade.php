@@ -4,6 +4,10 @@
   <button class="btn btn-inverse">Сохранить и далее</button>
 </div>
 
+<?
+    print_r( $_SERVER );
+?>
+
 <div id="alerts">
 <?
     if (!$url) {
