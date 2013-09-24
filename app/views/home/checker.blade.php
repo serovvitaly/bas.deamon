@@ -1,9 +1,17 @@
-<div class="btn-group" style="margin-bottom: 20px;">
+<div class="btn-group" style="margin-bottom: 10px;">
   <button class="btn btn-danger" onclick="checkContacts()">Проверить</button>
   <button class="btn btn-inverse">Сохранить и далее</button>
 </div>
 
-<div id="alerts"></div>
+<div id="alerts">
+<?
+    if (!$url) {
+?>
+  <div class="alert alert-block alert-error fade in"><button type="button" class="close" data-dismiss="alert">×</button><h4 class="alert-heading">Предупреждение</h4><p>Не выбран домен для анализа, перейдите на страницу со списком доменов и нажмите на ссылку с именем домена.</p></div>
+<?
+    }
+?>
+</div>
 
 <div>
   <iframe src="{{ $url }}" id="load-container" style="width: 100%; height: 600px; border: 1px solid #CECECE;" onload="frameLoaded()"></iframe>

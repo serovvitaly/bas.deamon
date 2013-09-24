@@ -25,8 +25,8 @@
       <td>?</td>
       <td>?</td>
       <td>?</td>
-      <td><?= $item->updatedat ?></td>
-      <td><?= $item->updatedat ?></td>
+      <td><?= $item->updated_at ?></td>
+      <td><?= $item->updated_at ?></td>
     </tr>
           <?
       }
