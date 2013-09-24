@@ -15,6 +15,11 @@
   <tbody>
   <?
   
+  $delegated = array(
+      'DELEGATED' => 'ДА',
+      'NOT DELEGATED' => 'НЕТ',
+  );
+  
   $statuses = array(
       0 => 'не обработан',
       1 => 'отвечает',
@@ -29,7 +34,7 @@
     <tr>
       <td><a href="/checker?uid=<?= $item->id ?>"><?= $item->url ?></a></td>
       <td><?= $item->internal_links_count ?></td>
-      <td><?= $item->delegated ?></td>
+      <td><?= $delegated[$item->delegated] ?></td>
       <td><?= $statuses[$item->status] ?></td>
       <td>?</td>
       <td>?</td>
