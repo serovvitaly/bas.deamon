@@ -5,9 +5,8 @@
       <th>Страницы</th>
       <th>Делигирован</th>
       <th style="width: 86px;">Статус</th>
-      <th>Телефон1</th>
-      <th>Телефон2</th>
-      <th>Email</th>
+      <th>Телефоны</th>
+      <th>Email-ы</th>
       <th>Дата п. обр</th>
       <th>В статусе</th>
     </tr>
@@ -36,9 +35,8 @@
       <td><?= $item->internal_links_count ?></td>
       <td><?= $delegated[$item->delegated] ?></td>
       <td><?= $statuses[$item->status] ?></td>
-      <td>?</td>
-      <td>?</td>
-      <td>?</td>
+      <td><?= empty($item->phones) ? '<img src="/icons/tick_6817.png" alt="">' : '' ?></td>
+      <td><?= empty($item->emails) ? '<img src="/icons/tick_6817.png" alt="">' : '' ?></td>
       <td><?= $item->updated_at ?></td>
       <td><?= $item->updated_at ?></td>
     </tr>
