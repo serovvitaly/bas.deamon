@@ -35,8 +35,8 @@
       <td><?= $item->internal_links_count ?></td>
       <td><?= $delegated[$item->delegated] ?></td>
       <td><?= $statuses[$item->status] ?></td>
-      <td><?= empty($item->phones) ? '<img src="/icons/tick_6817.png" alt="">' : '' ?></td>
-      <td><?= empty($item->emails) ? '<img src="/icons/tick_6817.png" alt="">' : '' ?></td>
+      <td style="text-align: center;"><?= empty($item->phones) ? '<img src="/icons/tick_6817.png" alt="">' : '' ?></td>
+      <td style="text-align: center;"><?= empty($item->emails) ? '<img src="/icons/tick_6817.png" alt="">' : '' ?></td>
       <td><?= $item->updated_at ?></td>
       <td><?= $item->updated_at ?></td>
     </tr>
