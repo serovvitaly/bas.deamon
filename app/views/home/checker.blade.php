@@ -1,6 +1,5 @@
 <div class="btn-group" style="margin-bottom: 10px;">
   <a class="btn" href="<?= $_SERVER['HTTP_REFERER'] ?>"><i class="icon-chevron-left"></i> К списку</a>
-  <button class="btn btn-danger" onclick="checkContacts()">Проверить</button>
   <button class="btn btn-inverse">Сохранить и далее</button>
 </div>
 

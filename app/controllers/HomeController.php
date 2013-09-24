@@ -83,13 +83,12 @@ class HomeController extends BaseController {
     public function getChecker()
     {
         $uid = Input::get('uid');
-        $url = Input::get('url');
         
         $pages = NULL;
         
         if ($uid > 0) {
             $dm = Site::find($uid);
-            $url = $dm->url;
+            $dm_url = $dm->url;
             
             $data = json_decode($dm->data);
             
@@ -107,7 +106,13 @@ class HomeController extends BaseController {
             }
         }
         
-        $this->layout->content = View::make('home.checker', array('url' => $url, 'pages' => $pages));
+        $url = Input::get('url', $dm_url);
+        
+        $this->layout->content = View::make('home.checker', array(
+            'uid' => $uid,
+            'url' => $url,
+            'pages' => $pages
+        ));
     }
     
     
