@@ -82,5 +82,7 @@
   @yield('content')
   </div>
   
+  <script type="text/javascript" src="/packages/bootstrap/js/bootstrap.min.js"></script>
+  
 </body>
 </html>
