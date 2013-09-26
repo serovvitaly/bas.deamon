@@ -194,7 +194,7 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
                 
             case (301 OR 302):
                 if (!$is_redirect) {
-                    $out = one_query($curl_info['redirect_url'], true);
+                    $out = one_query($curl_info['redirect_url'], true, $is_home);
                     $out['redirect_from'] = $qurl;
                     return $out;
                 }

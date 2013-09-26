@@ -118,7 +118,6 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
     $qurl = trim($qurl);
     $qurl = rtrim($qurl, '/');
     echo "<p>- $qurl" . ' :: REDIR-' . ($is_redirect===false?'0':'1') . ' & HOMR-' . ($is_redirect===true?'1':'0') . '</p>';
-    flush();
     if (!is_string($qurl) OR empty($qurl)) {
         return false;
     }
