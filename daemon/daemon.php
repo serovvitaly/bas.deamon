@@ -221,6 +221,8 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
 /** Начинаем работу */
 
 $inworking = true;
+try{
+    
 
 while ($inworking) {
     $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `updated_at`,`created_at` LIMIT 30");
@@ -298,5 +300,8 @@ while ($inworking) {
 }
 
 
-
+}
+catch (Exception $e) {
+    error_log($e->message);
+}
 
