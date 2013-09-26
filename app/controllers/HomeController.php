@@ -113,11 +113,14 @@ class HomeController extends BaseController {
                             $this_page_key = $page_key;
                         }
                         
+                        $result_emails = (isset($page->result) AND isset($page->result->emails)) ? $page->result->emails : array();
+                        $result_phones = (isset($page->result) AND isset($page->result->phones)) ? $page->result->phones : array();
+                        
                         $pages[] = array(
                             'url'       => $page->url,
                             'http_code' => $page->http_code,
-                            'emails'    => $page->result->emails,
-                            'phones'    => $page->result->phones,
+                            'emails'    => $result_emails,
+                            'phones'    => $result_phones,
                         );
                     }
                 }
