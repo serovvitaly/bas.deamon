@@ -147,6 +147,7 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
                     if ($links AND is_array($links) AND count($links) > 0) {
                         $available_links = array();
                         foreach ($links AS $link) {
+                            $link = rtrim($link, '/');
                             if ( ($url = compare_urls($qurl, $link)) !== false AND !in_array($url, $available_links)) {
                                 $available_links[] = $url;
                             }
