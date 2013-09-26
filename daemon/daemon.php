@@ -225,10 +225,10 @@ try{
     
 
 while ($inworking) {
-    echo "--STEP--\n";
+    error_log(date('Y-m-d H:i:s') . "--STEP--");
     $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `updated_at`,`created_at` LIMIT 30");
     if ($result AND $result->num_rows > 0) {
-        echo "ITER FOR: {$result->num_rows}\n";
+        error_log(date('Y-m-d H:i:s') . "ITER FOR: {$result->num_rows}");
         while($row = $result->fetch_object()){ 
             
             $start_time = time();
