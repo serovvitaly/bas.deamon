@@ -116,7 +116,7 @@ function compare_urls($base_url, $compare_url) {
 function one_query($qurl, $is_redirect = false, $is_home = true) {
     
     $qurl = trim($qurl);
-    
+    $qurl = rtrim($qurl, '/');
     if (!is_string($qurl) OR empty($qurl)) {
         return false;
     }
