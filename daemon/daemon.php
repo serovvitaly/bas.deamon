@@ -225,10 +225,10 @@ try{
     
 
 while ($inworking) {
-    error_log(date('Y-m-d H:i:s') . "--STEP--");
+    error_log("--STEP--");
     $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `updated_at`,`created_at` LIMIT 30");
     if ($result AND $result->num_rows > 0) {
-        error_log(date('Y-m-d H:i:s') . "ITER FOR: {$result->num_rows}");
+        error_log("ITER FOR: {$result->num_rows}");
         while($row = $result->fetch_object()){ 
             
             $start_time = time();
@@ -289,7 +289,7 @@ while ($inworking) {
                  . " WHERE `id`={$row->id}";
             
             $re = $db->query($sql);
-            error_log(date('Y-m-d H:i:s') . ' MEM:' . memory_get_usage());
+            error_log(' MEM:' . memory_get_usage());
             if (!$re) {
                 error_log('Query error');
             }
