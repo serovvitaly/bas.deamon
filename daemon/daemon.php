@@ -285,7 +285,7 @@ while ($inworking) {
                  . " WHERE `id`={$row->id}";
             
             $re = $db->query($sql);
-            error_log('-gogo');
+            error_log(date('Y-m-d H:i:s') . ' MEM:' . memory_get_usage());
             if (!$re) {
                 error_log('Query error');
             }
