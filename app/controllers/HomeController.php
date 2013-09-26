@@ -21,7 +21,7 @@ class HomeController extends BaseController {
     
     protected function _sites($status = NULL)
     {
-        $take = 40;
+        $take = 50;
         
         if ($status === NULL) {
             return Site::paginate($take);
