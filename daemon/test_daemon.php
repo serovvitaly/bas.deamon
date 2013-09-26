@@ -152,6 +152,8 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
                             }
                         }
                         
+                        $available_links = array_slice($available_links, 0, 20);
+                        
                         if (count($available_links) > 0) {
                             foreach ($available_links AS $alink) {
                                 $result[] = one_query($alink, false, false);
