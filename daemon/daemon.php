@@ -43,8 +43,8 @@ $curl_opts = array(
     CURLOPT_HEADER => 1,
     CURLOPT_SSL_VERIFYPEER => 0,
     CURLOPT_RETURNTRANSFER => 1,
-    CURLOPT_CONNECTTIMEOUT => 5,
-    CURLOPT_TIMEOUT => 5,
+    CURLOPT_CONNECTTIMEOUT => 10,
+    CURLOPT_TIMEOUT => 10,
     CURLOPT_HTTPHEADER => array('Expect:'),
     CURLOPT_USERAGENT  => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'
 );
