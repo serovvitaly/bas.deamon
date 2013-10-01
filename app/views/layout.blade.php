@@ -82,6 +82,10 @@
   @yield('content')
   </div>
   
+  <footer style="height: 50px;">
+  
+  </footer>
+  
   <script type="text/javascript" src="/packages/bootstrap/js/bootstrap.min.js"></script>
   
 </body>

@@ -27,7 +27,7 @@ class HomeController extends BaseController {
             return Site::paginate($take);
         }
         
-        return $sites = Site::where('status', '>=', $status)->paginate($take);
+        return Site::where('status', '>=', $status)->paginate($take);
     }
     
     public function getIndex()
@@ -79,6 +79,7 @@ class HomeController extends BaseController {
         
         $this->layout->content = View::make('home.conts', array('sites' => $sites));
     }
+    
     
     public function getChecker()
     {
@@ -202,6 +203,93 @@ class HomeController extends BaseController {
         $this->layout->content = View::make('home.proven', array('sites' => $sites));
     }
     
+    
+    public function postAjaxTree()
+    {
+        $root = Input::get('root');
+        $root = str_replace(' ', '', $root);
+        
+        $output = array();
+        
+        $months = array(
+            1  => 'Январь',
+            2  => 'Февраль',
+            3  => 'Март',
+            4  => 'Апрель',
+            5  => 'Май',
+            6  => 'Июнь',
+            7  => 'Июль',
+            8  => 'Август',
+            9  => 'Сентябрь',
+            10 => 'Октябрь',
+            11 => 'Ноябрь',
+            12 => 'Декабрь',
+        );
+        
+        for ($year = 2013; $year <= intval(date('Y')); $year++) {
+            $output[] = array(
+                'title'    => "{$year}",
+                'isFolder' => true,
+                'isLazy'   => true,
+                'id'       => "year-{$year}"
+            );
+        }
+        
+        if (!empty($root)) {
+            $root = explode('-', $root);
+            $root_key = isset($root[0]) ? $root[0] : NULL;
+            $root_val = isset($root[1]) ? $root[1] : NULL;
+            
+            $output = array();
+            if (!empty($root_key) AND !empty($root_val)) {
+                switch ($root_key) {
+                    case 'year':
+                        for ($month = 1; $month <= 12; $month++) {
+                            $output[] = array(
+                                'title' => "{$months[$month]}",
+                                'isFolder' => true,
+                                'isLazy' => true,
+                                'id' => "month-{$month}"
+                            );
+                        }
+                        break;
+                        
+                    case 'month':
+                        for ($day = 1; $day <= 30; $day++) {
+                            $output[] = array(
+                                'title' => "{$day}",
+                                'isFolder' => true,
+                                'isLazy' => true,
+                                'id' => "day-{$day}"
+                            );
+                        }
+                        break;
+                        
+                    case 'day':
+                        //$items = Site::where('updated_at', '>', "2013-09-01")->where('updated_at', '<', "2013-10-30")->get();
+                        $items = $this->_sites(2);
+                        if (count($items) > 0) {
+                            foreach ($items AS $item) {
+                                $output[] = array(
+                                    'title' => $item->url,
+                                    'isFolder' => false,
+                                    'isLazy' => false,
+                                    'id' => "uid-{$item->id}"
+                                );
+                            }
+                        }
+                        break;
+                        
+                    default:
+                        //
+                }
+            }
+        }
+        
+        return json_encode($output);
+    }
+    
+    
     public function getDaemons()
     {
         ob_start();
@@ -240,6 +328,7 @@ class HomeController extends BaseController {
         
         $this->layout->content = View::make('home.daemons', array('mix' => $mix));
     }
+    
     
     public function postSmartupdater()
     {

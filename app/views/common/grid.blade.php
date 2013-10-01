@@ -56,5 +56,5 @@
 <?php echo $items->links(); ?>
 
 <script>
-$('.popover').popover();
+//$('.popover').popover();
 </script>
