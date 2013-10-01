@@ -74,7 +74,21 @@ $('#atree').dynatree({
         });
     },
     onActivate: function(node) {
-        console.log(node.data.id);
+        var slid = node.data.id.split('-');
+        if (slid[0] == 'uid'){
+            $.ajax({
+                url: '',
+                data: {
+                    id: node.data.id,
+                    uid: slid[1]
+                },
+                dataType: 'json',
+                type: 'post',
+                success: function(data){
+                    console.log(data);
+                }
+            });
+        }
     },
     //fx: { height: "toggle", duration: 200 },
 });
