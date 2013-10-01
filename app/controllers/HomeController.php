@@ -269,7 +269,15 @@ class HomeController extends BaseController {
                         $items = Site::where('updated_at', '>', "2013-09-01")->where('updated_at', '<', "2013-10-30")->take(50)->get();
                         if (count($items) > 0) {
                             foreach ($items AS $item) {
-                                $output[] = $item;
+                                $output[] = array(
+                                    'id' => $item->id,
+                                    'url' => $item->url,
+                                    'delegated' => $item->delegated,
+                                    'status' => $item->status,
+                                    'emails' => $item->emails,
+                                    'phones' => $item->phones,
+                                    'updated_at' => $item->updated_at,
+                                );
                             }
                         }
                         break;
