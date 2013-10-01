@@ -30,6 +30,11 @@
     
   
   <div class="span9">
+  
+    <div style="margin-bottom: 10px;">
+      <a class="btn btn-success" href="/export?from=2013-09-01&to2013-09-02">Экспорт в CSV</a>
+    </div>
+    
     @include('common.grid', array('items'=>$sites))
   </div>
         

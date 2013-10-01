@@ -311,6 +311,37 @@ class HomeController extends BaseController {
     }
     
     
+    public function getExport()
+    {
+        $from = Input::get('from');
+        $to   = Input::get('to');
+        
+        $sites = Site::where('status', '>', 1)->where('updated_at', '>', $from)->where('updated_at', '<', $to)->get();
+        
+        $out = '';
+        
+        if (count($sites) > 0) {
+            foreach ($sites AS $site) {
+                $out .= implode(';', array(
+                    $site->url,
+                    $site->meet_links,
+                    $site->delegated,
+                    $site->phones,
+                    $site->emails,
+                    $site->updated_at,
+                )) . "\n";
+            }
+        }
+        
+        $headers = array(
+            'Content-Type' => 'application/csv',
+            'Content-Disposition' => 'attachment; filename="sites_export_'.$from.'_'.$to.'.csv"',
+        );
+        
+        return Response::make($out, 200, $headers);
+    }
+    
+    
     public function getDaemons()
     {
         ob_start();
