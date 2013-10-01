@@ -266,7 +266,7 @@ class HomeController extends BaseController {
                         break;
                         
                     case 'day':
-                        $items = Site::where('status', '>', 3)->where('updated_at', '>', "2013-09-01")->where('updated_at', '<', "2013-10-30")->take(50)->get();
+                        $items = Site::where('status', '>', 1)->where('updated_at', '>', "2013-09-01")->where('updated_at', '<', "2013-10-30")->take(50)->get();
                         if (count($items) > 0) {
                             foreach ($items AS $item) {
                                 $output[] = array(
