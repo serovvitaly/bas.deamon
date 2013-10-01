@@ -77,7 +77,7 @@ $('#atree').dynatree({
         var slid = node.data.id.split('-');
         if (slid[0] == 'uid'){
             $.ajax({
-                url: '',
+                url: '/ajax-tree',
                 data: {
                     id: node.data.id,
                     uid: slid[1]
