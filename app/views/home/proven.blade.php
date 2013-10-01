@@ -78,7 +78,7 @@ $('#atree').dynatree({
                                  + '</tr>';
                         }
                         
-                        $('#main-grid tbody').html();
+                        $('#main-grid tbody').html(items);
                     }
                 }
             });
