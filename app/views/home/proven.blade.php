@@ -68,16 +68,18 @@ $('#atree').dynatree({
                         for (var i = 0; i <= data.items.length; i++) {
                             var site = data.items[i];
                             console.log(site);
-                            items += '<tr>'
-                                   + '<td><a href="/checker?uid='+site.uid+'">'+site.url+'</a></td>'
-                                   + '<td>'+site.meet_links+'</td>'
-                                   + '<td>'+site.delegated+'</td>'
-                                   + '<td>'+site.status+'</td>'
-                                   + '<td style="text-align: center;"></td>'
-                                   + '<td style="text-align: center;"></td>'
-                                   + '<td>'+site.updated_at+'</td> '
-                                   + '<td>'+site.updated_at+'</td>'
-                                 + '</tr>';
+                            if (site) {
+                                items += '<tr>'
+                                       + '<td><a href="/checker?uid='+site.uid+'">'+site.url+'</a></td>'
+                                       + '<td>'+site.meet_links+'</td>'
+                                       + '<td>'+site.delegated+'</td>'
+                                       + '<td>'+site.status+'</td>'
+                                       + '<td style="text-align: center;"></td>'
+                                       + '<td style="text-align: center;"></td>'
+                                       + '<td>'+site.updated_at+'</td> '
+                                       + '<td>'+site.updated_at+'</td>'
+                                     + '</tr>';
+                            }
                         }
                         
                         $('#main-grid tbody').html(items);
