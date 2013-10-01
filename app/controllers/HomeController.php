@@ -258,8 +258,8 @@ class HomeController extends BaseController {
                         for ($day = 1; $day <= 30; $day++) {
                             $output[] = array(
                                 'title' => "{$day}",
-                                'isFolder' => true,
-                                'isLazy' => true,
+                                'isFolder' => false,
+                                'isLazy' => false,
                                 'id' => "day-{$day}"
                             );
                         }
