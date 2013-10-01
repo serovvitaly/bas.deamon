@@ -62,7 +62,24 @@ $('#atree').dynatree({
                 dataType: 'json',
                 type: 'post',
                 success: function(data){
-                    console.log(data);
+                    if (typeof data == 'array' && data.length > 0) {
+                        var items = '';
+                        for (var i = 0; i <= data.length; i++) {
+                            var site = data[i];
+                            items += '<tr>'
+                                   + '<td><a href="/checker?uid='+site.id+'">'+site.url+'</a></td>'
+                                   + '<td>'+site.meet_links+'</td>'
+                                   + '<td>'+site.delegated+'</td>'
+                                   + '<td>'+site.status+'</td>'
+                                   + '<td style="text-align: center;"></td>'
+                                   + '<td style="text-align: center;"></td>'
+                                   + '<td>'+site.updated_at+'</td> '
+                                   + '<td>'+site.updated_at+'</td>'
+                                 + '</tr>';
+                        }
+                        
+                        $('#main-grid tbody').html();
+                    }
                 }
             });
         }
