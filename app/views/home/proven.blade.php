@@ -65,7 +65,7 @@ $('#atree').dynatree({
                     if (data.items && data.items.length > 0) {
                         console.log('START ITER');
                         var items = '';
-                        for (var i = 0; i <= data.length; i++) {
+                        for (var i = 0; i <= data.items.length; i++) {
                             var site = data.items[i];
                             items += '<tr>'
                                    + '<td><a href="/checker?uid='+site.id+'">'+site.url+'</a></td>'
