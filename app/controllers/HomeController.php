@@ -280,8 +280,9 @@ class HomeController extends BaseController {
                         if (count($sites) > 0) {
                             foreach ($sites AS $item) {
                                 $items[] = array(
-                                    'id' => $item->id,
+                                    'uid' => $item->id,
                                     'url' => $item->url,
+                                    'meet_links' => $item->meet_links,
                                     'delegated' => $item->delegated,
                                     'status' => $item->status,
                                     'emails' => $item->emails,

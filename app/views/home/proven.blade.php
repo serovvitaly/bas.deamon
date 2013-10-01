@@ -68,7 +68,7 @@ $('#atree').dynatree({
                         for (var i = 0; i <= data.items.length; i++) {
                             var site = data.items[i];
                             items += '<tr>'
-                                   + '<td><a href="/checker?uid='+site.id+'">'+site.url+'</a></td>'
+                                   + '<td><a href="/checker?uid='+site.uid+'">'+site.url+'</a></td>'
                                    + '<td>'+site.meet_links+'</td>'
                                    + '<td>'+site.delegated+'</td>'
                                    + '<td>'+site.status+'</td>'
