@@ -73,6 +73,9 @@ $('#atree').dynatree({
           debugLazyDelay: 750
         });
     },
+    onActivate: function(node) {
+        console.log(node.data.id);
+    },
     //fx: { height: "toggle", duration: 200 },
 });
 </script>
