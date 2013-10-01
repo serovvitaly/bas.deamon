@@ -63,6 +63,7 @@ $('#atree').dynatree({
                 type: 'post',
                 success: function(data){
                     if (data.items && data.items.length > 0) {
+                        console.log('START ITER');
                         var items = '';
                         for (var i = 0; i <= data.length; i++) {
                             var site = data.items[i];
@@ -79,7 +80,7 @@ $('#atree').dynatree({
                         }
                         
                         $('#main-grid tbody').html(items);
-                    }
+                    } else console.log('ITER NON');
                 }
             });
         }
