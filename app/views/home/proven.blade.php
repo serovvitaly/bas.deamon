@@ -62,10 +62,10 @@ $('#atree').dynatree({
                 dataType: 'json',
                 type: 'post',
                 success: function(data){
-                    if (typeof data == 'array' && data.length > 0) {
+                    if (data.items && data.items.length > 0) {
                         var items = '';
                         for (var i = 0; i <= data.length; i++) {
-                            var site = data[i];
+                            var site = data.items[i];
                             items += '<tr>'
                                    + '<td><a href="/checker?uid='+site.id+'">'+site.url+'</a></td>'
                                    + '<td>'+site.meet_links+'</td>'

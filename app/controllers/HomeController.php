@@ -266,10 +266,20 @@ class HomeController extends BaseController {
                         break;
                         
                     case 'day':
-                        $items = Site::where('status', '>', 1)->where('updated_at', '>', "2013-09-01")->where('updated_at', '<', "2013-10-30")->take(50)->get();
-                        if (count($items) > 0) {
-                            foreach ($items AS $item) {
-                                $output[] = array(
+                        $_take = 50;
+                    
+                        $sites = Site::where('status', '>', 1)->where('updated_at', '>', "2013-09-01")->where('updated_at', '<', "2013-10-30");
+                        
+                        $items = array();
+                        $total = $sites->count();
+                        $pages = ceil($total / $_take);
+                        $current_page = 1;
+                        
+                        $sites = $sites->take($_take)->get();
+                        
+                        if (count($sites) > 0) {
+                            foreach ($sites AS $item) {
+                                $items[] = array(
                                     'id' => $item->id,
                                     'url' => $item->url,
                                     'delegated' => $item->delegated,
@@ -280,6 +290,14 @@ class HomeController extends BaseController {
                                 );
                             }
                         }
+                        
+                        $output = array(
+                            'items' => $items,
+                            'total' => $total,
+                            'pages' => $pages,
+                            'current_page' => $current_page,
+                        );
+                        
                         break;
                         
                     default:
