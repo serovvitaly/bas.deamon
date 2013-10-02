@@ -327,7 +327,7 @@ class HomeController extends BaseController {
     
     public function getSitesTree()
     {
-        $sites = Site::where('updated_at', '>', 0)->groupBy('updated_at')->get();
+        $sites = Site::where('updated_at', '>', 0)->groupBy('updated_at')->get('updated_at');
         $mix = array();
         if (count($sites) > 0) {
             foreach ($sites AS $site) {
