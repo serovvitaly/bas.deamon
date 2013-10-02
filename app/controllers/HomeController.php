@@ -229,6 +229,8 @@ class HomeController extends BaseController {
             12 => 'Декабрь',
         );
         
+        
+        
         for ($year = 2013; $year <= intval(date('Y')); $year++) {
             $output[] = array(
                 'title'    => "{$year}",
@@ -320,6 +322,14 @@ class HomeController extends BaseController {
         }
         
         return json_encode($output);
+    }
+    
+    
+    public function getSitesTree()
+    {
+        $sites = Site::groupBy('updated_at')->get();
+        
+        echo count($sites);
     }
     
     
