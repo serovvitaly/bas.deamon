@@ -230,6 +230,48 @@ class HomeController extends BaseController {
         );
         
         
+        $tree = $this->_getSitesTree();
+        if (count($tree) > 0) {
+            foreach ($tree AS $tree_year => $tree_months) {
+                $months = array();
+                $year_count = 0;
+                foreach ($tree_months AS $tree_month => $tree_days) {
+                    if ($tree_month < 10) $tree_month = '0' . $tree_month; 
+                    $days = array();
+                    $month_count = 0;
+                    foreach ($tree_days AS $day => $count) {
+                        if ($day < 10) $day = '0' . $day; 
+                        $days[] = array(
+                            'title'    => "{$day} ({$count})",
+                            'isFolder' => false,
+                            'isLazy'   => false,
+                            'id'       => "day-{$day}.{$tree_month}.{$tree_year}"
+                        );
+                        
+                        $month_count += $count;
+                    }
+                    
+                    $months[] = array(
+                        'title'    => $months[ ltrim($tree_month, 0) ] . " ({$month_count})",
+                        'isFolder' => false,
+                        'isLazy'   => false,
+                        'children' => $days
+                    );
+                    
+                    $year_count += $month_count;
+                }
+                
+                $output[] = array(
+                    'title' => $tree_year . " ({$year_count})",
+                    'isFolder' => true,
+                    'isLazy'   => false,
+                    'children' => $months
+                );
+            }
+        }
+        
+        
+        return json_encode($output);
         
         for ($year = 2013; $year <= intval(date('Y')); $year++) {
             $output[] = array(
@@ -325,26 +367,29 @@ class HomeController extends BaseController {
     }
     
     
-    public function getSitesTree()
+    protected function _getSitesTree()
     {
-        $sites = Site::where('updated_at', '>', 0)->groupBy('updated_at')->get(array('updated_at'));
+        $sites = Site::groupBy('updated_at')->get(array('updated_at'));
         $mix = array();
         if (count($sites) > 0) {
             foreach ($sites AS $site) {
                 $year  = intval(date('Y', strtotime($site->updated_at)));
-                $month = intval(date('m', strtotime($site->updated_at)));
-                $day   = intval(date('d', strtotime($site->updated_at)));
                 
-                if (isset($mix[$year]) AND isset($mix[$year][$month]) AND isset($mix[$year][$month][$day])) {
-                    $mix[$year][$month][$day]++;
-                } else {
-                    $mix[$year][$month][$day] = 1;
+                if ($year > 2012) {
+                    $month = intval(date('m', strtotime($site->updated_at)));
+                    $day   = intval(date('d', strtotime($site->updated_at)));
+                    
+                    if (isset($mix[$year]) AND isset($mix[$year][$month]) AND isset($mix[$year][$month][$day])) {
+                        $mix[$year][$month][$day]++;
+                    } else {
+                        $mix[$year][$month][$day] = 1;
+                    }    
                 }
                 
             }
         }
         
-        print_r($mix);
+        return $mix;
     }
     
     
