@@ -86,6 +86,9 @@ function _unload(text){
     $('#informer .loader').hide();
     $('#informer .content').html(text);
 }
+function goPage(page, data_key){
+    //
+}
 
 
 $('#atree').dynatree({
@@ -128,6 +131,21 @@ $('#atree').dynatree({
                         $('#export-button').attr('href', '/export?date='+slid[1]);
                         
                         $('#main-grid tbody').html(items);
+                        
+                        
+                        if (data.pages > 0) {
+                            var pages = '';
+                            for(var p = 1; p <= data.pages; p++){
+                                if (p == data.current_page) {
+                                    pages += '<li><a onclick="goPage('+p+', \''+node.data.id+'\'); return false;" href="#">'+p+'</a></li>';
+                                } else {
+                                    pages += '<li class="active"><span>'+p+'</span></li>';
+                                }
+                                
+                            }
+                        }
+                        
+                        
                     } else _unload('Нет данных для загрузки');
                 }
             });
