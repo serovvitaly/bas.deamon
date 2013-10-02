@@ -8,6 +8,9 @@ class HomeController extends BaseController {
     
     protected $_store_path = NULL;
     
+    protected $_proven_status  = 1;
+    protected $_proven_compare = '>';
+    
     public function __construct()
     {
         $this->_store_path = dirname($_SERVER['DOCUMENT_ROOT']) . '/store/';
@@ -246,7 +249,7 @@ class HomeController extends BaseController {
                         
                         $_take = 50;
                     
-                        $sites = Site::where('status', '>', 1)->where('updated_at', '>=', $date.' 00:00:00')->where('updated_at', '<=', $date.' 23:59:59');
+                        $sites = Site::where('status', $this->_proven_compare, $this->_proven_status)->where('updated_at', '>=', $date.' 00:00:00')->where('updated_at', '<=', $date.' 23:59:59');
                         
                         $items = array();
                         $total = $sites->count();
@@ -339,7 +342,7 @@ class HomeController extends BaseController {
             return Cache::get($_cache_key);
         }
         
-        $sites = Site::where('status', '>', 1)->groupBy('updated_at')->get(array('updated_at'));
+        $sites = Site::where('status', $this->_proven_compare, $this->_proven_status)->groupBy('updated_at')->get(array('updated_at'));
         $mix = array();
         if (count($sites) > 0) {
             foreach ($sites AS $site) {
@@ -366,15 +369,12 @@ class HomeController extends BaseController {
     
     
     public function getExport()
-    {
-        $from = Input::get('from');
-        $to   = Input::get('to');
-        
+    {        
         $date = Input::get('date');
         $date = explode('.', $date);
         $date = "{$date[2]}-{$date[1]}-{$date[0]}";
         
-        $sites = Site::where('status', '>', 1)->where('updated_at', '>=', $date.' 00:00:00')->where('updated_at', '<=', $date.' 23:59:59');
+        $sites = Site::where('status', $this->_proven_compare, $this->_proven_status)->where('updated_at', '>=', $date.' 00:00:00')->where('updated_at', '<=', $date.' 23:59:59');
         
         $out = "URL;LINKS;DELEGATED;PHONES;EMAILS;DATE\n";
         
@@ -393,7 +393,7 @@ class HomeController extends BaseController {
         
         $headers = array(
             'Content-Type' => 'application/csv',
-            'Content-Disposition' => 'attachment; filename="sites_export_'.$from.'_'.$to.'.csv"',
+            'Content-Disposition' => 'attachment; filename="sites_export_'.$date.'.csv"',
         );
         
         return Response::make($out, 200, $headers);

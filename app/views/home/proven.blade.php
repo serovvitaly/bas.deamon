@@ -39,7 +39,22 @@
       </span>
     </div>
     
-    @include('common.grid', array('items'=>$sites))
+    <table id="main-grid" class="table table-condensed table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Домен</th>
+          <th>Страницы</th>
+          <th>Делигирован</th>
+          <th style="width: 86px;">Статус</th>
+          <th>Телефоны</th>
+          <th>Email-ы</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    
+    
   </div>
         
 </div>
@@ -99,8 +114,8 @@ $('#atree').dynatree({
                                        + '<td>'+site.status+'</td>'
                                        + '<td style="text-align: center;"></td>'
                                        + '<td style="text-align: center;"></td>'
-                                       + '<td>'+site.updated_at+'</td> '
-                                       + '<td>'+site.updated_at+'</td>'
+                                       //+ '<td>'+site.updated_at+'</td> '
+                                       //+ '<td>'+site.updated_at+'</td>'
                                      + '</tr>';
                             }
                         }
