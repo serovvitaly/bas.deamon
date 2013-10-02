@@ -370,6 +370,12 @@ class HomeController extends BaseController {
     
     protected function _getSitesTree()
     {
+        $_cache_key = 'sites_tree';
+        
+        if (Cache::has($_cache_key)) {
+            return Cache::get($_cache_key);
+        }
+        
         $sites = Site::groupBy('updated_at')->get(array('updated_at'));
         $mix = array();
         if (count($sites) > 0) {
@@ -389,6 +395,8 @@ class HomeController extends BaseController {
                 
             }
         }
+        
+        return Cache::add($_cache_key, $mix, 1);
         
         return $mix;
     }
