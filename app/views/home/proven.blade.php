@@ -112,8 +112,8 @@ $('#atree').dynatree({
                                        + '<td>'+site.meet_links+'</td>'
                                        + '<td class="cls-small">'+site.delegated+'</td>'
                                        + '<td>'+site.status+'</td>'
-                                       + '<td style="text-align: center;"></td>'
-                                       + '<td style="text-align: center;"></td>'
+                                       + '<td style="text-align: center;">'+site.phones+'</td>'
+                                       + '<td style="text-align: center;">'+site.emails+'</td>'
                                        //+ '<td>'+site.updated_at+'</td> '
                                        //+ '<td>'+site.updated_at+'</td>'
                                      + '</tr>';

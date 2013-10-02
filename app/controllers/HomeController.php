@@ -260,14 +260,18 @@ class HomeController extends BaseController {
                         
                         if (count($sites) > 0) {
                             foreach ($sites AS $item) {
+                                
+                                $phones = array_splice(explode(',', $item->phones), 0, 3);
+                                $emails = array_splice(explode(',', $item->emails), 0, 3);
+                                
                                 $items[] = array(
                                     'uid' => $item->id,
                                     'url' => $item->url,
                                     'meet_links' => $item->meet_links,
                                     'delegated' => $item->delegated,
                                     'status' => $item->status,
-                                    'emails' => $item->emails,
-                                    'phones' => $item->phones,
+                                    'emails' => implode('<br>', $emails),
+                                    'phones' => implode('<br>', $phones),
                                     'updated_at' => $item->updated_at,
                                 );
                             }
