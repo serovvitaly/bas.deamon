@@ -66,7 +66,7 @@ $('#atree').dynatree({
         var slid = node.data.id.split('-');
         console.log(slid);
         if (slid[0] == 'day'){
-            
+            console.log('AJAX'); 
             var day   = node.data.id.split('-')[1];
             var month = node.parent.data.id.split('-')[1];
             var year  = node.parent.parent.data.id.split('-')[1];
