@@ -32,7 +32,7 @@
   <div class="span9">
   
     <div style="margin-bottom: 10px;">
-      <a class="btn btn-success" href="/export?from=2013-09-01&to2013-09-02">Экспорт в CSV</a>
+      <a class="btn btn-success" href="/export?from=2013-09-01&to=2013-09-02">Экспорт в CSV</a>
     </div>
     
     @include('common.grid', array('items'=>$sites))
@@ -47,22 +47,33 @@ $('#atree').dynatree({
         type: 'post'
     },
     onLazyRead: function(node){
+        
+        var data = {
+            root: node.data.id,
+            parent_id: node.parent.data.id 
+        };
+        
         node.appendAjax({
           url: 'ajax-tree',
           type: 'post',
-          data: {
-              root: node.data.id
-          },
+          data: data,
           debugLazyDelay: 750
         });
     },
     onActivate: function(node) {
         var slid = node.data.id.split('-');
         if (slid[0] == 'day'){
+            
+            var day   = node.data.id.split('-')[1];
+            var month = node.parent.data.id.split('-')[1];
+            var year  = node.parent.parent.data.id.split('-')[1];
+            if (day < 10)   day   = '0' + day; 
+            if (month < 10) month = '0' + month; 
+            
             $.ajax({
                 url: '/ajax-tree',
                 data: {
-                    root: node.data.id
+                    root: 'day-' + day + '.' + month + '.' + year
                 },
                 dataType: 'json',
                 type: 'post',

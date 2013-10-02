@@ -209,6 +209,9 @@ class HomeController extends BaseController {
         $root = Input::get('root');
         $root = str_replace(' ', '', $root);
         
+        $parent_id = Input::get('parent_id');
+        $parent_id = str_replace(' ', '', $parent_id);
+        
         $output = array();
         
         $months = array(
@@ -240,6 +243,10 @@ class HomeController extends BaseController {
             $root_key = isset($root[0]) ? $root[0] : NULL;
             $root_val = isset($root[1]) ? $root[1] : NULL;
             
+            $parent_id = explode('-', $parent_id);
+            $parent_key = isset($parent_id[0]) ? $parent_id[0] : NULL;
+            $parent_val = isset($parent_id[1]) ? $parent_id[1] : NULL;
+            
             $output = array();
             if (!empty($root_key) AND !empty($root_val)) {
                 switch ($root_key) {
@@ -255,7 +262,8 @@ class HomeController extends BaseController {
                         break;
                         
                     case 'month':
-                        for ($day = 1; $day <= 30; $day++) {
+                        if ($root_val < 10) $root_val = '0' . $root_val;
+                        for ($day = 1; $day <= intval( date('t', strtotime("{$parent_val}-{$root_val}-01")) ); $day++) {
                             $output[] = array(
                                 'title' => "{$day}",
                                 'isFolder' => false,
@@ -266,9 +274,13 @@ class HomeController extends BaseController {
                         break;
                         
                     case 'day':
+                    
+                        $date = explode('.', $root_val);
+                        $date = "{$date[2]}-{$date[1]}-{$date[0]}";
+                        
                         $_take = 50;
                     
-                        $sites = Site::where('status', '>', 1)->where('updated_at', '>', "2013-09-01")->where('updated_at', '<', "2013-10-30");
+                        $sites = Site::where('status', '>', 1)->where('updated_at', '=', $date);
                         
                         $items = array();
                         $total = $sites->count();
