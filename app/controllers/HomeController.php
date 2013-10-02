@@ -398,8 +398,8 @@ class HomeController extends BaseController {
         if (count($sites) > 0) {
             foreach ($sites AS $site) {
                 
-                $phones = explode(',', $site->phones);
-                $emails = explode(',', $site->emails);
+                $phones = array_unique( explode(',', $site->phones) );
+                $emails = array_unique( explode(',', $site->emails) );
                 
                 $out .= implode(';', array(
                     $site->url,
