@@ -374,7 +374,7 @@ class HomeController extends BaseController {
         $date = explode('.', $date);
         $date = "{$date[2]}-{$date[1]}-{$date[0]}";
         
-        $sites = Site::where('status', $this->_proven_compare, $this->_proven_status)->where('updated_at', '>=', $date.' 00:00:00')->where('updated_at', '<=', $date.' 23:59:59');
+        $sites = Site::where('status', $this->_proven_compare, $this->_proven_status)->where('updated_at', '>=', $date.' 00:00:00')->where('updated_at', '<=', $date.' 23:59:59')->get(array('url','meet_links','delegated','phones','emails','updated_at'));
         
         $out = "URL;LINKS;DELEGATED;PHONES;EMAILS;DATE\n";
         
@@ -392,8 +392,8 @@ class HomeController extends BaseController {
         }
         
         $headers = array(
-            //'Content-Type' => 'application/csv',
-            //'Content-Disposition' => 'attachment; filename="sites_export_'.$date.'.csv"',
+            'Content-Type' => 'application/csv',
+            'Content-Disposition' => 'attachment; filename="sites_export_'.$date.'.csv"',
         );
         
         return Response::make($out, 200, $headers);
