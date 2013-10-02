@@ -73,7 +73,8 @@ $('#atree').dynatree({
             $.ajax({
                 url: '/ajax-tree',
                 data: {
-                    root: 'day-' + day + '.' + month + '.' + year
+                    //root: 'day-' + day + '.' + month + '.' + year
+                    root: node.data.id
                 },
                 dataType: 'json',
                 type: 'post',
