@@ -44,8 +44,8 @@
         <tr>
           <th>Домен</th>
           <th>Страницы</th>
-          <th>Делигирован</th>
-          <th style="width: 86px;">Статус</th>
+          <th style="width: 88px;">Делигирован</th>
+          <th style="width: 88px;">Статус</th>
           <th>Телефоны</th>
           <th>Email-ы</th>
         </tr>
