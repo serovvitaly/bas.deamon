@@ -74,7 +74,7 @@ function _unload(text){
     $('#informer .content').html(text);
 }
 function goPage(page, data_key){
-    //
+    alert(page+' -- '+data_key);
 }
 
 
@@ -124,9 +124,9 @@ $('#atree').dynatree({
                             var pages = '';
                             for(var p = 1; p <= data.pages; p++){
                                 if (p == data.current_page) {
-                                    pages += '<li><a onclick="goPage('+p+', \''+node.data.id+'\'); return false;" href="#">'+p+'</a></li>';
-                                } else {
                                     pages += '<li class="active"><span>'+p+'</span></li>';
+                                } else {
+                                    pages += '<li><a onclick="goPage('+p+', \''+node.data.id+'\'); return false;" href="#">'+p+'</a></li>';
                                 }
                                 
                             }
