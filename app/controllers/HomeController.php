@@ -230,15 +230,6 @@ class HomeController extends BaseController {
         );
         
         
-        for ($year = 2013; $year <= intval(date('Y')); $year++) {
-            $output[] = array(
-                'title'    => "{$year}",
-                'isFolder' => true,
-                'isLazy'   => true,
-                'id'       => "year-{$year}"
-            );
-        }
-        
         if (!empty($root)) {
             $root = explode('-', $root);
             $root_key = isset($root[0]) ? $root[0] : NULL;
