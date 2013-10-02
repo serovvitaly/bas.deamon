@@ -262,6 +262,7 @@ class HomeController extends BaseController {
                             foreach ($sites AS $item) {
                                 
                                 $phones = explode(',', $item->phones);
+                                $phones = array_unique($phones);
                                 if (is_array($phones) AND count($phones) > 0) {
                                     $phones = array_splice($phones, 0, 3);
                                 } else {
@@ -269,6 +270,7 @@ class HomeController extends BaseController {
                                 }
                                 
                                 $emails = explode(',', $item->emails);
+                                $emails = array_unique($emails);
                                 if (is_array($emails) AND count($emails) > 0) {
                                     $emails = array_splice($emails, 0, 3);
                                 } else {
