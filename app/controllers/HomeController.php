@@ -392,8 +392,8 @@ class HomeController extends BaseController {
         }
         
         $headers = array(
-            'Content-Type' => 'application/csv',
-            'Content-Disposition' => 'attachment; filename="sites_export_'.$date.'.csv"',
+            //'Content-Type' => 'application/csv',
+            //'Content-Disposition' => 'attachment; filename="sites_export_'.$date.'.csv"',
         );
         
         return Response::make($out, 200, $headers);
