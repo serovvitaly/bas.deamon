@@ -296,7 +296,7 @@ class HomeController extends BaseController {
                             'total' => $total,
                             'pages' => $pages,
                             'current_page' => $current_page,
-                            'paginate' => $sites->links()
+                            'paginate' => (string) $sites->links()
                         );
                         
                         break;
