@@ -254,7 +254,8 @@ class HomeController extends BaseController {
                         $items = array();
                         $total = $sites->count();
                         $pages = ceil($total / $_take);
-                        $current_page = 1;
+                        $current_page = Input::get('page');
+                        $_GET['page'] = $current_page;
                         
                         $sites = $sites->paginate($_take);
                         
