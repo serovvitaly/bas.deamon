@@ -33,6 +33,14 @@
       .uloader.blue .ufiller{
           background: #B3C9F0;
       }
+      #informer{
+          padding-left: 10px;
+      }
+      #informer .loader{
+          background: url(/packages/dynatree/src/skin/loading.gif) no-repeat center left;
+          padding: 5px 10px;
+          display: none;
+      }
     </style>
     
     <script>

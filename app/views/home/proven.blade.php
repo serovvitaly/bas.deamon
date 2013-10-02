@@ -33,6 +33,10 @@
   
     <div style="margin-bottom: 10px;">
       <a class="btn btn-success" href="/export?from=2013-09-01&to=2013-09-02">Экспорт в CSV</a>
+      <span id="informer">
+        <i class="loader"></i>
+        <span class="content"></span>
+      </span>
     </div>
     
     @include('common.grid', array('items'=>$sites))
@@ -41,6 +45,16 @@
 </div>
 
 <script>
+function _load(text){
+    $('#informer .loader').show();
+    $('#informer .content').html(text);
+}
+function _unload(text){
+    $('#informer .loader').hide();
+    $('#informer .content').html(text);
+}
+
+
 $('#atree').dynatree({
     initAjax: {
         url: 'ajax-tree',
@@ -63,7 +77,7 @@ $('#atree').dynatree({
     onActivate: function(node) {
         var slid = node.data.id.split('-');
         if (slid[0] == 'day'){
-            console.log('AJAX');
+            _load();
             $.ajax({
                 url: '/ajax-tree',
                 data: {
@@ -73,11 +87,9 @@ $('#atree').dynatree({
                 type: 'post',
                 success: function(data){
                     if (data.items && data.items.length > 0) {
-                        console.log('START ITER');
                         var items = '';
                         for (var i = 0; i <= data.items.length; i++) {
                             var site = data.items[i];
-                            console.log(site);
                             if (site) {
                                 items += '<tr>'
                                        + '<td><a href="/checker?uid='+site.uid+'">'+site.url+'</a></td>'
@@ -92,8 +104,10 @@ $('#atree').dynatree({
                             }
                         }
                         
+                        _unload();
+                        
                         $('#main-grid tbody').html(items);
-                    } else console.log('ITER NON');
+                    } else _unload('Нет данных для загрузки');
                 }
             });
         }
