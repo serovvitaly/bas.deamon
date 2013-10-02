@@ -56,20 +56,7 @@
     
     <div class="pagination">
         <ul>
-            <li class="disabled"><span>«</span></li>
-            <li class="active"><span>1</span></li>
-            <li><a href="http://x1.zwrk00.fvds.ru/all?page=2">2</a></li>
-            <li><a href="http://x1.zwrk00.fvds.ru/all?page=3">3</a></li>
-            <li><a href="http://x1.zwrk00.fvds.ru/all?page=4">4</a></li>
-            <li><a href="http://x1.zwrk00.fvds.ru/all?page=5">5</a></li>
-            <li><a href="http://x1.zwrk00.fvds.ru/all?page=6">6</a></li>
-            <li><a href="http://x1.zwrk00.fvds.ru/all?page=7">7</a></li>
-            <li><a href="http://x1.zwrk00.fvds.ru/all?page=8">8</a></li>
-            <li class="disabled"><span>...</span></li>
-            <li><a href="http://x1.zwrk00.fvds.ru/all?page=96409">96409</a></li>
-            <li><a href="http://x1.zwrk00.fvds.ru/all?page=96410">96410</a></li>
-            <li><a href="http://x1.zwrk00.fvds.ru/all?page=2">»</a></li>
-            </ul>
+        </ul>
     </div>
     
     
@@ -143,6 +130,7 @@ $('#atree').dynatree({
                                 }
                                 
                             }
+                            $('.pagination ul').html(pages);
                         }
                         
                         
