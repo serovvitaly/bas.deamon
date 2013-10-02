@@ -43,7 +43,7 @@
       <thead>
         <tr>
           <th>Домен</th>
-          <th>Страницы</th>
+          <th style="width: 88px;">Страницы</th>
           <th style="width: 88px;">Делигирован</th>
           <th style="width: 88px;">Статус</th>
           <th>Телефоны</th>
