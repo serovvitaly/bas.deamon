@@ -245,7 +245,7 @@ class HomeController extends BaseController {
                         $days[] = array(
                             'title'    => "{$day} ({$count})",
                             'isFolder' => false,
-                            'isLazy'   => false,
+                            'isLazy'   => true,
                             'id'       => "day-{$day}.{$tree_month}.{$tree_year}"
                         );
                         
