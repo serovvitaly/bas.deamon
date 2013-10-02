@@ -335,11 +335,11 @@ class HomeController extends BaseController {
                 $month = intval(date('m', strtotime($site->updated_at)));
                 $day   = intval(date('d', strtotime($site->updated_at)));
                 
-                $mix[$year][$month][$day] = NULL;
+                $mix[$year][$month][$day]++;
             }
         }
         
-        var_dump($mix);
+        print_r($mix);
     }
     
     
