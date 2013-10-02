@@ -119,6 +119,10 @@ $('#atree').dynatree({
                         
                         if (data.pages > 0) {
                             $('.links').html(data.paginate);
+                            $('.links a').on('click', function(){
+                                goPage( $(this).html() * 1,  node.data.id);
+                                return false;
+                            });
                         }
                         
                         
