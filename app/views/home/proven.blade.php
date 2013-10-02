@@ -54,10 +54,7 @@
       </tbody>
     </table>
     
-    <div class="pagination">
-        <ul>
-        </ul>
-    </div>
+    <div class="links"></div>
     
     
   </div>
@@ -121,16 +118,7 @@ $('#atree').dynatree({
                         
                         
                         if (data.pages > 0) {
-                            var pages = '';
-                            for(var p = 1; p <= data.pages; p++){
-                                if (p == data.current_page) {
-                                    pages += '<li class="active"><span>'+p+'</span></li>';
-                                } else {
-                                    pages += '<li><a onclick="goPage('+p+', \''+node.data.id+'\'); return false;" href="#">'+p+'</a></li>';
-                                }
-                                
-                            }
-                            $('.pagination ul').html(pages);
+                            $('.links').html(data.paginate);
                         }
                         
                         

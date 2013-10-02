@@ -256,7 +256,7 @@ class HomeController extends BaseController {
                         $pages = ceil($total / $_take);
                         $current_page = 1;
                         
-                        $sites = $sites->take($_take)->get();
+                        $sites = $sites->paginate($_take);
                         
                         if (count($sites) > 0) {
                             foreach ($sites AS $item) {
@@ -296,6 +296,7 @@ class HomeController extends BaseController {
                             'total' => $total,
                             'pages' => $pages,
                             'current_page' => $current_page,
+                            'paginate' => $sites->links()
                         );
                         
                         break;
