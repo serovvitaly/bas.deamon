@@ -378,11 +378,12 @@ class HomeController extends BaseController {
         
         $out = "URL;LINKS;DELEGATED;PHONE-1;PHONE-2;PHONE-3;EMAIL-1;EMAIL-2;EMAIL-3;DATE\n";
         
-        $phones = implode(',', $site->phones);
-        $emails = implode(',', $site->emails);
-        
         if (count($sites) > 0) {
             foreach ($sites AS $site) {
+                
+                $phones = implode(',', $site->phones);
+                $emails = implode(',', $site->emails);
+                
                 $out .= implode(';', array(
                     $site->url,
                     $site->meet_links,
