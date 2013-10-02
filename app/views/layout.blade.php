@@ -41,6 +41,9 @@
           padding: 5px 10px;
           display: none;
       }
+      .cls-small{
+          font-size: 11px;
+      }
     </style>
     
     <script>
