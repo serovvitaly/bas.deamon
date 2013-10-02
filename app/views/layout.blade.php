@@ -44,6 +44,9 @@
       .cls-small{
           font-size: 10px;
       }
+      ul.dynatree-container {
+          border: none;
+      }
     </style>
     
     <script>
