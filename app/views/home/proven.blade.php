@@ -71,7 +71,7 @@ function _unload(text){
     $('#informer .content').html(text);
 }
 function goPage(page, data_key){
-    var slid = node.data.id.split('-');
+    var slid = data_key.split('-');
     if (slid[0] == 'day'){
         _load();
         $('#export-button').attr('href', '#');
