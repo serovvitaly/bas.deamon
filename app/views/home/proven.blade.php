@@ -113,7 +113,8 @@ function goPage(page, data_key){
                     if (data.pages > 0) {
                         $('.links').html(data.paginate);
                         $('.links a').on('click', function(){
-                            goPage( $(this).html() * 1,  data_key);
+                            var toPage = $(this).attr('href').split('=')[1] * 1;
+                            goPage( toPage,  data_key);
                             return false;
                         });
                     }
