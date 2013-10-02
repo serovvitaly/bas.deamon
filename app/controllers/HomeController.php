@@ -236,6 +236,7 @@ class HomeController extends BaseController {
                 $months = array();
                 $year_count = 0;
                 foreach ($tree_months AS $tree_month => $tree_days) {
+                    $m_index = intval($tree_month);
                     if ($tree_month < 10) $tree_month = '0' . $tree_month; 
                     $days = array();
                     $month_count = 0;
@@ -252,7 +253,7 @@ class HomeController extends BaseController {
                     }
                     
                     $months[] = array(
-                        'title'    => $months[ ltrim($tree_month, 0) ] . " ({$month_count})",
+                        'title'    => (isset($months[$m_index]) ? $months[$m_index] : $tree_month) . " ({$month_count})",
                         'isFolder' => false,
                         'isLazy'   => false,
                         'children' => $days
