@@ -71,7 +71,51 @@ function _unload(text){
     $('#informer .content').html(text);
 }
 function goPage(page, data_key){
-    alert(page+' -- '+data_key);
+    $.ajax({
+        url: '/ajax-tree',
+        data: {
+            root: data_key,
+            page: page
+        },
+        dataType: 'json',
+        type: 'post',
+        success: function(data){
+            if (data.items && data.items.length > 0) {
+                var items = '';
+                for (var i = 0; i <= data.items.length; i++) {
+                    var site = data.items[i];
+                    if (site) {
+                        items += '<tr>'
+                               + '<td><a href="/checker?uid='+site.uid+'">'+site.url+'</a></td>'
+                               + '<td>'+site.meet_links+'</td>'
+                               + '<td class="cls-small">'+site.delegated+'</td>'
+                               + '<td>'+site.status+'</td>'
+                               + '<td style="text-align: center;">'+site.phones+'</td>'
+                               + '<td style="text-align: center;">'+site.emails+'</td>'
+                               //+ '<td>'+site.updated_at+'</td> '
+                               //+ '<td>'+site.updated_at+'</td>'
+                             + '</tr>';
+                    }
+                }
+                
+                _unload();
+                $('#export-button').attr('href', '/export?date='+slid[1]);
+                
+                $('#main-grid tbody').html(items);
+                
+                
+                if (data.pages > 0) {
+                    $('.links').html(data.paginate);
+                    $('.links a').on('click', function(){
+                        goPage( $(this).html() * 1,  data_key);
+                        return false;
+                    });
+                }
+                
+                
+            } else _unload('Нет данных для загрузки');
+        }
+    });
 }
 
 
@@ -85,50 +129,7 @@ $('#atree').dynatree({
         if (slid[0] == 'day'){
             _load();
             $('#export-button').attr('href', '#');
-            $.ajax({
-                url: '/ajax-tree',
-                data: {
-                    root: node.data.id
-                },
-                dataType: 'json',
-                type: 'post',
-                success: function(data){
-                    if (data.items && data.items.length > 0) {
-                        var items = '';
-                        for (var i = 0; i <= data.items.length; i++) {
-                            var site = data.items[i];
-                            if (site) {
-                                items += '<tr>'
-                                       + '<td><a href="/checker?uid='+site.uid+'">'+site.url+'</a></td>'
-                                       + '<td>'+site.meet_links+'</td>'
-                                       + '<td class="cls-small">'+site.delegated+'</td>'
-                                       + '<td>'+site.status+'</td>'
-                                       + '<td style="text-align: center;">'+site.phones+'</td>'
-                                       + '<td style="text-align: center;">'+site.emails+'</td>'
-                                       //+ '<td>'+site.updated_at+'</td> '
-                                       //+ '<td>'+site.updated_at+'</td>'
-                                     + '</tr>';
-                            }
-                        }
-                        
-                        _unload();
-                        $('#export-button').attr('href', '/export?date='+slid[1]);
-                        
-                        $('#main-grid tbody').html(items);
-                        
-                        
-                        if (data.pages > 0) {
-                            $('.links').html(data.paginate);
-                            $('.links a').on('click', function(){
-                                goPage( $(this).html() * 1,  node.data.id);
-                                return false;
-                            });
-                        }
-                        
-                        
-                    } else _unload('Нет данных для загрузки');
-                }
-            });
+            goPage( 1,  node.data.id);
         }
     },
     //fx: { height: "toggle", duration: 200 },
