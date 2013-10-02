@@ -230,50 +230,6 @@ class HomeController extends BaseController {
         );
         
         
-        $tree = $this->_getSitesTree();
-        if (count($tree) > 0) {
-            foreach ($tree AS $tree_year => $tree_months) {
-                $months = array();
-                $year_count = 0;
-                foreach ($tree_months AS $tree_month => $tree_days) {
-                    $m_index = intval($tree_month);
-                    if ($tree_month < 10) $tree_month = '0' . $tree_month; 
-                    $days = array();
-                    $month_count = 0;
-                    foreach ($tree_days AS $day => $count) {
-                        if ($day < 10) $day = '0' . $day; 
-                        $days[] = array(
-                            'title'    => "{$day} ({$count})",
-                            'isFolder' => false,
-                            'isLazy'   => false,
-                            'id'       => "day-{$day}.{$tree_month}.{$tree_year}"
-                        );
-                        
-                        $month_count += $count;
-                    }
-                    
-                    $months[] = array(
-                        'title'    => (isset($months_list[$m_index]) ? $months_list[$m_index] : $tree_month) . " ({$month_count})",
-                        'isFolder' => false,
-                        'isLazy'   => false,
-                        'children' => $days
-                    );
-                    
-                    $year_count += $month_count;
-                }
-                
-                $output[] = array(
-                    'title' => $tree_year . " ({$year_count})",
-                    'isFolder' => true,
-                    'isLazy'   => false,
-                    'children' => $months
-                );
-            }
-        }
-        
-        
-        return json_encode($output);
-        
         for ($year = 2013; $year <= intval(date('Y')); $year++) {
             $output[] = array(
                 'title'    => "{$year}",
@@ -288,35 +244,9 @@ class HomeController extends BaseController {
             $root_key = isset($root[0]) ? $root[0] : NULL;
             $root_val = isset($root[1]) ? $root[1] : NULL;
             
-            $parent_id = explode('-', $parent_id);
-            $parent_key = isset($parent_id[0]) ? $parent_id[0] : NULL;
-            $parent_val = isset($parent_id[1]) ? $parent_id[1] : NULL;
-            
             $output = array();
             if (!empty($root_key) AND !empty($root_val)) {
-                switch ($root_key) {
-                    case 'year':
-                        for ($month = 1; $month <= 12; $month++) {
-                            $output[] = array(
-                                'title' => "{$months[$month]}",
-                                'isFolder' => true,
-                                'isLazy' => true,
-                                'id' => "month-{$month}"
-                            );
-                        }
-                        break;
-                        
-                    case 'month':
-                        if ($root_val < 10) $root_val = '0' . $root_val;
-                        for ($day = 1; $day <= intval( date('t', strtotime("{$parent_val}-{$root_val}-01")) ); $day++) {
-                            $output[] = array(
-                                'title' => "{$day}",
-                                'isFolder' => false,
-                                'isLazy' => false,
-                                'id' => "day-{$day}"
-                            );
-                        }
-                        break;
+                switch ($root_key) {                        
                         
                     case 'day':
                     
@@ -360,6 +290,47 @@ class HomeController extends BaseController {
                         
                     default:
                         //
+                }
+            }
+        } else {
+            $tree = $this->_getSitesTree();
+            if (count($tree) > 0) {
+                foreach ($tree AS $tree_year => $tree_months) {
+                    $months = array();
+                    $year_count = 0;
+                    foreach ($tree_months AS $tree_month => $tree_days) {
+                        $m_index = intval($tree_month);
+                        if ($tree_month < 10) $tree_month = '0' . $tree_month; 
+                        $days = array();
+                        $month_count = 0;
+                        foreach ($tree_days AS $day => $count) {
+                            if ($day < 10) $day = '0' . $day; 
+                            $days[] = array(
+                                'title'    => "{$day} ({$count})",
+                                'isFolder' => false,
+                                'isLazy'   => false,
+                                'id'       => "day-{$day}.{$tree_month}.{$tree_year}"
+                            );
+                            
+                            $month_count += $count;
+                        }
+                        
+                        $months[] = array(
+                            'title'    => (isset($months_list[$m_index]) ? $months_list[$m_index] : $tree_month) . " ({$month_count})",
+                            'isFolder' => false,
+                            'isLazy'   => false,
+                            'children' => $days
+                        );
+                        
+                        $year_count += $month_count;
+                    }
+                    
+                    $output[] = array(
+                        'title' => $tree_year . " ({$year_count})",
+                        'isFolder' => true,
+                        'isLazy'   => false,
+                        'children' => $months
+                    );
                 }
             }
         }
