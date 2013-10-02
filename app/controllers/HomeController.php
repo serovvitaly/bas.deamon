@@ -396,7 +396,7 @@ class HomeController extends BaseController {
             }
         }
         
-        Cache::add($_cache_key, $mix, 1);
+        Cache::add($_cache_key, $mix, 60 * 6);
         
         return $mix;
     }
