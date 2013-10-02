@@ -78,10 +78,10 @@ function goPage(page, data_key){
         
    
         $.ajax({
-            url: '/ajax-tree',
+            url: '/ajax-tree?page=' + page,
             data: {
                 root: data_key,
-                page: page
+                //page: page
             },
             dataType: 'json',
             type: 'post',
