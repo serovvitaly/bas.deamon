@@ -61,6 +61,8 @@ $('#atree').dynatree({
         });
     },
     onActivate: function(node) {
+        console.log('onActivate');
+        console.log(node);
         var slid = node.data.id.split('-');
         if (slid[0] == 'day'){
             
