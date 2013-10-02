@@ -89,6 +89,10 @@ function _unload(text){
 
 
 $('#atree').dynatree({
+    initAjax: {
+        url: '/ajax-tree',
+        type: 'post'
+    },
     onActivate: function(node) {
         var slid = node.data.id.split('-');
         if (slid[0] == 'day'){
