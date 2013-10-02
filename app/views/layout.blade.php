@@ -45,7 +45,7 @@
           font-size: 10px;
       }
       ul.dynatree-container {
-          border: none;
+          border: none !important;
       }
     </style>
     
