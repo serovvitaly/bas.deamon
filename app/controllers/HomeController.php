@@ -261,8 +261,19 @@ class HomeController extends BaseController {
                         if (count($sites) > 0) {
                             foreach ($sites AS $item) {
                                 
-                                $phones = array_splice(explode(',', $item->phones), 0, 3);
-                                $emails = array_splice(explode(',', $item->emails), 0, 3);
+                                $phones = explode(',', $item->phones);
+                                if (is_array($phones) AND count($phones) > 0) {
+                                    $phones = array_splice($phones, 0, 3);
+                                } else {
+                                    $phones = array();
+                                }
+                                
+                                $emails = explode(',', $item->emails);
+                                if (is_array($emails) AND count($emails) > 0) {
+                                    $emails = array_splice($emails, 0, 3);
+                                } else {
+                                    $emails = array();
+                                }
                                 
                                 $items[] = array(
                                     'uid' => $item->id,
