@@ -214,7 +214,7 @@ class HomeController extends BaseController {
         
         $output = array();
         
-        $months = array(
+        $months_list = array(
             1  => 'Январь',
             2  => 'Февраль',
             3  => 'Март',
@@ -253,7 +253,7 @@ class HomeController extends BaseController {
                     }
                     
                     $months[] = array(
-                        'title'    => (isset($months[$m_index]) ? $months[$m_index] : $tree_month) . " ({$month_count})",
+                        'title'    => (isset($months_list[$m_index]) ? $months_list[$m_index] : $tree_month) . " ({$month_count})",
                         'isFolder' => false,
                         'isLazy'   => false,
                         'children' => $days
