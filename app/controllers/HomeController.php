@@ -246,7 +246,7 @@ class HomeController extends BaseController {
                         
                         $_take = 50;
                     
-                        $sites = Site::where('status', '>', 1)->where('updated_at', '=', $date);
+                        $sites = Site::where('status', '>', 1)->where('updated_at', '>=', $date.' 00:00:00')->where('updated_at', '<=', $date.' 23:59:59');
                         
                         $items = array();
                         $total = $sites->count();
@@ -338,7 +338,7 @@ class HomeController extends BaseController {
             return Cache::get($_cache_key);
         }
         
-        $sites = Site::groupBy('updated_at')->get(array('updated_at'));
+        $sites = Site::where('status', '>', 1)->groupBy('updated_at')->get(array('updated_at'));
         $mix = array();
         if (count($sites) > 0) {
             foreach ($sites AS $site) {
