@@ -32,7 +32,7 @@
   <div class="span9">
   
     <div style="margin-bottom: 10px;">
-      <a class="btn btn-success" href="/export?from=2013-09-01&to=2013-09-02">Экспорт в CSV</a>
+      <a class="btn btn-success" id="export-button" href="#">Экспорт в CSV</a>
       <span id="informer">
         <i class="loader"></i>
         <span class="content"></span>
@@ -78,6 +78,7 @@ $('#atree').dynatree({
         var slid = node.data.id.split('-');
         if (slid[0] == 'day'){
             _load();
+            $('#export-button').attr('href', '#');
             $.ajax({
                 url: '/ajax-tree',
                 data: {
@@ -105,6 +106,7 @@ $('#atree').dynatree({
                         }
                         
                         _unload();
+                        $('#export-button').attr('href', '/export?date='+slid[1]);
                         
                         $('#main-grid tbody').html(items);
                     } else _unload('Нет данных для загрузки');

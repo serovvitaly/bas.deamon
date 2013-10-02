@@ -272,6 +272,7 @@ class HomeController extends BaseController {
                         
                         $output = array(
                             'items' => $items,
+                            'take'  => $_take,
                             'total' => $total,
                             'pages' => $pages,
                             'current_page' => $current_page,
@@ -369,9 +370,13 @@ class HomeController extends BaseController {
         $from = Input::get('from');
         $to   = Input::get('to');
         
-        $sites = Site::where('status', '>', 1)->where('updated_at', '>', $from)->where('updated_at', '<', $to)->get();
+        $date = Input::get('date');
+        $date = explode('.', $date);
+        $date = "{$date[2]}-{$date[1]}-{$date[0]}";
         
-        $out = '';
+        $sites = Site::where('status', '>', 1)->where('updated_at', '>=', $date.' 00:00:00')->where('updated_at', '<=', $date.' 23:59:59');
+        
+        $out = "URL;LINKS;DELEGATED;PHONES;EMAILS;DATE\n";
         
         if (count($sites) > 0) {
             foreach ($sites AS $site) {
