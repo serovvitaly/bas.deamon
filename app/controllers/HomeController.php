@@ -328,8 +328,18 @@ class HomeController extends BaseController {
     public function getSitesTree()
     {
         $sites = Site::groupBy('updated_at')->get();
+        $mix = array();
+        if (count($sites) > 0) {
+            foreach ($sites AS $site) {
+                $year  = intval(date('Y', strtotime($site->updated_at)));
+                $month = intval(date('m', strtotime($site->updated_at)));
+                $day   = intval(date('d', strtotime($site->updated_at)));
+                
+                $mix[$year][$month][$day] = NULL;
+            }
+        }
         
-        echo count($sites);
+        var_dump($mix);
     }
     
     
