@@ -261,7 +261,7 @@ class HomeController extends BaseController {
                         if (count($sites) > 0) {
                             foreach ($sites AS $item) {
                                 
-                                $phones = explode(',', $item->phones);
+                                $phones = explode(',', strtolower($item->phones));
                                 $phones = array_unique($phones);
                                 if (is_array($phones) AND count($phones) > 0) {
                                     $phones = array_splice($phones, 0, 3);
@@ -269,7 +269,7 @@ class HomeController extends BaseController {
                                     $phones = array();
                                 }
                                 
-                                $emails = explode(',', $item->emails);
+                                $emails = explode(',', strtolower($item->emails));
                                 $emails = array_unique($emails);
                                 if (is_array($emails) AND count($emails) > 0) {
                                     $emails = array_splice($emails, 0, 3);
@@ -398,8 +398,8 @@ class HomeController extends BaseController {
         if (count($sites) > 0) {
             foreach ($sites AS $site) {
                 
-                $phones = array_unique( explode(',', $site->phones) );
-                $emails = array_unique( explode(',', $site->emails) );
+                $phones = array_unique( explode(',', strtolower($site->phones)) );
+                $emails = array_unique( explode(',', strtolower($site->emails)) );
                 
                 $out .= implode(';', array(
                     $site->url,
