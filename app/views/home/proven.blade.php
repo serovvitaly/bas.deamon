@@ -61,22 +61,12 @@ $('#atree').dynatree({
         });
     },
     onActivate: function(node) {
-        console.log('onActivate');
-        console.log(node);
         var slid = node.data.id.split('-');
-        console.log(slid);
         if (slid[0] == 'day'){
-            console.log('AJAX'); 
-            var day   = node.data.id.split('-')[1];
-            var month = node.parent.data.id.split('-')[1];
-            var year  = node.parent.parent.data.id.split('-')[1];
-            if (day < 10)   day   = '0' + day; 
-            if (month < 10) month = '0' + month; 
-            
+            console.log('AJAX');
             $.ajax({
                 url: '/ajax-tree',
                 data: {
-                    //root: 'day-' + day + '.' + month + '.' + year
                     root: node.data.id
                 },
                 dataType: 'json',
