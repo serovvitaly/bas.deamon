@@ -335,7 +335,12 @@ class HomeController extends BaseController {
                 $month = intval(date('m', strtotime($site->updated_at)));
                 $day   = intval(date('d', strtotime($site->updated_at)));
                 
-                $mix[$year][$month][$day]++;
+                if (isset($mix[$year]) AND isset($mix[$year][$month]) AND isset($mix[$year][$month][$day])) {
+                    $mix[$year][$month][$day]++;
+                } else {
+                    $mix[$year][$month][$day] = 1;
+                }
+                
             }
         }
         
