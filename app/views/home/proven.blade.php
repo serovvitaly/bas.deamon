@@ -54,6 +54,24 @@
       </tbody>
     </table>
     
+    <div class="pagination">
+        <ul>
+            <li class="disabled"><span>«</span></li>
+            <li class="active"><span>1</span></li>
+            <li><a href="http://x1.zwrk00.fvds.ru/all?page=2">2</a></li>
+            <li><a href="http://x1.zwrk00.fvds.ru/all?page=3">3</a></li>
+            <li><a href="http://x1.zwrk00.fvds.ru/all?page=4">4</a></li>
+            <li><a href="http://x1.zwrk00.fvds.ru/all?page=5">5</a></li>
+            <li><a href="http://x1.zwrk00.fvds.ru/all?page=6">6</a></li>
+            <li><a href="http://x1.zwrk00.fvds.ru/all?page=7">7</a></li>
+            <li><a href="http://x1.zwrk00.fvds.ru/all?page=8">8</a></li>
+            <li class="disabled"><span>...</span></li>
+            <li><a href="http://x1.zwrk00.fvds.ru/all?page=96409">96409</a></li>
+            <li><a href="http://x1.zwrk00.fvds.ru/all?page=96410">96410</a></li>
+            <li><a href="http://x1.zwrk00.fvds.ru/all?page=2">»</a></li>
+            </ul>
+    </div>
+    
     
   </div>
         
@@ -71,24 +89,6 @@ function _unload(text){
 
 
 $('#atree').dynatree({
-    initAjax: {
-        url: 'ajax-tree',
-        type: 'post'
-    },
-    onLazyRead: function(node){
-        
-        var data = {
-            root: node.data.id,
-            parent_id: node.parent.data.id 
-        };
-        
-        node.appendAjax({
-          url: 'ajax-tree',
-          type: 'post',
-          data: data,
-          debugLazyDelay: 750
-        });
-    },
     onActivate: function(node) {
         var slid = node.data.id.split('-');
         if (slid[0] == 'day'){
