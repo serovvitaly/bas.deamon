@@ -1,6 +1,6 @@
-<div class="btn-group" style="margin-bottom: 10px;">
+<!--div class="btn-group" style="margin-bottom: 10px;">
   <a class="btn" href="<?= isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/meet' ?>"><i class="icon-chevron-left"></i> К списку</a>
-</div>
+</div-->
 
 <div id="alerts">
 <?
