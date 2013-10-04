@@ -88,9 +88,15 @@ function goPage(page, data_key){
             success: function(data){
                 if (data.items && data.items.length > 0) {
                     var items = '';
+                    var markers = [];
                     for (var i = 0; i <= data.items.length; i++) {
                         var site = data.items[i];
                         if (site) {
+                            if (site.marker != '') {
+                                if (markers[site.marker]) markers[site.marker]++;
+                                else markers[site.marker] = 1;
+                            }
+                            
                             items += '<tr>'
                                    + '<td><a href="/checker?uid='+site.uid+'">'+site.url+'</a></td>'
                                    + '<td>'+site.meet_links+'</td>'
@@ -103,6 +109,8 @@ function goPage(page, data_key){
                                  + '</tr>';
                         }
                     }
+                    
+                    console.log('markers', markers);
                     
                     _unload();
                     $('#export-button').attr('href', '/export?date='+slid[1]);

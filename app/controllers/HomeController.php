@@ -261,13 +261,14 @@ class HomeController extends BaseController {
                                 }
                                 
                                 $items[] = array(
-                                    'uid' => $item->id,
-                                    'url' => $item->url,
+                                    'uid'        => $item->id,
+                                    'url'        => $item->url,
+                                    'marker'     => $item->marker,
                                     'meet_links' => $item->meet_links,
-                                    'delegated' => $item->delegated,
-                                    'status' => $item->status,
-                                    'emails' => implode('<br>', $emails),
-                                    'phones' => implode('<br>', $phones),
+                                    'delegated'  => $item->delegated,
+                                    'status'     => $item->status,
+                                    'emails'     => implode('<br>', $emails),
+                                    'phones'     => implode('<br>', $phones),
                                     'updated_at' => $item->updated_at,
                                 );
                             }
