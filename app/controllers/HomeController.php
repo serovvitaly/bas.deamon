@@ -180,7 +180,7 @@ class HomeController extends BaseController {
             }
         }
         
-        //return Redirect::to("/checker?uid={$uid}&url={$next_url}");
+        return Redirect::to("/checker?uid={$uid}&url={$next_url}");
     }
     
     
