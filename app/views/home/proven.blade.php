@@ -109,7 +109,12 @@ function goPage(page, data_key){
                                  + '</tr>';
                         }
                     }
-                    
+                    $('#markers-content').html('');
+                    if (markers.length > 0) {
+                        $.each(markers, function(index, item){
+                            $('#markers-content').append('<a>'+index+' ('+item+')</a>');
+                        })
+                    }
                     console.log('markers', markers);
                     
                     _unload();
