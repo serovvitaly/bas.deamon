@@ -35,7 +35,7 @@
           <td>0</td>
           <td>0</td>
           <td><?= $site['meet_links'] ?></td>
-          <td>э</td>
+          <td><?= $site['marker'] ?></td>
         </tr>
               <?
           }
