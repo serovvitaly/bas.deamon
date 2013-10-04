@@ -86,6 +86,8 @@ class HomeController extends BaseController {
     
     public function getChecker()
     {
+        $_satus = 1;
+        
         $uid = Input::get('uid');
         $url = Input::get('url');
         
@@ -98,7 +100,7 @@ class HomeController extends BaseController {
         
         $next_uid = NULL;
         
-        $sites = $this->_sites(1);
+        $sites = $this->_sites($_satus);
         
         if ($uid > 0 AND ($dm = Site::find($uid))) {
             $dm_url = $dm->url;
@@ -107,8 +109,11 @@ class HomeController extends BaseController {
             $phones = array_unique( explode(',', $dm->phones) );
             $emails = array_unique( explode(',', $dm->emails) );
             
-            $data = json_decode($dm->data);
-            $next_uid++;
+            $data = json_decode($dm->data);            
+            $nexts = Site::where('id', '>', $uid)->where('status', '>', $_satus)->take(1)->get('id');
+            if (count($nexts) > 0) {
+                $next_uid = $nexts[0]['id'];
+            }
         }
         
         if (!$url) $url = $dm_url;
