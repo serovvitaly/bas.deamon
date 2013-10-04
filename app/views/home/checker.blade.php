@@ -60,19 +60,19 @@
         <div class="row-fluid">
           <div class="span4">
             <div>Телефон 1:</div>
-            <input type="text" name="phones[]">
+            <input type="text" name="phones[]" value="<?= isset($phones[0]) ? $phones[0] : '' ?>">
             <div>Телефон 2:</div>
-            <input type="text" name="phones[]">
+            <input type="text" name="phones[]" value="<?= isset($phones[1]) ? $phones[1] : '' ?>">
             <div>Телефон 3:</div>
-            <input type="text" name="phones[]">
+            <input type="text" name="phones[]" value="<?= isset($phones[2]) ? $phones[3] : '' ?>">
           </div>
           <div class="span4">
             <div>Email 1:</div>
-            <input type="text" name="emails[]">
+            <input type="text" name="emails[]" value="<?= isset($emails[0]) ? $emails[0] : '' ?>">
             <div>Email 2:</div>
-            <input type="text" name="emails[]">
+            <input type="text" name="emails[]" value="<?= isset($emails[1]) ? $emails[1] : '' ?>">
             <div>Email 3:</div>
-            <input type="text" name="emails[]">
+            <input type="text" name="emails[]" value="<?= isset($emails[2]) ? $emails[2] : '' ?>">
           </div>
           <div class="span4">
             <ul style="margin: 0; list-style: none;">

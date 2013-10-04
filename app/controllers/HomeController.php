@@ -103,8 +103,8 @@ class HomeController extends BaseController {
             
             $sites = $this->_sites(1);
             
-            $phones = implode("\n", array_unique( explode(',', $dm->phones) ));
-            $emails = implode("\n", array_unique( explode(',', $dm->emails) ));
+            $phones = array_unique( explode(',', $dm->phones) );
+            $emails = array_unique( explode(',', $dm->emails) );
             
             $data = json_decode($dm->data);
             
@@ -122,13 +122,6 @@ class HomeController extends BaseController {
                         $result_emails = (isset($page->result) AND isset($page->result->emails)) ? $page->result->emails : array();
                         $result_phones = (isset($page->result) AND isset($page->result->phones)) ? $page->result->phones : array();
                         
-                        $pages[] = array(
-                            'url'        => $page->url,
-                            'http_code'  => $page->http_code,
-                            //'meet_links' => $page->meet_links,
-                            'emails'     => $result_emails,
-                            'phones'     => $result_phones,
-                        );
                     }
                 }
                 
@@ -149,7 +142,6 @@ class HomeController extends BaseController {
             'url'      => $url,
             'next_url' => $next_url,
             'sites'    => $sites,
-            'pages'    => $pages,
             'phones'   => $phones,
             'emails'   => $emails,
         ));
