@@ -129,7 +129,7 @@ class HomeController extends BaseController {
     public function postSaveData()
     {
         $uid      = Input::get('uid');
-        $next_uid = Input::get('next_url');
+        $next_uid = Input::get('next_uid');
         $marker   = Input::get('marker');
         $phones   = Input::get('phones');
         $emails   = Input::get('emails');
