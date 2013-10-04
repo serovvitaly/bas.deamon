@@ -121,10 +121,11 @@ class HomeController extends BaseController {
                         $result_phones = (isset($page->result) AND isset($page->result->phones)) ? $page->result->phones : array();
                         
                         $pages[] = array(
-                            'url'       => $page->url,
-                            'http_code' => $page->http_code,
-                            'emails'    => $result_emails,
-                            'phones'    => $result_phones,
+                            'url'        => $page->url,
+                            'http_code'  => $page->http_code,
+                            'meet_links' => $page->meet_links,
+                            'emails'     => $result_emails,
+                            'phones'     => $result_phones,
                         );
                     }
                 }
