@@ -37,6 +37,8 @@
         <i class="loader"></i>
         <span class="content"></span>
       </span>
+      <span id="markers-content" style="padding-left: 5px;">
+      </span>
     </div>
     
     <table id="main-grid" class="table table-condensed table-bordered table-striped table-hover">
