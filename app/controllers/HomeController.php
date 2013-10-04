@@ -140,6 +140,7 @@ class HomeController extends BaseController {
         $this->layout->content = View::make('home.checker', array(
             'uid'      => $uid,
             'url'      => $url,
+            'marker'   => $marker,
             'next_url' => $next_url,
             'sites'    => $sites,
             'phones'   => $phones,

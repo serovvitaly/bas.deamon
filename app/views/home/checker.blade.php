@@ -79,8 +79,9 @@
               <?
               $markers = Config::get('bas_markers');
               if (is_array($markers) AND count($markers) > 0) {
-                  foreach ($markers AS $marker) {
-                  ?><li><label><input name="marker" value="<?= $marker ?>" type="radio"> - <?= $marker ?></label></li><?
+                  foreach ($markers AS $m_name) {
+                      $checked = ($marker == $m_name) ? ' checked="checked"' : '';
+                  ?><li><label><input<?= $checked ?> name="marker" value="<?= $m_name ?>" type="radio"> - <?= $m_name ?></label></li><?
                   }
               }
               ?>
