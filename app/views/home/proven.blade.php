@@ -95,6 +95,7 @@ function goPage(page, data_key){
                         var site = data.items[i];
                         if (site) {
                             if (site.marker != '' && site.marker != null) {
+                                site.marker = '"'+site.marker+'"';
                                 if (markers[site.marker]) markers[site.marker]++;
                                 else markers[site.marker] = 1;
                             }
@@ -116,7 +117,7 @@ function goPage(page, data_key){
                         console.log(index, item);
                         $('#markers-content').append('<a href="#" onclick="setMarker(\''+index+'\'); return false;">'+index+' ('+item+')</a>');
                     });
-                    console.log('markers', markers['Первый маркер']);
+                    console.log('markers', markers);
                     
                     _unload();
                     $('#export-button').attr('href', '/export?date='+slid[1]);
