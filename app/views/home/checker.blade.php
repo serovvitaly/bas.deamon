@@ -1,5 +1,5 @@
 <div class="btn-group" style="margin-bottom: 10px;">
-  <a class="btn" href="<?= $_SERVER['HTTP_REFERER'] ?>"><i class="icon-chevron-left"></i> К списку</a>
+  <a class="btn" href="<?= isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/meet' ?>"><i class="icon-chevron-left"></i> К списку</a>
 </div>
 
 <div id="alerts">
