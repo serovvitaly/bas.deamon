@@ -113,10 +113,12 @@ function goPage(page, data_key){
                     }
                     $('#markers-content').html('');
                     if (markers.length > 0) {
+                        console.log('GOOD!!');
                         $.each(markers, function(index, item){
+                            console.log(index, item);
                             $('#markers-content').append('<a href="#" onclick="setMarker(\''+index+'\'); return false;">'+index+' ('+item+')</a>');
                         })
-                    }
+                    } else console.log('no-good');
                     console.log('markers', markers);
                     
                     _unload();
