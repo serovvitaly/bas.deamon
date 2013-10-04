@@ -125,7 +125,7 @@ class HomeController extends BaseController {
                         $pages[] = array(
                             'url'        => $page->url,
                             'http_code'  => $page->http_code,
-                            'meet_links' => $page->meet_links,
+                            //'meet_links' => $page->meet_links,
                             'emails'     => $result_emails,
                             'phones'     => $result_phones,
                         );
