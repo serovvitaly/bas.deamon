@@ -98,11 +98,11 @@ class HomeController extends BaseController {
         
         $next_url = NULL;
         
+        $sites = $this->_sites(1);
+        
         if ($uid > 0) {
             $dm = Site::find($uid);
             $dm_url = $dm->url;
-            
-            $sites = $this->_sites(1);
             
             $marker = $dm->marker;
             
