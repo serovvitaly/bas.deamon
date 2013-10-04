@@ -116,7 +116,7 @@ function goPage(page, data_key){
                         console.log(index, item);
                         $('#markers-content').append('<a href="#" onclick="setMarker(\''+index+'\'); return false;">'+index+' ('+item+')</a>');
                     });
-                    console.log('markers', markers[0]);
+                    console.log('markers', markers['Первый маркер']);
                     
                     _unload();
                     $('#export-button').attr('href', '/export?date='+slid[1]);
