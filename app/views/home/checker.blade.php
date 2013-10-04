@@ -64,7 +64,7 @@
             <div>Телефон 2:</div>
             <input type="text" name="phones[]" value="<?= isset($phones[1]) ? $phones[1] : '' ?>">
             <div>Телефон 3:</div>
-            <input type="text" name="phones[]" value="<?= isset($phones[2]) ? $phones[3] : '' ?>">
+            <input type="text" name="phones[]" value="<?= isset($phones[2]) ? $phones[2] : '' ?>">
           </div>
           <div class="span4">
             <div>Email 1:</div>
