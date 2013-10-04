@@ -94,6 +94,7 @@ class HomeController extends BaseController {
         
         $phones = array();
         $emails = array();
+        $marker = '';
         
         $next_url = NULL;
         
@@ -102,6 +103,8 @@ class HomeController extends BaseController {
             $dm_url = $dm->url;
             
             $sites = $this->_sites(1);
+            
+            $marker = $dm->marker;
             
             $phones = array_unique( explode(',', $dm->phones) );
             $emails = array_unique( explode(',', $dm->emails) );
