@@ -312,6 +312,8 @@ class HomeController extends BaseController {
                             $month_count += $count;
                         }
                         
+                        $days = array_reverse($days);
+                        
                         $months[] = array(
                             'title'    => (isset($months_list[$m_index]) ? $months_list[$m_index] : $tree_month) . " ({$month_count})",
                             'isFolder' => false,
