@@ -92,7 +92,7 @@ function goPage(page, data_key){
                     for (var i = 0; i <= data.items.length; i++) {
                         var site = data.items[i];
                         if (site) {
-                            if (site.marker != '') {
+                            if (site.marker.trim() != '') {
                                 if (markers[site.marker]) markers[site.marker]++;
                                 else markers[site.marker] = 1;
                             }
