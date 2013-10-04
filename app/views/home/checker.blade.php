@@ -12,68 +12,90 @@
 ?>
 </div>
 
-<h4>URL : {{ $url }}</h4>
+<div class="row">
+  <div class="span3">
 
-<table class="table table-condensed table-bordered table-striped table-hover">
-  <thead>
-    <tr>
-      <th>URL</th>
-      <th>Код ответа</th>
-      <th>Телефоны</th>
-      <th>Email-ы</th>
-    </tr>
-  </thead>
-  <tbody>
-  <?
-  if ($pages AND count($pages) > 0) {
-      foreach ($pages AS $page) {
+    <table class="table table-condensed table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th>URL</th>
+          <th>Возраст</th>
+          <th>С.ко</th>
+          <th>Стр.</th>
+          <th>Метка</th>
+        </tr>
+      </thead>
+      <tbody>
+      <?
+      if ($pages AND count($pages) > 0) {
+          foreach ($pages AS $page) {
+              ?>
+        <tr>
+          <td><?= ($url == $page['url']) ? "<strong style='color:red'>{$page['url']}</strong>" : "<a href='/checker?uid={$uid}&url={$page['url']}'>{$page['url']}</a>" ?></td>
+          <td>0</td>
+          <td>0</td>
+          <td><?= $page['meet_links'] ?></td>
+          <td>э</td>
+        </tr>
+              <?
+          }
+      } else {
           ?>
-    <tr>
-      <td><?= ($url == $page['url']) ? "<strong style='color:red'>{$page['url']}</strong>" : "<a href='/checker?uid={$uid}&url={$page['url']}'>{$page['url']}</a>" ?></td>
-      <td><?= $page['http_code'] ?></td>
-      <td><?= implode(',', $page['phones']) ?></td>
-      <td><?= implode(',', $page['emails']) ?></td>
-    </tr>
+        <tr>
+          <td colspan="4" style="text-align: center; color: gray;">Список пуст</td>
+        </tr>
           <?
       }
-  } else {
       ?>
-    <tr>
-      <td colspan="4" style="text-align: center; color: gray;">Список пуст</td>
-    </tr>
-      <?
-  }
-  ?>
-  </tbody>
-</table>
+      </tbody>
+    </table>
+  
+  </div>
+  <div class="span9">
+    <h4>URL : {{ $url }}</h4>
+    
+    <form action="/save-data" method="POST">
+        <input type="hidden" name="uid" value="{{ $uid }}">
+        <input type="hidden" name="next_url" value="{{ $next_url }}">
+        <div class="row-fluid">
+          <div class="span4">
+            <div>Телефон 1:</div>
+            <input type="text" name="phones[]">
+            <div>Телефон 2:</div>
+            <input type="text" name="phones[]">
+            <div>Телефон 3:</div>
+            <input type="text" name="phones[]">
+          </div>
+          <div class="span4">
+            <div>Email 1:</div>
+            <input type="text" name="emails[]">
+            <div>Email 2:</div>
+            <input type="text" name="emails[]">
+            <div>Email 3:</div>
+            <input type="text" name="emails[]">
+          </div>
+          <div class="span4">
+            <ul style="margin: 0; list-style: none;">
+              <li><label><input name="marker" type="radio"> - Мтка 1</label></li>
+              <li><label><input name="marker" type="radio"> - Мтка 2</label></li>
+              <li><label><input name="marker" type="radio"> - Мтка 3</label></li>
+              <li><label><input name="marker" type="radio"> - Мтка 4</label></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row-fluid">
+          <div class="span12">
+            <button class="btn btn-inverse">Сохранить и далее</button>
+          </div>
+        </div>
+    </form>
 
-<form action="/save-data" method="POST">
-    <input type="hidden" name="uid" value="{{ $uid }}">
-    <input type="hidden" name="next_url" value="{{ $next_url }}">
-    <div class="row">
-      <div class="span6">
-        <fieldset>
-          <legend>Телефоны через запятую</legend>
-          <textarea style="width: 98%; height: 120px;" name="phones" cols="" rows=""><?= $phones ?></textarea>
-        </fieldset>
-      </div>
-      <div class="span6">
-        <fieldset>
-          <legend>Email-ы через запятую</legend>
-          <textarea style="width: 98%; height: 120px;" name="emails" cols="" rows=""><?= $emails ?></textarea>
-        </fieldset>
-      </div>
-      <div class="span12">
-        <button class="btn btn-inverse">Сохранить и далее</button>
-      </div>
-    </div>
-</form>
-
-<div>
-  <iframe src="{{ $url }}" id="load-container" style="width: 100%; height: 600px; border: 1px solid #CECECE;" onload="frameLoaded()"></iframe>
+    <div>
+      <iframe src="{{ $url }}" id="load-container" style="width: 100%; height: 600px; border: 1px solid #CECECE;" onload="frameLoaded()"></iframe>
+    </div> 
+    
+  </div>
 </div>
-
-
 
 
 
