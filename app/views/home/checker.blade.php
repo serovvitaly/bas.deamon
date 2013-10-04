@@ -27,14 +27,14 @@
       </thead>
       <tbody>
       <?
-      if ($pages AND count($pages) > 0) {
-          foreach ($pages AS $page) {
+      if ($sites AND count($sites) > 0) {
+          foreach ($sites AS $site) {
               ?>
         <tr>
-          <td><?= ($url == $page['url']) ? "<strong style='color:red'>{$page['url']}</strong>" : "<a href='/checker?uid={$uid}&url={$page['url']}'>{$page['url']}</a>" ?></td>
+          <td><?= ($url == $site['url']) ? "<strong style='color:red'>{$site['url']}</strong>" : "<a href='/checker?uid={$uid}&url={$site['url']}'>{$site['url']}</a>" ?></td>
           <td>0</td>
           <td>0</td>
-          <td><?= $page['meet_links'] ?></td>
+          <td><?= $site['meet_links'] ?></td>
           <td>э</td>
         </tr>
               <?

@@ -101,6 +101,8 @@ class HomeController extends BaseController {
             $dm = Site::find($uid);
             $dm_url = $dm->url;
             
+            $sites = $this->_sites(1);
+            
             $phones = implode("\n", array_unique( explode(',', $dm->phones) ));
             $emails = implode("\n", array_unique( explode(',', $dm->emails) ));
             
@@ -146,6 +148,7 @@ class HomeController extends BaseController {
             'uid'      => $uid,
             'url'      => $url,
             'next_url' => $next_url,
+            'sites'    => $sites,
             'pages'    => $pages,
             'phones'   => $phones,
             'emails'   => $emails,
