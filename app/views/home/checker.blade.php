@@ -56,7 +56,7 @@
     
     <form action="/save-data" method="POST">
         <input type="hidden" name="uid" value="{{ $uid }}">
-        <input type="hidden" name="next_url" value="{{ $next_url }}">
+        <input type="hidden" name="next_uid" value="{{ $next_uid }}">
         <div class="row-fluid">
           <div class="span4">
             <div>Телефон 1:</div>

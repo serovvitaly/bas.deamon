@@ -96,45 +96,19 @@ class HomeController extends BaseController {
         $emails = array();
         $marker = '';
         
-        $next_url = NULL;
+        $next_uid = NULL;
         
         $sites = $this->_sites(1);
         
-        if ($uid > 0) {
-            $dm = Site::find($uid);
+        if ($uid > 0 AND ($dm = Site::find($uid))) {
             $dm_url = $dm->url;
-            
             $marker = $dm->marker;
             
             $phones = array_unique( explode(',', $dm->phones) );
             $emails = array_unique( explode(',', $dm->emails) );
             
             $data = json_decode($dm->data);
-            
-            if (isset($data->result) AND is_array($data->result) AND count($data->result) > 0) {
-                
-                $this_page_key = 0;
-                
-                foreach ($data->result AS $page_key => $page) {
-                    if (isset($page->url)) {
-                        
-                        if ($url AND $url == $page->url) {
-                            $this_page_key = $page_key;
-                        }
-                        
-                        $result_emails = (isset($page->result) AND isset($page->result->emails)) ? $page->result->emails : array();
-                        $result_phones = (isset($page->result) AND isset($page->result->phones)) ? $page->result->phones : array();
-                        
-                    }
-                }
-                
-                if ($this_page_key > 0) {
-                    $next_page_key = $this_page_key + 1;
-                    if (isset($data->result[$next_page_key]) AND isset($data->result[$next_page_key]->url) AND !empty($data->result[$next_page_key]->url)) {
-                        $next_url = $data->result[$next_page_key]->url;
-                    }
-                }
-            }
+            $next_uid++;
         }
         
         if (!$url) $url = $dm_url;
@@ -144,7 +118,7 @@ class HomeController extends BaseController {
             'uid'      => $uid,
             'url'      => $url,
             'marker'   => $marker,
-            'next_url' => $next_url,
+            'next_uid' => $next_uid,
             'sites'    => $sites,
             'phones'   => $phones,
             'emails'   => $emails,
@@ -155,7 +129,7 @@ class HomeController extends BaseController {
     public function postSaveData()
     {
         $uid      = Input::get('uid');
-        $next_url = Input::get('next_url');
+        $next_uid = Input::get('next_url');
         $marker   = Input::get('marker');
         $phones   = Input::get('phones');
         $emails   = Input::get('emails');
@@ -180,7 +154,7 @@ class HomeController extends BaseController {
             }
         }
         
-        return Redirect::to("/checker?uid={$uid}&url={$next_url}");
+        return Redirect::to("/checker?uid={$next_uid}");
     }
     
     
