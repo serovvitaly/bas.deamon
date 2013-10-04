@@ -110,7 +110,7 @@ class HomeController extends BaseController {
             $emails = array_unique( explode(',', $dm->emails) );
             
             $data = json_decode($dm->data);            
-            $nexts = Site::where('id', '>', $uid)->where('status', '>', $_satus)->take(1)->get('id');
+            $nexts = Site::where('id', '>', $uid)->where('status', '>', $_satus)->take(1)->get(array('id'));
             if (count($nexts) > 0) {
                 $next_uid = $nexts[0]['id'];
             }
