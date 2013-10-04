@@ -76,10 +76,14 @@
           </div>
           <div class="span4">
             <ul style="margin: 0; list-style: none;">
-              <li><label><input name="marker" type="radio"> - Мтка 1</label></li>
-              <li><label><input name="marker" type="radio"> - Мтка 2</label></li>
-              <li><label><input name="marker" type="radio"> - Мтка 3</label></li>
-              <li><label><input name="marker" type="radio"> - Мтка 4</label></li>
+              <?
+              $markers = Config::get('bas_markers');
+              if (is_array($markers) AND count($markers) > 0) {
+                  foreach ($markers AS $marker) {
+                  ?><li><label><input name="marker" value="<?= $marker ?>" type="radio"> - <?= $marker ?></label></li><?
+                  }
+              }
+              ?>
             </ul>
           </div>
         </div>
