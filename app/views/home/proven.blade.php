@@ -112,7 +112,7 @@ function goPage(page, data_key){
                     $('#markers-content').html('');
                     if (markers.length > 0) {
                         $.each(markers, function(index, item){
-                            $('#markers-content').append('<a>'+index+' ('+item+')</a>');
+                            $('#markers-content').append('<a href="#" onclick="setMarker(\''+index+'\'); return false;">'+index+' ('+item+')</a>');
                         })
                     }
                     console.log('markers', markers);
