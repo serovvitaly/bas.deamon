@@ -156,6 +156,7 @@ class HomeController extends BaseController {
     {
         $uid      = Input::get('uid');
         $next_url = Input::get('next_url');
+        $marker   = Input::get('marker');
         $phones   = Input::get('phones');
         $emails   = Input::get('emails');
         
@@ -163,21 +164,23 @@ class HomeController extends BaseController {
             $site = Site::find($uid);
             if ($site) {
                 if ($phones) {
-                    $phones = implode(',', array_unique( explode("\n", $phones) ));
+                    $phones = implode(',', array_unique( $phones ));
                     $site->phones = $phones;
                     $site->phones_count = count($phones);
                 }
                 if ($emails) {
-                    $emails = implode(',', array_unique( explode("\n", $emails) ));
+                    $emails = implode(',', array_unique( $emails ));
                     $site->emails = $emails;
                     $site->emails_count = count($emails);
                 }
+                
+                $site->marker = $marker;
                 
                 $site->save();
             }
         }
         
-        return Redirect::to("/checker?uid={$uid}&url={$next_url}");
+        //return Redirect::to("/checker?uid={$uid}&url={$next_url}");
     }
     
     
