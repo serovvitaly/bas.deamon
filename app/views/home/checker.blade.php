@@ -31,7 +31,7 @@
           foreach ($sites AS $site) {
               ?>
         <tr>
-          <td><?= ($url == $site['url']) ? "<strong style='color:red'>{$site['url']}</strong>" : "<a href='/checker?uid={$uid}'>{$site['url']}</a>" ?></td>
+          <td><?= ($url == $site['url']) ? "<strong style='color:red'>{$site['url']}</strong>" : "<a href='/checker?uid={$site['id']}'>{$site['url']}</a>" ?></td>
           <td>0</td>
           <td>0</td>
           <td><?= $site['meet_links'] ?></td>
