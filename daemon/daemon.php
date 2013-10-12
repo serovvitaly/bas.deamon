@@ -145,6 +145,7 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
                     $links = isset($links[1]) ? $links[1] : NULL;
                     
                     if ($links AND is_array($links) AND count($links) > 0) {
+                        $links = array_unique($links);
                         $available_links = array();
                         foreach ($links AS $link) {
                             $link = rtrim($link, '/');
@@ -165,12 +166,13 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
                         
                 } else { // если страница - внутренняя
                     preg_match_all('/([a-zA-Z0-9-_.]+)@([a-z0-9-]+)(\.)([a-z]{2,4})(\.?)([a-z]{0,4})+/', $content, $emails);
-                    preg_match_all('/(8|7|\+7){0,1}[- \\\\(]{0,}([9][0-9]{2})[- \\\\)]{0,}(([0-9]{2}[-]{0,}[0-9]{2}[- ]{0,}[0-9]{3})|([0-9]{3}[- ]{0,}[0-9]{2}[- ]{0,}[0-9]{2})|([0-9]{3}[-]{0,}[0-9]{1}[- ]{0,}[0-9]{3})|([0-9]{2}[- ]{0,}[0-9]{3}[- ]{0,}[0-9]{2}))/', $content, $phones);
-                    
+                    preg_match_all('/((\\\\([0-9]{3}\\\\)[\s]{0,})|((8|7|\+7|\+\s7){0,1}[\s]{0,}[- \\\\(]{0,}([0-9]{3})[- \\\\)]{0,}))(([0-9]{2}[-]{0,}[0-9]{2}[- ]{0,}[0-9]{3})|([0-9]{3}[- ]{0,}[0-9]{2}[- ]{0,}[0-9]{2})|([0-9]{3}[-]{0,}[0-9]{1}[- ]{0,}[0-9]{3})|([0-9]{2}[- ]{0,}[0-9]{3}[- ]{0,}[0-9]{2}))/', strip_tags($content), $phones);
+                                        
                     $elist = array(); // список email
                     $plist = array(); // список телефонов
                     
                     if (is_array($emails) AND isset($emails[0]) AND is_array($emails[0]) AND count($emails[0]) > 0) {
+                        $emails[0] = array_unique($emails[0]);
                         foreach ($emails[0] AS $email) {
                             if (!in_array($email, $elist)) {
                                 $elist[] = trim($email);
@@ -178,6 +180,7 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
                         }
                     }
                     if (is_array($phones) AND isset($phones[0]) AND is_array($phones[0]) AND count($phones[0]) > 0) {
+                        $phones[0] = array_unique($phones[0]);
                         foreach ($phones[0] AS $phone) {
                             if (!in_array($phone, $plist)) {
                                 $plist[] = trim($phone);
