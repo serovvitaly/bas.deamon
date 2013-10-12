@@ -2,6 +2,6 @@
 
 class Site extends Eloquent{
 
-    protected $table = 'sites_list';
+    protected $table = 'final_sites_list';
 
 }
