@@ -32,7 +32,7 @@
               ?>
         <tr>
           <td><?= ($url == $site['url']) ? "<strong style='color:red'>{$site['url']}</strong>" : "<a href='/checker?uid={$site['id']}'>{$site['url']}</a>" ?></td>
-          <td>0</td>
+          <td><?= round( (time() - strtotime($site['domain_created'])) / (3600 * 24 * 365.259636), 1 ) ?> г.</td>
           <td>0</td>
           <td><?= $site['meet_links'] ?></td>
           <td><?= $site['marker'] ?></td>
@@ -49,6 +49,8 @@
       ?>
       </tbody>
     </table>
+    
+    <?php echo $sites->links(); ?>
   
   </div>
   <div class="span9">
