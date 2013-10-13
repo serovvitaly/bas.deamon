@@ -86,11 +86,12 @@
               }
               ?>
             </ul>
+            <button style="margin-top: 10px;" class="btn btn-inverse">Сохранить и далее</button>
           </div>
         </div>
         <div class="row-fluid">
           <div class="span12">
-            <button class="btn btn-inverse">Сохранить и далее</button>
+            
           </div>
         </div>
     </form>
