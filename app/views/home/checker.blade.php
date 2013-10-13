@@ -6,7 +6,7 @@
 </div>
 
 <div class="row">
-  <div class="span3">
+  <div class="span3" style="overflow: auto;">
 
     <table class="table table-condensed table-bordered table-striped table-hover">
       <thead>
@@ -26,7 +26,7 @@
         <tr>
           <td><?= ($url == $site['url']) ? "<strong style='color:red'>{$site['url']}</strong>" : "<a href='/checker?uid={$site['id']}'>{$site['url']}</a>" ?></td>
           <td><?= round( (time() - strtotime($site['domain_created'])) / (3600 * 24 * 365.259636), 1 ) ?> г.</td>
-          <td>0</td>
+          <td><?= ceil((time() - strtotime($site['updated_at'])) / (3600*24)) ?> дн.</td>
           <td><?= $site['meet_links'] ?></td>
           <td><?= $site['marker'] ?></td>
         </tr>
