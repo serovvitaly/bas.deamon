@@ -3,13 +3,6 @@
 </div-->
 
 <div id="alerts">
-<?
-    if (!$url) {
-?>
-  <div class="alert alert-block alert-error fade in"><button type="button" class="close" data-dismiss="alert">×</button><h4 class="alert-heading">Предупреждение</h4><p>Не выбран домен для анализа, перейдите на страницу со списком доменов и нажмите на ссылку с именем домена.</p></div>
-<?
-    }
-?>
 </div>
 
 <div class="row">
