@@ -230,7 +230,7 @@ try{
 
 while ($inworking) {
     error_log("--STEP--");
-    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `updated_at`,`created_at` LIMIT 30 FOR UPDATE");
+    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `created_at` DESC LIMIT 30 FOR UPDATE");
     if ($result AND $result->num_rows > 0) {
         error_log("ITER FOR: {$result->num_rows}");
         while($row = $result->fetch_object()){ 
