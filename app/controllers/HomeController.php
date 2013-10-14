@@ -30,7 +30,7 @@ class HomeController extends BaseController {
             return Site::paginate($take);
         }
         
-        return Site::where('status', '>=', $status)->orderBy('uodated_at DESC')->paginate($take);
+        return Site::where('status', '>=', $status)->orderBy('uodated_at', 'DESC')->paginate($take);
     }
     
     public function getIndex()
