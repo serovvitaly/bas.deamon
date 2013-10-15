@@ -41,7 +41,7 @@ class HomeController extends BaseController {
                     ->groupBy('status')
                     ->get();
         
-        var_dump($counts);
+        print_r($counts);
          
         $this->layout->content = View::make('home.index');
     } 
