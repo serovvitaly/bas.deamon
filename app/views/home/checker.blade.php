@@ -30,7 +30,7 @@
           foreach ($sites AS $site) {
               ?>
         <tr>
-          <td title="<?= $site['url'] ?>"><?= ($url == $site['url']) ? "<strong style='color:red'>{$site['url']}</strong>" : "<a href='/checker?uid={$site['id']}'>{$site['url']}</a>" ?>
+          <td><?= ($url == $site['url']) ? "<strong style='color:red'>{$site['url']}</strong>" : "<a href='/checker?uid={$site['id']}'>{$site['url']}</a>" ?>
             <div class="popoverdzen" style="display: none;">
               <table>
                 <tr>
@@ -48,7 +48,7 @@
               </table>
             </div>
           </td>
-          <td title="<?= $site['marker'] ?>"><?= $site['marker'] ?></td>
+          <td><?= $site['marker'] ?></td>
         </tr>
               <?
           }
