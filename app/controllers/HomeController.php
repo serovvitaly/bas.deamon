@@ -37,6 +37,11 @@ class HomeController extends BaseController {
     {   
         //$counts = DB::query('SELECT `status`, COUNT(id) AS `count` FROM `final_sites_list` GROUP BY `status`');
         
+        $res = DB::table('sites_list')
+               ->select(DB::raw('status, COUNT(id) as count'))
+               ->groupBy('status')
+               ->get();
+               
         $res = DB::table('final_sites_list')
                ->select(DB::raw('status, COUNT(id) as count'))
                ->groupBy('status')
@@ -66,15 +71,36 @@ class HomeController extends BaseController {
         ));
     } 
     
-    public function postGetCount()
+    public function postGetCounts()
     {
-        $status = Input::get('status', 0);
+        $res = DB::table('sites_list')
+               ->select(DB::raw('status, COUNT(id) as count'))
+               ->groupBy('status')
+               ->get();
+               
+        $counts = array(
+            1  => array('status' => 1, 'count' => 0),
+            2  => array('status' => 2, 'count' => 0),
+            3  => array('status' => 3, 'count' => 0),
+            4  => array('status' => 4, 'count' => 0),
+        );
         
-        if ($status > 0) {
-            return Site::all()->count();
-        } else {
-            return Site::where('status', $status)->count();
+        if (is_array($res) AND count($res) > 0) {
+            foreach ($res AS $row) {
+                $counts[$row->status] = array(
+                    'status' => $row->status,
+                    'count'  => $row->count,
+                );
+            }
         }
+        
+        $counts[1]['count'] = $counts[1]['count'] + $counts[2]['count'] + $counts[3]['count'] + $counts[4]['count'];
+        $counts[2]['count'] = $counts[2]['count'] + $counts[3]['count'] + $counts[4]['count'];
+        $counts[3]['count'] = $counts[3]['count'] + $counts[4]['count'];
+        
+        return json_encode(array(
+            'result' => $counts
+        ));
     } 
     
     public function postCheckDaemon()

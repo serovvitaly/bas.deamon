@@ -9,23 +9,23 @@
     <tbody>
       <tr>
         <th>Всего доменов в базе</th>
-        <td>{{ $count_all }}</td>
+        <td class="stat-load" id="data-count-all"><img src="/packages/icons/ajax-loader.gif" alt="загрузка"></td>
       </tr>
       <tr>
         <th>Доменов отвечают</th>
-        <td>{{ $count_1 }}</td>
+        <td class="stat-load" id="data-count-1"><img src="/packages/icons/ajax-loader.gif" alt="загрузка"></td>
       </tr>
       <tr>
         <th>Домены со страницами</th>
-        <td>{{ $count_2 }}</td>
+        <td class="stat-load" id="data-count-2"><img src="/packages/icons/ajax-loader.gif" alt="загрузка"></td>
       </tr>
       <tr>
         <th>Домены с контактами</th>
-        <td>{{ $count_3 }}</td>
+        <td class="stat-load" id="data-count-3"><img src="/packages/icons/ajax-loader.gif" alt="загрузка"></td>
       </tr>
       <tr>
         <th>Проверенные домены</th>
-        <td>{{ $count_4 }}</td>
+        <td class="stat-load" id="data-count-4"><img src="/packages/icons/ajax-loader.gif" alt="загрузка"></td>
       </tr>
     </tbody>
   </table>
@@ -54,4 +54,28 @@ function checkDaemon(){
         }
     });
 }
+function loadCounts(){
+    if (!status) status = 0;
+    
+    $.ajax({
+        url: '/get-counts',
+        dataType: 'json',
+        type: 'POST',
+        data: {status: status},
+        success: function (data){
+            $('td.stat-load').html('нет данных');
+            if (data.result) {
+                $.each(data.result, function(index, item){
+                    $('#data-count-'+item.status).html(item.count);
+                });
+            }
+        },
+        error: function(){                              
+            $('td.stat-load').html('ошибка');
+        }
+    });
+}
+
+loadCounts();
+
 </script>
