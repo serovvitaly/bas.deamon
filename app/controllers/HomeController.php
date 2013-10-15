@@ -37,14 +37,33 @@ class HomeController extends BaseController {
     {   
         //$counts = DB::query('SELECT `status`, COUNT(id) AS `count` FROM `final_sites_list` GROUP BY `status`');
         
-        $counts = DB::table('final_sites_list')
-                    ->select(DB::raw('status, COUNT(id) as count'))
-                    ->groupBy('status')
-                    ->get();
+        $res = DB::table('final_sites_list')
+               ->select(DB::raw('status, COUNT(id) as count'))
+               ->groupBy('status')
+               ->get();
         
-        print_r($counts);
+        $counts = array(
+            1 => 0,
+            2 => 0,
+            3 => 0,
+            4 => 0,
+        );
+        
+        $count_all = 0;
+        
+        if (is_array($res) AND count($res) > 0) {
+            foreach ($res AS $row) {
+                $counts[$row->status] = $row->count;
+            }
+        }
          
-        $this->layout->content = View::make('home.index');
+        $this->layout->content = View::make('home.index', array(
+            'count_1' => $counts[4] + $counts[3] + $counts[2] + $counts[1],
+            'count_2' => $counts[4] + $counts[3] + $counts[2],
+            'count_3' => $counts[4] + $counts[3],
+            'count_4' => $counts[4],
+            'count_all' => $count_all,
+        ));
     } 
     
     public function postGetCount()
