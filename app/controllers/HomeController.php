@@ -86,7 +86,7 @@ class HomeController extends BaseController {
         
         $secs = $delte - $mins * 60;
         
-        return "Демон обращался к базе {$mins} мин. {$secs}сек. назад";
+        return $updated_at . " Демон обращался к базе {$mins} мин. {$secs}сек. назад";
     }
     
     public function getLoad()
