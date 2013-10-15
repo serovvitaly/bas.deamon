@@ -41,7 +41,7 @@
 
 <script>
 function checkDaemon(){
-    $('#deamon-content').html('<img src="/packages/icons/ajax-loader.gif" alt="загрузка">');
+    $('#deamon-content').html('<img src="/packages/icons/ajax-loader.gif" alt="загрузка"> <i>проверка работы демона...</i>');
     $.ajax({
         url: '/check-daemon',
         dataType: 'html',

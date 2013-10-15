@@ -78,11 +78,15 @@ class HomeController extends BaseController {
         
         $row = BaseSite::orderBy('updated_at', 'DESC')->take(1)->get();
         
-        //$last_time = strtotime();
+        $updated_at = $row[0]->updated_at;
         
-        print_r($row[0]->updated_at);
+        $delte = time() - strtotime($updated_at->date);
         
-        return $row[0]->updated_at;
+        $mins = floor($delte / 60);
+        
+        $secs = $delte - $mins * 60;
+        
+        return "Демон обращался к базе {$mins} мин. {$secs}сек. назад";
     }
     
     public function getLoad()
