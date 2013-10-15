@@ -9,23 +9,23 @@
     <tbody>
       <tr>
         <th>Всего доменов в базе</th>
-        <td id="data-all"></td>
+        <td id="data-all"><img src="/icons/ajax-loader.gif" alt="загрузка"></td>
       </tr>
       <tr>
         <th>Доменов отвечают</th>
-        <td id="data-s1"></td>
+        <td id="data-s1"><img src="/icons/ajax-loader.gif" alt="загрузка"></td>
       </tr>
       <tr>
         <th>Домены со страницами</th>
-        <td id="data-s2"></td>
+        <td id="data-s2"><img src="/icons/ajax-loader.gif" alt="загрузка"></td>
       </tr>
       <tr>
         <th>Домены с контактами</th>
-        <td id="data-s3"></td>
+        <td id="data-s3"><img src="/icons/ajax-loader.gif" alt="загрузка"></td>
       </tr>
       <tr>
         <th>Проверенные домены</th>
-        <td id="data-s4"></td>
+        <td id="data-s4"><img src="/icons/ajax-loader.gif" alt="загрузка"></td>
       </tr>
     </tbody>
   </table>
@@ -43,6 +43,9 @@ function getCount(target, status){
         data: {status: status},
         success: function (data){
             $(target).html(data);
+        },
+        error: function(){
+            $(target).html('ошибка');
         }
     });
 }
