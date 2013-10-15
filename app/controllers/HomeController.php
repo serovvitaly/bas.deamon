@@ -86,10 +86,10 @@ class HomeController extends BaseController {
         
         $secs = $delte - $mins * 60;
         
-        if ($delte > 30) {
+        if ($mins >= 30) {
             $color = 'red';
-        } elseif ($delte > 10) {
-            $color = 'brown';
+        } elseif ($mins >= 10 AND $mins < 30) {
+            $mins = 'brown';
         } else {
             $color = 'green';
         }
