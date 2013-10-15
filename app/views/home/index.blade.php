@@ -9,25 +9,48 @@
     <tbody>
       <tr>
         <th>Всего доменов в базе</th>
-        <td>{{ $domains['all'] }}</td>
+        <td id="data-all"></td>
       </tr>
       <tr>
         <th>Доменов отвечают</th>
-        <td>{{ $domains['meet'] }}</td>
+        <td id="data-s1"></td>
       </tr>
       <tr>
         <th>Домены со страницами</th>
-        <td>{{ $domains['pages'] }}</td>
+        <td id="data-s2"></td>
       </tr>
       <tr>
         <th>Домены с контактами</th>
-        <td>{{ $domains['conts'] }}</td>
+        <td id="data-s3"></td>
       </tr>
       <tr>
         <th>Проверенные домены</th>
-        <td>{{ $domains['proven'] }}</td>
+        <td id="data-s4"></td>
       </tr>
     </tbody>
   </table>
   
 </fieldset>
+
+<script>
+function getCount(target, status){
+    if (!status) status = 0;
+    
+    $.ajax({
+        url: '/get-count',
+        dataType: 'html',
+        type: 'POST',
+        data: {status: status},
+        success: function (data){
+            $(target).html(data);
+        }
+    });
+}
+
+getCount('#data-all');
+getCount('#data-s1', 1);
+getCount('#data-s2', 2);
+getCount('#data-s3', 3);
+getCount('#data-s4', 4);
+
+</script>

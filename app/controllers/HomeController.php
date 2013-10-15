@@ -34,19 +34,20 @@ class HomeController extends BaseController {
     }
     
     public function getIndex()
+    {        
+        $this->layout->content = View::make('home.index');
+    } 
+    
+    public function postGetCount()
     {
-        $domains = array(
-            //'all'    => Site::all()->count(),
-            'all'    => Site::all()->count(),
-            //'meet'   => Site::where('status', 1)->count(),
-            'meet'   => Site::where('status', 1)->count(),
-            'pages'  => Site::where('status', 2)->count(),
-            'conts'  => Site::where('status', 3)->count(),
-            'proven' => Site::where('status', 4)->count(),
-        );
+        $status = Input::get('status', 0);
         
-        $this->layout->content = View::make('home.index', array('domains' => $domains));
-    }
+        if ($status > 0) {
+            return Site::all()->count();
+        } else {
+            return Site::where('status', $status)->count();
+        }
+    } 
     
     public function getLoad()
     {
