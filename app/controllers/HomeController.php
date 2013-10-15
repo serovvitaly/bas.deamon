@@ -167,6 +167,7 @@ class HomeController extends BaseController {
         
         if (!$url) $url = $dm_url;
         
+        $this->layout = View::make('layout-fluid');
         
         $this->layout->content = View::make('home.checker', array(
             'uid'      => $uid,

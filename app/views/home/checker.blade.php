@@ -5,8 +5,8 @@
 <div id="alerts">
 </div>
 
-<div class="row">
-  <div class="span3" style="overflow: auto;">
+<div class="row-fluid">
+  <div class="span4" style="overflow: auto;">
 
     <table class="table table-condensed table-bordered table-striped table-hover check-table">
       <thead>
@@ -66,7 +66,7 @@
     <?php echo $sites->links(); ?>
   
   </div>
-  <div class="span9">
+  <div class="span8">
     <h4>URL : {{ $url }}</h4>
     
     <form action="/save-data" method="POST">
