@@ -55,9 +55,11 @@ class HomeController extends BaseController {
         
         $row = BaseSite::orderBy('updated_at', 'DESC')->take(1)->get();
         
-        print_r($row->updated_at);
+        //$last_time = strtotime();
         
-        return $row->updated_at;
+        print_r($row[0]->updated_at);
+        
+        return $row[0]->updated_at;
     }
     
     public function getLoad()
