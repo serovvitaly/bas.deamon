@@ -8,27 +8,47 @@
 <div class="row">
   <div class="span3" style="overflow: auto;">
 
-    <table class="table table-condensed table-bordered table-striped table-hover">
+    <table class="table table-condensed table-bordered table-striped table-hover check-table">
       <thead>
         <tr>
-          <th>URL</th>
-          <th>Возраст</th>
-          <th>С.ко</th>
-          <th>Стр.</th>
-          <th>Метка</th>
+          <th style="width: 200px;">URL</th>
+          <th style="width: 40px;">Метка</th>
         </tr>
       </thead>
       <tbody>
       <?
+      $sites[] = array(
+          'url' => 'ewrqw4ytytryy',
+          'id' => 9,
+          'marker' => 444,
+          'domain_created' => 3333,
+          'updated_at' => 444,
+          'meet_links' => 5555,
+          
+      );
       if ($sites AND count($sites) > 0) {
           foreach ($sites AS $site) {
               ?>
         <tr>
-          <td><?= ($url == $site['url']) ? "<strong style='color:red'>{$site['url']}</strong>" : "<a href='/checker?uid={$site['id']}'>{$site['url']}</a>" ?></td>
-          <td><?= round( (time() - strtotime($site['domain_created'])) / (3600 * 24 * 365.259636), 1 ) ?> г.</td>
-          <td><?= ceil((time() - strtotime($site['updated_at'])) / (3600*24)) ?> дн.</td>
-          <td><?= $site['meet_links'] ?></td>
-          <td><?= $site['marker'] ?></td>
+          <td title="<?= $site['url'] ?>"><?= ($url == $site['url']) ? "<strong style='color:red'>{$site['url']}</strong>" : "<a href='/checker?uid={$site['id']}'>{$site['url']}</a>" ?>
+            <div class="popoverdzen" style="display: none;">
+              <table>
+                <tr>
+                  <td>Возраст домена:</td>
+                  <td><?= round( (time() - strtotime($site['domain_created'])) / (3600 * 24 * 365.259636), 1 ) ?> г.</td>
+                </tr>
+                <tr>
+                  <td>Найдены контакты:</td>
+                  <td><?= ceil((time() - strtotime($site['updated_at'])) / (3600*24)) ?> дн.</td>
+                </tr>
+                <tr>
+                  <td>Страниц найдено:</td>
+                  <td><?= $site['meet_links'] ?></td>
+                </tr>
+              </table>
+            </div>
+          </td>
+          <td title="<?= $site['marker'] ?>"><?= $site['marker'] ?></td>
         </tr>
               <?
           }
@@ -142,4 +162,12 @@ function loadByUrl(){
         }
     });
 }
+
+$('.check-table tr').on('mouseover', function(){
+    $('.check-table .popoverdzen').hide();
+    $(this).find('.popoverdzen').show();
+}).on('mouseout', function(){
+    $(this).find('.popoverdzen').hide();
+});
+
 </script>

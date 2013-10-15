@@ -47,6 +47,18 @@
       ul.dynatree-container {
           border: none !important;
       }
+      .check-table > tbody > tr > td{
+          overflow: hidden;
+      }
+      .popoverdzen{
+          position: absolute;
+          margin: -28px 0 0 209px;
+          border: 1px solid #AAA;
+          background: #FFF;
+          -webkit-box-shadow: 3px 4px 3px rgba(0, 0, 0, 0.23);
+             -moz-box-shadow: 3px 4px 3px rgba(0, 0, 0, 0.23);
+                  box-shadow: 3px 4px 3px rgba(0, 0, 0, 0.23);
+      }
     </style>
     
     <script>
