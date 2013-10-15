@@ -38,7 +38,7 @@ class HomeController extends BaseController {
         //$counts = DB::query('SELECT `status`, COUNT(id) AS `count` FROM `final_sites_list` GROUP BY `status`');
         
         $counts = DB::table('final_sites_list')
-                    ->lists('status', 'COUNT(id)')
+                    ->select(DB::raw('status, COUNT(id) as count'))
                     ->groupBy('status')
                     ->get();
         
