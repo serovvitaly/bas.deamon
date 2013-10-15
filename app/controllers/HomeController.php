@@ -55,9 +55,9 @@ class HomeController extends BaseController {
         
         $row = BaseSite::orderBy('updated_at', 'DESC')->take(1)->get();
         
-        print_r($row);
+        print_r($row->updated_at);
         
-        return $result;
+        return $row->updated_at;
     }
     
     public function getLoad()
