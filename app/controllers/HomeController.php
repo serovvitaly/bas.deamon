@@ -8,7 +8,7 @@ class HomeController extends BaseController {
     
     protected $_store_path = NULL;
     
-    protected $_proven_status  = 1;
+    protected $_proven_status  = 4;
     protected $_proven_compare = '>';
     
     public function __construct()
