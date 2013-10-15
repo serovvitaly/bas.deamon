@@ -9,7 +9,7 @@
     <tbody>
       <tr>
         <th>Всего доменов в базе</th>
-        <td class="stat-load" id="data-count-all"><img src="/packages/icons/ajax-loader.gif" alt="загрузка"></td>
+        <td class="stat-load" id="data-count-0"><img src="/packages/icons/ajax-loader.gif" alt="загрузка"></td>
       </tr>
       <tr>
         <th>Доменов отвечают</th>

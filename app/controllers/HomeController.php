@@ -46,6 +46,7 @@ class HomeController extends BaseController {
                ->get();
                
         $counts = array(
+            0  => array('status' => 0, 'count' => 0),
             1  => array('status' => 1, 'count' => 0),
             2  => array('status' => 2, 'count' => 0),
             3  => array('status' => 3, 'count' => 0),
@@ -61,9 +62,10 @@ class HomeController extends BaseController {
             }
         }
         
-        $counts[1]['count'] = $counts[1]['count'] + $counts[2]['count'] + $counts[3]['count'] + $counts[4]['count'];
-        $counts[2]['count'] = $counts[2]['count'] + $counts[3]['count'] + $counts[4]['count'];
-        $counts[3]['count'] = $counts[3]['count'] + $counts[4]['count'];
+        $counts[0]['count'] = $counts[0]['count'] + $counts[1]['count'] + $counts[2]['count'] + $counts[3]['count'] + $counts[4]['count'];
+        $counts[1]['count'] = $counts[1]['count'] + $counts[2]['count'] + $counts[3]['count'] + $counts[4]['count'] . " ({$counts[1]['count']})";
+        $counts[2]['count'] = $counts[2]['count'] + $counts[3]['count'] + $counts[4]['count'] . " ({$counts[2]['count']})";
+        $counts[3]['count'] = $counts[3]['count'] + $counts[4]['count'] . " ({$counts[3]['count']})";
         
         return json_encode(array(
             'result' => $counts
