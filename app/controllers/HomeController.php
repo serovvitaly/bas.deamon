@@ -34,7 +34,11 @@ class HomeController extends BaseController {
     }
     
     public function getIndex()
-    {        
+    {   
+        $counts = DB::query('SELECT `status`, COUNT(id) AS `count` FROM `final_sites_list` GROUP BY `status`');
+        
+        var_dump($counts);
+         
         $this->layout->content = View::make('home.index');
     } 
     
