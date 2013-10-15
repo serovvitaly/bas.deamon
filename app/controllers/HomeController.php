@@ -78,9 +78,9 @@ class HomeController extends BaseController {
         
         $row = BaseSite::orderBy('updated_at', 'DESC')->take(1)->get();
         
-        $updated_at = $row[0]->updated_at;
+        $updated_at = (string) $row[0]->updated_at;
         
-        $delte = time() - strtotime($updated_at->date);
+        $delte = time() - strtotime($updated_at);
         
         $mins = floor($delte / 60);
         
