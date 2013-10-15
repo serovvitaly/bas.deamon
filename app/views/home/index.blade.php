@@ -32,7 +32,28 @@
   
 </fieldset>
 
+<div>
+  <button class="btn btn-primary" onclick="checkDaemon()">Проверить работу демона</button>
+  <div style="margin: 20px 0;" id="deamon-content">
+  
+  </div>
+</div>
+
 <script>
+function checkDaemon(){
+    $('#deamon-content').html('<img src="/packages/icons/ajax-loader.gif" alt="загрузка">');
+    $.ajax({
+        url: '/check-daemon',
+        dataType: 'html',
+        type: 'POST',
+        success: function (data){
+            $('#deamon-content').html(data);
+        },
+        error: function(){
+            $('#deamon-content').html('ошибка');
+        }
+    });
+}
 function getCount(target, status){
     if (!status) status = 0;
     

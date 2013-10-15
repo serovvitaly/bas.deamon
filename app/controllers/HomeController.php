@@ -49,6 +49,17 @@ class HomeController extends BaseController {
         }
     } 
     
+    public function postCheckDaemon()
+    {
+        $result = 'не удалось проверить демон';
+        
+        $row = BaseSite::obderBy('updated_at', 'DESC')->take(1)->get();
+        
+        print_r($row);
+        
+        return $result;
+    }
+    
     public function getLoad()
     {
         $files = UploadFile::orderBy('created_at', 'DESC')->get();
