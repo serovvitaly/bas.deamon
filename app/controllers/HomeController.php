@@ -86,7 +86,15 @@ class HomeController extends BaseController {
         
         $secs = $delte - $mins * 60;
         
-        return $updated_at . " Демон обращался к базе {$mins} мин. {$secs}сек. назад";
+        if ($delte > 30) {
+            $color = 'red';
+        } elseif ($delte > 10) {
+            $color = 'brown';
+        } else {
+            $color = 'green';
+        }
+        
+        return "<span style='color:{$color}'>Демон обращался к базе {$mins} мин. {$secs}сек. назад</span>";
     }
     
     public function getLoad()
