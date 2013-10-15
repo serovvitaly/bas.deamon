@@ -53,7 +53,7 @@ class HomeController extends BaseController {
     {
         $result = 'не удалось проверить демон';
         
-        $row = BaseSite::obderBy('updated_at', 'DESC')->take(1)->get();
+        $row = BaseSite::orderBy('updated_at', 'DESC')->take(1)->get();
         
         print_r($row);
         

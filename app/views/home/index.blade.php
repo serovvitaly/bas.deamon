@@ -70,11 +70,11 @@ function getCount(target, status){
         }
     });
 }
-
+/*
 getCount('#data-all');
 getCount('#data-s1', 1);
 getCount('#data-s2', 2);
 getCount('#data-s3', 3);
 getCount('#data-s4', 4);
-
+*/
 </script>
