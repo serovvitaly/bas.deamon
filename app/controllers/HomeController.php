@@ -9,7 +9,7 @@ class HomeController extends BaseController {
     protected $_store_path = NULL;
     
     protected $_proven_status  = 4;
-    protected $_proven_compare = '>';
+    protected $_proven_compare = '>=';
     
     public function __construct()
     {
@@ -22,7 +22,7 @@ class HomeController extends BaseController {
         });
     }
     
-    protected function _sites($status = NULL)
+    protected function _sites($status = NULL, $condition = '>=')
     {
         $take = 50;
         
@@ -30,7 +30,7 @@ class HomeController extends BaseController {
             return Site::paginate($take);
         }
         
-        return Site::where('status', '>=', $status)->orderBy('updated_at', 'DESC')->paginate($take);
+        return Site::where('status', $condition, $status)->orderBy('updated_at', 'DESC')->paginate($take);
     }
     
     public function getIndex()
@@ -398,7 +398,7 @@ class HomeController extends BaseController {
         $_cache_key = 'sites_tree';
         
         if (Cache::has($_cache_key) AND $overwrite == false) {
-            //return Cache::get($_cache_key);
+            return Cache::get($_cache_key);
         }
         
         $sites = Site::where('status', $this->_proven_compare, $this->_proven_status)->groupBy('updated_at')->get(array('updated_at'));
