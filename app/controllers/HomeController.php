@@ -398,7 +398,7 @@ class HomeController extends BaseController {
         $_cache_key = 'sites_tree';
         
         if (Cache::has($_cache_key) AND $overwrite == false) {
-            return Cache::get($_cache_key);
+            //return Cache::get($_cache_key);
         }
         
         $sites = Site::where('status', $this->_proven_compare, $this->_proven_status)->groupBy('updated_at')->get(array('updated_at'));
