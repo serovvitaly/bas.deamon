@@ -203,9 +203,12 @@ class HomeController extends BaseController {
                     $site->emails_count = count($emails);
                 }
                 
+                $site->status = 4;
                 $site->marker = $marker;
                 
                 $site->save();
+                
+                $this->_getSitesTree(true);
             }
         }
         
@@ -390,11 +393,11 @@ class HomeController extends BaseController {
     }
     
     
-    protected function _getSitesTree()
+    protected function _getSitesTree($overwrite = false)
     {
         $_cache_key = 'sites_tree';
         
-        if (Cache::has($_cache_key)) {
+        if (Cache::has($_cache_key) AND $overwrite == false) {
             return Cache::get($_cache_key);
         }
         

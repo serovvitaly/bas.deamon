@@ -17,15 +17,6 @@
       </thead>
       <tbody>
       <?
-      $sites[] = array(
-          'url' => 'ewrqw4ytytryy',
-          'id' => 9,
-          'marker' => 444,
-          'domain_created' => 3333,
-          'updated_at' => 444,
-          'meet_links' => 5555,
-          
-      );
       if ($sites AND count($sites) > 0) {
           foreach ($sites AS $site) {
               ?>
