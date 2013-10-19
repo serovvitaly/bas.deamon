@@ -438,7 +438,7 @@ class HomeController extends BaseController {
         
         $sites = Site::where('status', $this->_proven_compare, $this->_proven_status)->where('updated_at', '>=', $date.' 00:00:00')->where('updated_at', '<=', $date.' 23:59:59')->get(array('url','meet_links','delegated','phones','emails','updated_at'));
         
-        $out = "URL;LINKS;DELEGATED;PHONE-1;PHONE-2;PHONE-3;EMAIL-1;EMAIL-2;EMAIL-3;DATE\n";
+        $out = "URL;LINKS;DELEGATED;PHONE-1;PHONE-2;PHONE-3;EMAIL-1;EMAIL-2;EMAIL-3;DATE;MARKER\n";
         
         if (count($sites) > 0) {
             foreach ($sites AS $site) {
@@ -457,6 +457,7 @@ class HomeController extends BaseController {
                     isset($emails[1]) ? $emails[1] : '',
                     isset($emails[2]) ? $emails[2] : '',
                     $site->updated_at,
+                    $site->marker,
                 )) . "\n";
             }
         }
