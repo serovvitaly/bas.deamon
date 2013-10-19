@@ -457,7 +457,7 @@ class HomeController extends BaseController {
                     isset($emails[1]) ? $emails[1] : '',
                     isset($emails[2]) ? $emails[2] : '',
                     $site->updated_at,
-                    $site->marker,
+                    iconv('UTF-8', 'WINDOWS-1251', $site->marker),
                 )) . "\n";
             }
         }
