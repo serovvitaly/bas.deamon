@@ -151,7 +151,7 @@ class HomeController extends BaseController {
         
         $next_uid = NULL;
         
-        $sites = Site::where('status', '>=', $_satus)->where('status', '<', 4)->where('status', 'IN', $filter_status)->orderBy('domain_created', 'DESC')->paginate(50);
+        $sites = Site::where('status', '>=', $_satus)->where('status', '<', 4)->whereIn('status', $filter_status)->orderBy('domain_created', 'DESC')->paginate(50);
         
         if ($uid > 0 AND ($dm = Site::find($uid))) {
             $dm_url = $dm->url;
@@ -161,7 +161,7 @@ class HomeController extends BaseController {
             $emails = array_unique( explode(',', $dm->emails) );
             
             $data = json_decode($dm->data);            
-            $nexts = Site::where('id', '>', $uid)->where('status', '>', $_satus)->where('status', '<', 4)->where('status', 'IN', $filter_status)->orderBy('domain_created', 'DESC')->take(1)->get(array('id'));
+            $nexts = Site::where('id', '>', $uid)->where('status', '>', $_satus)->where('status', '<', 4)->whereIn('status', $filter_status)->orderBy('domain_created', 'DESC')->take(1)->get(array('id'));
             if (count($nexts) > 0) {
                 $next_uid = $nexts[0]['id'];
             }
