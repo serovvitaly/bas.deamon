@@ -469,41 +469,7 @@ class HomeController extends BaseController {
     
     public function getDaemons()
     {
-        ob_start();
-        system("ps -ela");        
-        $system = ob_get_contents();
-        ob_end_clean();
-        
-        $mix = explode(PHP_EOL, trim($system, PHP_EOL));
-        
-        array_walk($mix, function(&$item, $key){
-            $item = explode(' ', $item);
-            array_walk($item, function(&$item, $key){
-                if (empty($item)) return false;
-            });
-        });
-        
-        $remix = array();
-        if (count($mix) > 1) {
-            $head = $mix[0];
-            unset($mix[0]);
-            $body = $mix;
-            foreach ($body AS $item) {
-                if (count($item) > 0) {
-                    $colex = array();
-                    foreach ($item AS $key => $val) {
-                        if (!empty($val) AND isset($head[$key])) {
-                            $colex[ $head[$key] ] = $val;
-                        }
-                    }
-                    $remix[] = $colex;
-                }
-            }
-        }        
-        $mix = $remix;
-        
-        
-        $this->layout->content = View::make('home.daemons', array('mix' => $mix));
+        $this->layout->content = View::make('home.daemons');
     }
     
     
