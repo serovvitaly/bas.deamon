@@ -30,7 +30,7 @@ class HomeController extends BaseController {
             return Site::paginate($take);
         }
         
-        return Site::where('status', $condition, $status)->orderBy('updated_at', 'DESC')->paginate($take);
+        return Site::where('status', $condition, $status)->orderBy('domain_created', 'DESC')->paginate($take);
     }
     
     public function getIndex()
@@ -140,6 +140,8 @@ class HomeController extends BaseController {
         $uid = Input::get('uid');
         $url = Input::get('url');
         
+        $filter_status = Input::get('filter_status', array(1,2,3));
+        
         $dm_url = NULL;
         $pages  = NULL;
         
@@ -149,7 +151,7 @@ class HomeController extends BaseController {
         
         $next_uid = NULL;
         
-        $sites = $this->_sites($_satus);
+        $sites = Site::where('status', '>=', $_satus)->where('status', '<', 4)->where('status', 'IN', $filter_status)->orderBy('domain_created', 'DESC')->paginate(50);
         
         if ($uid > 0 AND ($dm = Site::find($uid))) {
             $dm_url = $dm->url;
@@ -159,7 +161,7 @@ class HomeController extends BaseController {
             $emails = array_unique( explode(',', $dm->emails) );
             
             $data = json_decode($dm->data);            
-            $nexts = Site::where('id', '>', $uid)->where('status', '>', $_satus)->take(1)->get(array('id'));
+            $nexts = Site::where('id', '>', $uid)->where('status', '>', $_satus)->where('status', '<', 4)->where('status', 'IN', $filter_status)->orderBy('domain_created', 'DESC')->take(1)->get(array('id'));
             if (count($nexts) > 0) {
                 $next_uid = $nexts[0]['id'];
             }
@@ -177,6 +179,7 @@ class HomeController extends BaseController {
             'sites'    => $sites,
             'phones'   => $phones,
             'emails'   => $emails,
+            'filter_status'   => $filter_status,
         ));
     }
     

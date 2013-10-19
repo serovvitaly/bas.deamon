@@ -8,6 +8,19 @@
 <div class="row-fluid">
   <div class="span4" style="overflow: auto;">
 
+    <div class="statuses-filter">
+      <form action="" method="GET">
+        <label style="display: inline-block; padding-right: 15px;"><input<?= in_array(1, $filter_status) ? ' checked="checked"' : '' ?> type="checkbox" name="filter_status[]" value="1"> - отвечают</label>
+        <label style="display: inline-block; padding-right: 15px;"><input<?= in_array(2, $filter_status) ? ' checked="checked"' : '' ?> type="checkbox" name="filter_status[]" value="2"> - есть страницы</label>
+        <label style="display: inline-block; padding-right: 15px;"><input<?= in_array(3, $filter_status) ? ' checked="checked"' : '' ?> type="checkbox" name="filter_status[]" value="3"> - есть контакты</label>
+      </form>
+    </div>
+    <script>
+      $('.statuses-filter input').change(function(){
+          $('.statuses-filter form').submit();
+      });
+    </script>
+  
     <table class="table table-condensed table-bordered table-striped table-hover check-table">
       <thead>
         <tr>
