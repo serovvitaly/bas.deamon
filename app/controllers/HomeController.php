@@ -500,7 +500,7 @@ class HomeController extends BaseController {
     
     public function postStartDaemon()
     {
-        $token = '';
+        $token = '3246346257yterrtt3466rehjg45hdhkjg46557uvgmgtt4t56ygh67u46';
         
         file_get_contents("http://zwrk006.fvds.ru/control.php?token={$token}&action=run");
         
