@@ -500,13 +500,9 @@ class HomeController extends BaseController {
     
     public function postStartDaemon()
     {
-        $root_path = dirname($_SERVER['DOCUMENT_ROOT']);
-        $daemon_path = $root_path . '/daemon/daemon.php';
-        $daemon_log_path = $root_path . '/daemon/logs/daemon.log';
+        $token = '';
         
-        $command = "/usr/bin/php -f {$daemon_path} > {$daemon_log_path} &";
-        
-        exec($command);
+        file_get_contents("http://zwrk006.fvds.ru/control.php?token={$token}&action=run");
         
         return json_encode(array(
             'success' => true
