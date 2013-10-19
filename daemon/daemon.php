@@ -166,7 +166,8 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
                         
                 } else { // если страница - внутренняя
                     preg_match_all('/([a-zA-Z0-9-_.]+)@([a-z0-9-]+)(\.)([a-z]{2,4})(\.?)([a-z]{0,4})+/', $content, $emails);
-                    preg_match_all('/((\\\\((8|7|+7|+\s7){0,1}(9){1}[0-9]{1}\\\\)[\s]{0,})|((8|7|\+7|\+\s7){0,1}[\s]{0,}[- \\\\(]{0,}([0-9]{3})[- \\\\)]{0,}))(([0-9]{2}[-]{0,}[0-9]{2}[- ]{0,}[0-9]{3})|([0-9]{3}[- ]{0,}[0-9]{2}[- ]{0,}[0-9]{2})|([0-9]{3}[-]{0,}[0-9]{1}[- ]{0,}[0-9]{3})|([0-9]{2}[- ]{0,}[0-9]{3}[- ]{0,}[0-9]{2}))/', strip_tags($content), $phones);
+                    //preg_match_all('/((\\\\((8|7|\+7|+\s7){0,1}(9){1}[0-9]{1}\\\\)[\s]{0,})|((8|7|\+7|\+\s7){0,1}[\s]{0,}[- \\\\(]{0,}([0-9]{3})[- \\\\)]{0,}))(([0-9]{2}[-]{0,}[0-9]{2}[- ]{0,}[0-9]{3})|([0-9]{3}[- ]{0,}[0-9]{2}[- ]{0,}[0-9]{2})|([0-9]{3}[-]{0,}[0-9]{1}[- ]{0,}[0-9]{3})|([0-9]{2}[- ]{0,}[0-9]{3}[- ]{0,}[0-9]{2}))/', strip_tags($content), $phones);
+                    preg_match_all('/((\\\\((8|7|\+7|\+\s7){0,1}(9){1}[0-9]{1}\\\\)[\s]{0,})|((8|7|\+7|\+\s7){0,1}[\s]{0,}[- \\\\(]{0,}([0-9]{3,4})[- \\\\)]{0,}))[0-9-]{6,}[0-9]{1}/', strip_tags($content), $phones);
                                         
                     $elist = array(); // список email
                     $plist = array(); // список телефонов
@@ -230,7 +231,8 @@ try{
 
 while ($inworking) {
     error_log("--STEP--");
-    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `created_at` DESC LIMIT 30 FOR UPDATE");
+    $db = new mysqli($cfg['host'], $cfg['username'], $cfg['password'], $cfg['database']);
+    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `created_at` DESC LIMIT 20 FOR UPDATE");
     if ($result AND $result->num_rows > 0) {
         error_log("ITER FOR: {$result->num_rows}");
         while($row = $result->fetch_object()){ 
@@ -302,6 +304,7 @@ while ($inworking) {
         }
     }
     
+    $db->close();
     //$inworking = false;
 }
 
