@@ -173,7 +173,6 @@ class HomeController extends BaseController {
                                 $result[] = $mm;
                             }
                         }
-                        $result .= $matches1[0];
                     }
                     if (isset($matches2[0]) AND count($matches2[0]) > 0) {
                         foreach ($matches2[0] AS $mm) {
@@ -181,7 +180,6 @@ class HomeController extends BaseController {
                                 $result[] = $mm;
                             }
                         }
-                        $result .= $matches2[0];
                     }
                     
                     $out['result'] = $result;
