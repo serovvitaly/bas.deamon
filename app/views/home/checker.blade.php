@@ -137,7 +137,7 @@ function checkPhones(){
     
     $.ajax({
         url: $('#load-container').attr('src'),
-        //dataType: 'jsonp',
+        dataType: 'jsonp',
         type: 'GET',
         success: function(html){
             var result = puttern.exec( html );
