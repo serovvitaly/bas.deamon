@@ -84,7 +84,8 @@
             <input type="text" name="phones[]" value="<?= isset($phones[1]) ? $phones[1] : '' ?>">
             <div>Телефон 3:</div>
             <input type="text" name="phones[]" value="<?= isset($phones[2]) ? $phones[2] : '' ?>">
-            <a class="btn" href="#" onclick="checkPhones(); return false;">Проверить</a>
+            <br>
+            <a class="btn btn-success" href="#" onclick="checkPhones(); return false;">Проверить</a>
             <div id="check-phones-content"></div>
           </div>
           <div class="span4">
@@ -94,7 +95,8 @@
             <input type="text" name="emails[]" value="<?= isset($emails[1]) ? $emails[1] : '' ?>">
             <div>Email 3:</div>
             <input type="text" name="emails[]" value="<?= isset($emails[2]) ? $emails[2] : '' ?>">
-            <a class="btn" href="#" onclick="checkEmails(); return false;">Проверить</a>
+            <br>
+            <a class="btn btn-success" href="#" onclick="checkEmails(); return false;">Проверить</a>
             <div id="check-emails-content"></div>
           </div>
           <div class="span4">
