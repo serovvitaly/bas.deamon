@@ -25,7 +25,7 @@ $STDERR = fopen($baseDir.'/logs/daemon.log', 'ab');
 $config_file = $root_path . '/app/config/database.php';
 if (!file_exists($config_file)) {
     $cfg = array(
-        'host'      => 'localhost',
+        'host'      => 'https://62.109.16.3',
         'database'  => 'test',
         'username'  => 'root',
         'password'  => 'Sy9YGKbG',
