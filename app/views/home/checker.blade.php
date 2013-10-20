@@ -144,11 +144,12 @@ function checkPhones(){
         },
         success: function(html){
             var result = puttern.exec( html );
-            var lines = '';
-            for (var i = 0; i < result.length; i++) {
-                lines += '<p>'+result[i]+'</p>';
-            }
-            if (lines.replace(' ','') != '') {
+            console.log(result);
+            if (result.length > 0) {
+                var lines = '';
+                for (var i = 0; i < result.length; i++) {
+                    lines += '<p>'+result[i]+'</p>';
+                }
                 $('#check-phones-content').html(lines);
             } else {
                 $('#check-phones-content').html('ничего не найдено');
