@@ -34,7 +34,7 @@
           foreach ($sites AS $site) {
               ?>
         <tr>
-          <td><?= ($url == $site['url']) ? "<strong style='color:red'>{$site['url']}</strong>" : "<a href='/checker?uid={$site['id']}'>{$site['url']}</a>" ?>
+          <td><?= ($url == $site['url']) ? "<strong style='color:red'>{$site['url']}</strong>" : "<a href='/checker?uid={$site['id']}&".implode('&', $filter_status)."'>{$site['url']}</a>" ?>
             <div class="popoverdzen" style="display: none;">
               <table>
                 <tr>
@@ -137,7 +137,7 @@ function checkPhones(){
     
     $.ajax({
         url: $('#load-container').attr('src'),
-        dataType: 'html',
+        //dataType: 'jsonp',
         type: 'GET',
         success: function(html){
             var result = puttern.exec( html );
