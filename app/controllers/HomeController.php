@@ -153,6 +153,8 @@ class HomeController extends BaseController {
         
         $sites = Site::where('status', '>=', $_satus)->where('status', '<', 4)->whereIn('status', $filter_status)->orderBy('domain_created', 'DESC')->paginate(50);
         
+        $sites->setBaseUrl('hello/world');
+        
         if ($uid > 0 AND ($dm = Site::find($uid))) {
             $dm_url = $dm->url;
             $marker = $dm->marker;
