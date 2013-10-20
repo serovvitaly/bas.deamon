@@ -248,10 +248,12 @@ while ($inworking) {
         //error_log("ITER FOR: {$result->num_rows}");
         $cmh = curl_multi_init();
         $tasks = array();
+        $idses = array();
         while($row = $result->fetch_object()){
             $ch = curl_init($row->url);
             curl_setopt_array($ch, $curl_opts);
             $tasks[$row->url] = $ch;
+            $idses[$row->url] = $row->id;
             curl_multi_add_handle($cmh, $ch);
             error_log("ADD URL: {$row->url}");
         }
@@ -332,7 +334,7 @@ while ($inworking) {
                              . "`data`='".@json_encode($output)."',"
                              . "`updated_at`='".date('Y-m-d H:i:s')."',"
                              . "`status`='{$status}'"
-                             . " WHERE `id`={$row->id}";
+                             . " WHERE `id`=" . $idses[$url];
                         
                         $re = $db->query($sql);
                         // ==============================================================
