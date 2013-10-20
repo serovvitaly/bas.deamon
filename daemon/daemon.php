@@ -251,7 +251,7 @@ while ($inworking) {
         while($row = $result->fetch_object()){
             $ch = curl_init($row->url);
             curl_setopt_array($ch, $curl_opts);
-            $tasks[$url] = $ch;
+            $tasks[$row->url] = $ch;
             curl_multi_add_handle($cmh, $ch);
             error_log("ADD URL: {$row->url}");
         }
