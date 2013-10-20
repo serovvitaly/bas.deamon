@@ -144,10 +144,10 @@ function checkPhones(){
         },
         success: function(data){
             console.log(data);
-            if (result !== null && result.length > 0) {
+            if (data.result !== null && data.result.length > 0) {
                 var lines = '';
-                for (var i = 0; i < result.length; i++) {
-                    lines += '<p>'+result[i]+'</p>';
+                for (var i = 0; i < data.result.length; i++) {
+                    lines += '<p>'+data.result[i]+'</p>';
                 }
                 $('#check-phones-content').html(lines);
             } else {
@@ -168,10 +168,10 @@ function checkEmails(){
         },
         success: function(data){
             //console.log(data);
-            if (result !== null && result.length > 0) {
+            if (data.result !== null && data.result.length > 0) {
                 var lines = '';
-                for (var i = 0; i < result.length; i++) {
-                    lines += '<p>'+result[i]+'</p>';
+                for (var i = 0; i < data.result.length; i++) {
+                    lines += '<p>'+data.result[i]+'</p>';
                 }
                 $('#check-emails-content').html(lines);
             } else {
