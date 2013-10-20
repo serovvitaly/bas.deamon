@@ -89,7 +89,7 @@ class HomeController extends BaseController {
         if ($mins >= 30) {
             $color = 'red';
         } elseif ($mins >= 10 AND $mins < 30) {
-            $mins = 'brown';
+            $color = 'brown';
         } else {
             $color = 'green';
         }
