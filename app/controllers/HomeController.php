@@ -167,11 +167,21 @@ class HomeController extends BaseController {
                     
                     $result = array();
                     
-                    if (isset($matches1[0])) {
+                    if (isset($matches1[0]) AND count($matches1[0]) > 0) {
+                        foreach ($matches1[0] AS $mm) {
+                            if (!empty($mm)) {
+                                $result[] = $mm;
+                            }
+                        }
                         $result .= $matches1[0];
                     }
-                    if (isset($matches2[0])) {
-                         $result .= $matches2[0];
+                    if (isset($matches2[0]) AND count($matches2[0]) > 0) {
+                        foreach ($matches2[0] AS $mm) {
+                            if (!empty($mm)) {
+                                $result[] = $mm;
+                            }
+                        }
+                        $result .= $matches2[0];
                     }
                     
                     $out['result'] = $result;
