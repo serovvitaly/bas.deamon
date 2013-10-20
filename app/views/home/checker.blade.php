@@ -143,7 +143,7 @@ function checkPhones(){
             type: 'phone'
         },
         success: function(data){
-            console.log(data); return;
+            console.log(data);
             if (result !== null && result.length > 0) {
                 var lines = '';
                 for (var i = 0; i < result.length; i++) {
@@ -167,7 +167,7 @@ function checkEmails(){
             type: 'email'
         },
         success: function(data){
-            console.log(data); return;
+            //console.log(data);
             if (result !== null && result.length > 0) {
                 var lines = '';
                 for (var i = 0; i < result.length; i++) {
