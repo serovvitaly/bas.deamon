@@ -347,7 +347,7 @@ while ($inworking) {
     }
     
     $db->close();
-    //$inworking = false;
+    $inworking = false;
 }
 
 
