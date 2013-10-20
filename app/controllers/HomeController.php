@@ -161,7 +161,10 @@ class HomeController extends BaseController {
                     
                     preg_match_all($pattern, $content, $matches);
                     
-                    $out['result'] = $matches;
+                    if (isset($matches[0])) {
+                        $out['result'] = $matches[0];
+                    }
+                    
                 }
             }
             
