@@ -178,7 +178,8 @@ function one_query($mix, $is_redirect = false, $is_home = true) {
                         
                 } else { // если страница - внутренняя
                     preg_match_all('/([a-zA-Z0-9-_.]{1,})@([a-z0-9-]{1,}\.[a-z]{2,4}\.?[a-z]{0,4})/', $content, $emails);
-                    preg_match_all('/((\\\\((8|7|\+7|\+\s7){0,1}(9){1}[0-9]{1}\\\\)[\s]{0,})|((8|7|\+7|\+\s7){0,1}[\s]{0,}[- \\\\(]{0,}([0-9]{3,4})[- \\\\)]{0,}))[0-9]{1,3}(-){0,}[0-9]{2}(-)[0-9]{2}/', strip_tags($content), $phones);
+                    preg_match_all('/((\\\\((8|7|\+7|\+\s7){0,1}(9){1}[0-9]{1}\\\\)[\s]{0,})|((8|7|\+7|\+\s7){0,1}[\s]{0,}[- \\\\(]{0,}([0-9]{3,4})[- \\\\)]{0,}))[0-9]{1,3}(-){0,}[0-9]{2}(-)[0-9]{2}/', $content, $phones);
+                    preg_match_all('/((\\\\((8|7|\+7|\+\s7){0,1}(9){1}[0-9]{1}\\\\)[\s]{0,})|((8|7|\+7|\+\s7){0,1}[\s]{0,}[- \\\\(]{0,}([0-9]{3,4})[- \\\\)]{0,}))[0-9]{1,3}(-){0,}[0-9]{2}(-)[0-9]{2}/', strip_tags($content), $phones1);
                                         
                     $elist = array(); // список email
                     $plist = array(); // список телефонов
@@ -194,6 +195,14 @@ function one_query($mix, $is_redirect = false, $is_home = true) {
                     if (is_array($phones) AND isset($phones[0]) AND is_array($phones[0]) AND count($phones[0]) > 0) {
                         $phones[0] = array_unique($phones[0]);
                         foreach ($phones[0] AS $phone) {
+                            if (!in_array($phone, $plist)) {
+                                $plist[] = trim($phone);
+                            }
+                        }
+                    }
+                    if (is_array($phones1) AND isset($phones1[0]) AND is_array($phones1[0]) AND count($phones1[0]) > 0) {
+                        $phones1[0] = array_unique($phones1[0]);
+                        foreach ($phones1[0] AS $phone) {
                             if (!in_array($phone, $plist)) {
                                 $plist[] = trim($phone);
                             }
