@@ -163,6 +163,7 @@ class HomeController extends BaseController {
                     
                     if (isset($matches[0])) {
                         $out['result'] = $matches[0];
+                        $out['data'] = $matches;
                     }
                     
                 }
