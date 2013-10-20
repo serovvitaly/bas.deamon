@@ -133,7 +133,7 @@
 
 <script>
 function checkPhones(){
-    var puttern = /rt/;
+    var puttern = /((\\\\((8|7|\+7|\+\s7){0,1}(9){1}[0-9]{1}\\\\)[\s]{0,})|((8|7|\+7|\+\s7){0,1}[\s]{0,}[- \\\\(]{0,}([0-9]{3,4})[- \\\\)]{0,}))[0-9-]{6,}[0-9]{1}/;
     
     $.ajax({
         url: $('#load-container').attr('src'),
@@ -146,7 +146,7 @@ function checkPhones(){
     });
 }
 function checkEmails(){
-    var puttern = /rt/;
+    var puttern = /([a-zA-Z0-9-_.]+)@([a-z0-9-]+)(\.)([a-z]{2,4})(\.?)([a-z]{0,4})+/;
 }
 function checkContacts(){
     
