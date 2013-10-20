@@ -252,7 +252,7 @@ while ($inworking) {
     //error_log("--STEP--");
     $db = new mysqli($cfg['host'], $cfg['username'], $cfg['password'], $cfg['database']);
     $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `domain_created` DESC LIMIT 200 FOR UPDATE");
-    error_log("ITER FOR: {$result->num_rows}");
+    //error_log("ITER FOR: {$result->num_rows}");
     if ($result AND $result->num_rows > 0) {
         //error_log("ITER FOR: {$result->num_rows}");
         $cmh = curl_multi_init();
@@ -264,7 +264,7 @@ while ($inworking) {
             $tasks[$row->url] = $ch;
             $idses[$row->url] = $row->id;
             curl_multi_add_handle($cmh, $ch);
-            error_log("ADD URL: {$row->url}");
+            //error_log("ADD URL: {$row->url}");
         }
         
         $active = null;
@@ -285,7 +285,7 @@ while ($inworking) {
                         // ==============================================================
                         // ==============================================================
                         $start_time = time();
-                        error_log("content::ok");
+                        //error_log("content::ok");
                         $output = one_query(array(
                           'url'     => $url,
                           'content' => $content,
