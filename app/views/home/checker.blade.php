@@ -146,7 +146,7 @@ function checkPhones(){
     });
 }
 function checkEmails(){
-    //
+    var puttern = /rt/;
 }
 function checkContacts(){
     
