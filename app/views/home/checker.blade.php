@@ -133,19 +133,17 @@
 
 <script>
 function checkPhones(){
-    var puttern = /((\\\\((8|7|\+7|\+\s7){0,1}(9){1}[0-9]{1}\\\\)[\s]{0,})|((8|7|\+7|\+\s7){0,1}[\s]{0,}[- \\\\(]{0,}([0-9]{3,4})[- \\\\)]{0,}))[0-9]{2,3}(-){0,}[0-9]{2}(-)[0-9]{2}/;
     $('#check-phones-content').html('<i>выполнение операции...</i>');
     $.ajax({
         url: '/load-url-content',
-        dataType: 'html',
+        dataType: 'json',
         type: 'POST',
         data: {
             url: $('#load-container').attr('src'),
             type: 'phone'
         },
-        success: function(html){
-            var result = puttern.exec( html );
-            console.log(result);
+        success: function(data){
+            console.log(data); return;
             if (result !== null && result.length > 0) {
                 var lines = '';
                 for (var i = 0; i < result.length; i++) {
@@ -159,19 +157,17 @@ function checkPhones(){
     });
 }
 function checkEmails(){
-    var puttern = /([a-zA-Z0-9-_.]{1,}@[a-z0-9-]{1,}\.[a-z]{2,4}\.?[a-z]{0,4})/;
     $('#check-emails-content').html('<i>выполнение операции...</i>');
     $.ajax({
         url: '/load-url-content',
-        dataType: 'html',
+        dataType: 'json',
         type: 'POST',
         data: {
             url: $('#load-container').attr('src'),
             type: 'email'
         },
-        success: function(html){
-            var result = puttern.exec( html );
-            console.log(result);
+        success: function(data){
+            console.log(data); return;
             if (result !== null && result.length > 0) {
                 var lines = '';
                 for (var i = 0; i < result.length; i++) {
