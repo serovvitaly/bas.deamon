@@ -136,13 +136,15 @@ function checkPhones(){
     var puttern = /((\\\\((8|7|\+7|\+\s7){0,1}(9){1}[0-9]{1}\\\\)[\s]{0,})|((8|7|\+7|\+\s7){0,1}[\s]{0,}[- \\\\(]{0,}([0-9]{3,4})[- \\\\)]{0,}))[0-9-]{6,}[0-9]{1}/;
     
     $.ajax({
-        url: $('#load-container').attr('src'),
-        dataType: 'jsonp',
-        type: 'GET',
+        url: '/load-url-content',
+        dataType: 'html',
+        type: 'POST',
+        data: {
+            url: $('#load-container').attr('src')
+        },
         success: function(html){
-            console.log(html);
-            //var result = puttern.exec( html );
-            //console.log(result);
+            var result = puttern.exec( html );
+            console.log(result);
         }
     });
 }

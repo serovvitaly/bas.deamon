@@ -131,7 +131,17 @@ class HomeController extends BaseController {
         
         $this->layout->content = View::make('home.conts', array('sites' => $sites));
     }
-    
+   
+   
+    public function postLoadUrlContent()
+    {
+        $url = Input::get('url');
+        if (!empty($url)) {
+            return file_get_contents($url);
+        }
+        
+        return '';
+    } 
     
     public function getChecker()
     {
