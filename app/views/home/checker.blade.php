@@ -133,7 +133,7 @@
 
 <script>
 function checkPhones(){
-    var puttern = /((\\\\((8|7|\+7|\+\s7){0,1}(9){1}[0-9]{1}\\\\)[\s]{0,})|((8|7|\+7|\+\s7){0,1}[\s]{0,}[- \\\\(]{0,}([0-9]{3,4})[- \\\\)]{0,}))[0-9-]{6,}[0-9]{1}/;
+    var puttern = /((8|\+7|\+ 7)[\- ]?)?(\(?\d{3,4}\)?[\- ]?)?[\d\- ]{7,14}/;
     $('#check-phones-content').html('<i>выполнение операции...</i>');
     $.ajax({
         url: '/load-url-content',
@@ -159,6 +159,28 @@ function checkPhones(){
 }
 function checkEmails(){
     var puttern = /([a-zA-Z0-9-_.]+)@([a-z0-9-]+)(\.)([a-z]{2,4})(\.?)([a-z]{0,4})+/;
+    $('#check-emails-content').html('<i>выполнение операции...</i>');
+    $.ajax({
+        url: '/load-url-content',
+        dataType: 'html',
+        type: 'POST',
+        data: {
+            url: $('#load-container').attr('src')
+        },
+        success: function(html){
+            var result = puttern.exec( html );
+            console.log(result);
+            if (result !== null && result.length > 0) {
+                var lines = '';
+                for (var i = 0; i < result.length; i++) {
+                    lines += '<p>'+result[i]+'</p>';
+                }
+                $('#check-emails-content').html(lines);
+            } else {
+                $('#check-emails-content').html('ничего не найдено');
+            }
+        }
+    });
 }
 function checkContacts(){
     
