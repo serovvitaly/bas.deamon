@@ -34,7 +34,7 @@
           foreach ($sites AS $site) {
               ?>
         <tr>
-          <td><?= ($url == $site['url']) ? "<strong style='color:red'>{$site['url']}</strong>" : "<a href='/checker?uid={$site['id']}&".implode('&', $filter_status)."'>{$site['url']}</a>" ?>
+          <td><?= ($url == $site['url']) ? "<strong style='color:red'>{$site['url']}</strong>" : "<a href='/checker?uid={$site['id']}&filter_status[]=".implode('&filter_status[]=', $filter_status)."'>{$site['url']}</a>" ?>
             <div class="popoverdzen" style="display: none;">
               <table>
                 <tr>
