@@ -113,26 +113,38 @@ function compare_urls($base_url, $compare_url) {
     return false;
 }
 
-function one_query($qurl, $is_redirect = false, $is_home = true) {
+function one_query($mix, $is_redirect = false, $is_home = true) {
     
+    $qurl = isset($mix['url']) ? $mix['url'] : '';
     $qurl = trim($qurl);
     $qurl = rtrim($qurl, '/');
-    if (!is_string($qurl) OR empty($qurl)) {
-        return false;
+    
+    if (isset($mix['curl']) AND !empty($mix['curl'])) {
+        $curl = $mix['curl'];
+        $content = curl_multi_getcontent($curl);
+    } else {
+        if (!is_string($qurl) OR empty($qurl)) {
+            return false;
+        }
+        
+        global $curl_opts;
+        
+        $curl = curl_init($qurl);
+        
+        curl_setopt_array($curl, $curl_opts);
+        
+        $content = curl_exec($curl);
+        
+        
     }
     
-    global $curl_opts;
+    $curl_info = curl_getinfo($curl);
     
     $http_code = NULL;
     $result    = NULL;
     $error     = NULL;
     
-    $curl = curl_init($qurl);
-    curl_setopt_array($curl, $curl_opts);
-    
-    if ($content = curl_exec($curl)) { 
-        
-        $curl_info = curl_getinfo($curl);
+    if ($content AND !empty($content)) {
         
         $http_code = $curl_info['http_code'];
          
@@ -158,7 +170,7 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
                         
                         if (count($available_links) > 0) {
                             foreach ($available_links AS $alink) {
-                                $result[] = one_query($alink, false, false);
+                                $result[] = one_query(array('url' => $alink), false, false);
                             }
                         }
                         
@@ -198,7 +210,7 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
                 
             case (301 OR 302):
                 if (!$is_redirect) {
-                    $out = one_query($curl_info['redirect_url'], true, $is_home);
+                    $out = one_query(array('url' => $curl_info['redirect_url']), true, $is_home);
                     $out['redirect_from'] = $qurl;
                     return $out;
                 }
@@ -221,7 +233,6 @@ function one_query($qurl, $is_redirect = false, $is_home = true) {
     return $output;
 };
 
-
 /** Начинаем работу */
 
 $inworking = true;
@@ -229,78 +240,110 @@ try{
     
 
 while ($inworking) {
-    error_log("--STEP--");
+    //error_log("--STEP--");
     $db = new mysqli($cfg['host'], $cfg['username'], $cfg['password'], $cfg['database']);
-    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `domain_created` DESC LIMIT 20 FOR UPDATE");
+    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `domain_created` DESC LIMIT 200 FOR UPDATE");
     if ($result AND $result->num_rows > 0) {
-        error_log("ITER FOR: {$result->num_rows}");
-        while($row = $result->fetch_object()){ 
-            
-            $start_time = time();
-            
-            $output = one_query($row->url);
-            
-            $status = 0;
-            
-            $total_links = 0; // общее количество внутренних ссылок
-            $meet_links  = 0; // количество внутренних ссылок отвечающих на запрос
-            
-            $elist = array(); // общий список найденных email
-            $plist = array(); // общий список найденных телефонов
-            
-            $last_http_code = isset($output['http_code']) ? $output['http_code'] : -1;
-            if ($last_http_code == 200) {
-                $status = 1;
-            }
-            
-            if (isset($output['result']) AND is_array($output['result']) AND count($output['result']) > 0) {
-                foreach ($output['result'] AS $res) {
-                    $total_links++;
-                    if (isset($res['result']) AND is_array($res['result'])) {
-                        $meet_links++;
-                        if (isset($res['result']['emails']) AND is_array($res['result']['emails']) AND count($res['result']['emails']) > 0) {
-                            $elist = array_merge_recursive($elist, $res['result']['emails']);
+        //error_log("ITER FOR: {$result->num_rows}");
+        $cmh = curl_multi_init();
+        $tasks = array();
+        while($row = $result->fetch_object()){
+            $ch = curl_init($row->url);
+            curl_setopt_array($ch, $curl_opts);
+            $tasks[$url] = $ch;
+            curl_multi_add_handle($cmh, $ch);
+        }
+        
+        $active = null;
+        do {
+            $mrc = curl_multi_exec($cmh, $active);
+        }
+        while ($mrc == CURLM_CALL_MULTI_PERFORM);
+        
+        while ($active && ($mrc == CURLM_OK)) {
+            if (curl_multi_select($cmh) != -1) {
+                do {
+                    $mrc = curl_multi_exec($cmh, $active);
+                    $info = curl_multi_info_read($cmh);
+                    if ($info['msg'] == CURLMSG_DONE) {
+                        $ch = $info['handle'];
+                        $url = array_search($ch, $tasks);
+                        $content = curl_multi_getcontent($ch);
+                        // ==============================================================
+                        // ==============================================================
+                        $start_time = time();
+                        
+                        $output = one_query(array(
+                          'url'     => $url,
+                          'content' => $content,
+                          'curl' => $ch
+                        ));
+                        
+                        $status = 0;
+                        
+                        $total_links = 0; // общее количество внутренних ссылок
+                        $meet_links  = 0; // количество внутренних ссылок отвечающих на запрос
+                        
+                        $elist = array(); // общий список найденных email
+                        $plist = array(); // общий список найденных телефонов
+                        
+                        $last_http_code = isset($output['http_code']) ? $output['http_code'] : -1;
+                        if ($last_http_code == 200) {
+                            $status = 1;
                         }
-                        if (isset($res['result']['phones']) AND is_array($res['result']['phones']) AND count($res['result']['phones']) > 0) {
-                            $plist = array_merge_recursive($plist, $res['result']['phones']);
+                        
+                        if (isset($output['result']) AND is_array($output['result']) AND count($output['result']) > 0) {
+                            foreach ($output['result'] AS $res) {
+                                $total_links++;
+                                if (isset($res['result']) AND is_array($res['result'])) {
+                                    $meet_links++;
+                                    if (isset($res['result']['emails']) AND is_array($res['result']['emails']) AND count($res['result']['emails']) > 0) {
+                                        $elist = array_merge_recursive($elist, $res['result']['emails']);
+                                    }
+                                    if (isset($res['result']['phones']) AND is_array($res['result']['phones']) AND count($res['result']['phones']) > 0) {
+                                        $plist = array_merge_recursive($plist, $res['result']['phones']);
+                                    }
+                                }
+                            }
                         }
+                        
+                        if ($meet_links > 0) {
+                            $status = 2;
+                        }
+                        
+                        if (count($elist) > 0 OR count($plist) > 0) {
+                            $status = 3;
+                        }
+                        
+                        
+                        $time_process = time() - $start_time;
+                        
+                        $sql = "UPDATE `sites_list` SET "
+                             . "`total_links`='{$total_links}',"
+                             . "`meet_links`='{$meet_links}',"
+                             . "`emails_count`='".count($elist)."',"
+                             . "`phones_count`='".count($plist)."',"
+                             . "`emails`='".@implode(',', $elist)."',"
+                             . "`phones`='".@implode(',', $plist)."',"
+                             . "`last_http_code`='{$last_http_code}',"
+                             . "`time_process`='{$time_process}',"
+                             . "`data`='".@json_encode($output)."',"
+                             . "`updated_at`='".date('Y-m-d H:i:s')."',"
+                             . "`status`='{$status}'"
+                             . " WHERE `id`={$row->id}";
+                        
+                        $re = $db->query($sql);
+                        // ==============================================================
+                        // ==============================================================
+                        curl_multi_remove_handle($cmh, $ch);
+                        curl_close($ch);
                     }
                 }
+                while ($mrc == CURLM_CALL_MULTI_PERFORM);
             }
-            
-            if ($meet_links > 0) {
-                $status = 2;
-            }
-            
-            if (count($elist) > 0 OR count($plist) > 0) {
-                $status = 3;
-            }
-            
-            
-            $time_process = time() - $start_time;
-            
-            $sql = "UPDATE `sites_list` SET "
-                 . "`total_links`='{$total_links}',"
-                 . "`meet_links`='{$meet_links}',"
-                 . "`emails_count`='".count($elist)."',"
-                 . "`phones_count`='".count($plist)."',"
-                 . "`emails`='".@implode(',', $elist)."',"
-                 . "`phones`='".@implode(',', $plist)."',"
-                 . "`last_http_code`='{$last_http_code}',"
-                 . "`time_process`='{$time_process}',"
-                 . "`data`='".@json_encode($output)."',"
-                 . "`updated_at`='".date('Y-m-d H:i:s')."',"
-                 . "`status`='{$status}'"
-                 . " WHERE `id`={$row->id}";
-            
-            $re = $db->query($sql);
-            error_log(' MEM:' . memory_get_usage());
-            if (!$re) {
-                error_log('Query error');
-            }
-            
-            //echo "<p>$sql</p>";
         }
+        
+        curl_multi_close($cmh);
     }
     
     $db->close();
