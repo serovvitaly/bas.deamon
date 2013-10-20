@@ -153,7 +153,12 @@ class HomeController extends BaseController {
         
         $sites = Site::where('status', '>=', $_satus)->where('status', '<', 4)->whereIn('status', $filter_status)->orderBy('domain_created', 'DESC')->paginate(50);
         
-        $sites->setBaseUrl('hello/world');
+        $filter_status_vars = array();
+        foreach ($filter_status AS $filter_stat) {
+            $filter_status_vars[] = 'filter_status[]=' . $filter_stat;
+        }
+        $filter_status_vars = '?' . implode('&', $filter_status_vars);
+        $sites->setBaseUrl('/checker' . $filter_status_vars);
         
         if ($uid > 0 AND ($dm = Site::find($uid))) {
             $dm_url = $dm->url;
