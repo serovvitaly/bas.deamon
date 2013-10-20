@@ -84,6 +84,8 @@
             <input type="text" name="phones[]" value="<?= isset($phones[1]) ? $phones[1] : '' ?>">
             <div>Телефон 3:</div>
             <input type="text" name="phones[]" value="<?= isset($phones[2]) ? $phones[2] : '' ?>">
+            <button class="btn" onclick="checkPhones()">Проверить</button>
+            <div id="check-phones-content"></div>
           </div>
           <div class="span4">
             <div>Email 1:</div>
@@ -92,6 +94,8 @@
             <input type="text" name="emails[]" value="<?= isset($emails[1]) ? $emails[1] : '' ?>">
             <div>Email 3:</div>
             <input type="text" name="emails[]" value="<?= isset($emails[2]) ? $emails[2] : '' ?>">
+            <button class="btn" onclick="checkEmails()">Проверить</button>
+            <div id="check-emails-content"></div>
           </div>
           <div class="span4">
             <ul style="margin: 0; list-style: none;">
@@ -116,7 +120,7 @@
     </form>
 
     <div>
-      <iframe sandbox src="{{ $url }}" id="load-container" style="width: 100%; height: 600px; border: 1px solid #CECECE;" onload="frameLoaded()"></iframe>
+      <iframe sandbox src="{{ $url }}" name="load_container" id="load-container" style="width: 100%; height: 600px; border: 1px solid #CECECE;" onload="frameLoaded()"></iframe>
     </div> 
     
   </div>
@@ -126,6 +130,17 @@
 
 
 <script>
+function checkPhones(){
+    var puttern = /rt/;
+    
+    var frameDoc = window.frames ['load_container'].document;
+    
+    console.log( frameDoc );
+    //var result = puttern.exec( $('') );
+}
+function checkEmails(){
+    //
+}
 function checkContacts(){
     
     console.log( $('#load-container').contents().find("html") );
