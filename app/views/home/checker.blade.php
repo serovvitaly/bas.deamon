@@ -140,8 +140,9 @@ function checkPhones(){
         dataType: 'jsonp',
         type: 'GET',
         success: function(html){
-            var result = puttern.exec( html );
-            console.log(result);
+            console.log(html);
+            //var result = puttern.exec( html );
+            //console.log(result);
         }
     });
 }
