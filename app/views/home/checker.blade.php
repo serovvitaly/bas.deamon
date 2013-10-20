@@ -122,7 +122,7 @@
     </form>
 
     <div>
-      <iframe sandbox src="{{ $url }}" name="load_container" id="load-container" style="width: 100%; height: 600px; border: 1px solid #CECECE;" onload="frameLoaded()"></iframe>
+      <iframe src="{{ $url }}" name="load_container" id="load-container" style="width: 100%; height: 600px; border: 1px solid #CECECE;" onload="frameLoaded()"></iframe>
     </div> 
     
   </div>
