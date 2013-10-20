@@ -157,15 +157,24 @@ class HomeController extends BaseController {
                 $content = @file_get_contents($url);
                 
                 if ($content) {
-                    //$content = strip_tags($content);
                     
-                    preg_match_all($pattern, $content, $matches);
+                    preg_match_all($pattern, $content, $matches1);
                     
-                    if (isset($matches[0])) {
-                        $out['result'] = $matches[0];
-                        $out['data'] = $matches;
+                    $content = strip_tags($content);
+                    preg_match_all($pattern, $content, $matches2);
+                    
+                    $out['data'] = $matches;
+                    
+                    $result = array();
+                    
+                    if (isset($matches1[0])) {
+                        $result .= $matches1[0];
+                    }
+                    if (isset($matches2[0])) {
+                         $result .= $matches2[0];
                     }
                     
+                    $out['result'] = $result;
                 }
             }
             
