@@ -159,7 +159,7 @@ class HomeController extends BaseController {
                 if ($content) {
                     $content = strip_tags($content);
                     
-                    preg_match_all($content, $content, $matches);
+                    preg_match_all($pattern, $content, $matches);
                     
                     $out['result'] = $matches;
                 }
