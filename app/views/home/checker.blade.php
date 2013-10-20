@@ -143,7 +143,7 @@ function checkPhones(){
             type: 'phone'
         },
         success: function(data){
-            console.log(data);
+            //console.log(data);
             if (data.result !== null && data.result.length > 0) {
                 var lines = '';
                 for (var i = 0; i < data.result.length; i++) {
