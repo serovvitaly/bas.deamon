@@ -122,7 +122,7 @@
     </form>
 
     <div>
-      <iframe src="{{ $url }}" name="load_container" id="load-container" style="width: 100%; height: 600px; border: 1px solid #CECECE;" onload="frameLoaded()"></iframe>
+      <iframe sandbox src="{{ $url }}" id="load-container" style="width: 100%; height: 600px; border: 1px solid #CECECE;" onload="frameLoaded()"></iframe>
     </div> 
     
   </div>
@@ -135,10 +135,15 @@
 function checkPhones(){
     var puttern = /rt/;
     
-    var frameDoc = window.frames ['load_container'].document;
-    
-    console.log( frameDoc );
-    //var result = puttern.exec( $('') );
+    $.ajax({
+        url: $('#load-container').attr('src'),
+        dataType: 'html',
+        type: 'GET',
+        success: function(html){
+            var result = puttern.exec( html );
+            console.log(result);
+        }
+    });
 }
 function checkEmails(){
     //
