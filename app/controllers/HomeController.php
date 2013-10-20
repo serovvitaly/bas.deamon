@@ -135,12 +135,39 @@ class HomeController extends BaseController {
    
     public function postLoadUrlContent()
     {
-        $url = Input::get('url');
+        $url  = Input::get('url');
+        $type = Input::get('type');
+        
+        $out['result'] = NULL;
+        
         if (!empty($url)) {
-            return @strip_tags( @file_get_contents($url) );
+            
+            switch ($type) {
+                case 'phone':
+                    $pattern = '';
+                    break;
+                case 'email':
+                    $pattern = '';
+                    break;
+                default :
+                    $pattern = NULL;
+            }
+            
+            if ($pattern !== NULL) {
+                $content = @file_get_contents($url);
+                
+                if ($content) {
+                    $content = strip_tags($content);
+                    
+                    preg_match_all($content, $content, $matches);
+                    
+                    $out['result'] = $matches;
+                }
+            }
+            
         }
         
-        return '';
+        return json_encode($out);
     } 
     
     public function getChecker()

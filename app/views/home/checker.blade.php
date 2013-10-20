@@ -140,7 +140,8 @@ function checkPhones(){
         dataType: 'html',
         type: 'POST',
         data: {
-            url: $('#load-container').attr('src')
+            url: $('#load-container').attr('src'),
+            type: 'phone'
         },
         success: function(html){
             var result = puttern.exec( html );
@@ -165,7 +166,8 @@ function checkEmails(){
         dataType: 'html',
         type: 'POST',
         data: {
-            url: $('#load-container').attr('src')
+            url: $('#load-container').attr('src'),
+            type: 'email'
         },
         success: function(html){
             var result = puttern.exec( html );
