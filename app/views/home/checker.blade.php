@@ -158,7 +158,7 @@ function checkPhones(){
     });
 }
 function checkEmails(){
-    var puttern = /([a-zA-Z0-9-_.]+)@([a-z0-9-]+)(\.)([a-z]{2,4})(\.?)([a-z]{0,4})+/;
+    var puttern = /([a-zA-Z0-9-_.]{1,}@[a-z0-9-]{1,}\.[a-z]{2,4}\.?[a-z]{0,4})/;
     $('#check-emails-content').html('<i>выполнение операции...</i>');
     $.ajax({
         url: '/load-url-content',
