@@ -137,7 +137,7 @@ class HomeController extends BaseController {
     {
         $url = Input::get('url');
         if (!empty($url)) {
-            return @file_get_contents($url);
+            return @strip_tags( @file_get_contents($url) );
         }
         
         return '';
