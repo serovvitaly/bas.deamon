@@ -147,7 +147,7 @@ function one_query($mix, $is_redirect = false, $is_home = true) {
     $result    = NULL;
     $error     = NULL;
     
-    if ($content) {
+    if ($content) { error_log('cont - OK!');
         
         $http_code = $curl_info['http_code'];
          
@@ -229,7 +229,7 @@ function one_query($mix, $is_redirect = false, $is_home = true) {
                 break;
         }
         
-    } else {
+    } else { error_log('cont - FAIL!');
         $http_code = -1;
         //$error = mysql_escape_string(htmlspecialchars(curl_error($curl)));
     }
