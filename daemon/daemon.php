@@ -147,7 +147,7 @@ function one_query($mix, $is_redirect = false, $is_home = true) {
     $result    = NULL;
     $error     = NULL;
     
-    if ($content AND !empty($content)) {
+    if ($content) {
         
         $http_code = $curl_info['http_code'];
          
