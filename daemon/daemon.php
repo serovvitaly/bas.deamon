@@ -119,9 +119,13 @@ function one_query($mix, $is_redirect = false, $is_home = true) {
     $qurl = trim($qurl);
     $qurl = rtrim($qurl, '/');
     
-    if (isset($mix['curl']) AND !empty($mix['curl'])) {
+    if (isset($mix['curl'])) {
         $curl = $mix['curl'];
-        $content = curl_multi_getcontent($curl);
+        if (isset($mix['content']) AND !empty($mix['content'])) {
+            $content = $mix['content'];
+        } else {
+            $content = curl_multi_getcontent($curl);
+        }
     } else {
         if (!is_string($qurl) OR empty($qurl)) {
             return false;
@@ -134,7 +138,6 @@ function one_query($mix, $is_redirect = false, $is_home = true) {
         curl_setopt_array($curl, $curl_opts);
         
         $content = curl_exec($curl);
-        
         
     }
     
