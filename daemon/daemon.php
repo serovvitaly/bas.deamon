@@ -43,8 +43,8 @@ $curl_opts = array(
     CURLOPT_HEADER => 1,
     CURLOPT_SSL_VERIFYPEER => 0,
     CURLOPT_RETURNTRANSFER => 1,
-    CURLOPT_CONNECTTIMEOUT => 10,
-    CURLOPT_TIMEOUT => 10,
+    CURLOPT_CONNECTTIMEOUT => 20,
+    CURLOPT_TIMEOUT => 20,
     CURLOPT_HTTPHEADER => array('Expect:'),
     CURLOPT_USERAGENT  => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'
 );
@@ -292,7 +292,7 @@ while ($inworking) {
                           'curl' => $ch
                         ));
                         
-                        $status = 0;
+                        $status = -1;
                         
                         $total_links = 0; // общее количество внутренних ссылок
                         $meet_links  = 0; // количество внутренних ссылок отвечающих на запрос
