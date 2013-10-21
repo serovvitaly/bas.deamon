@@ -39,7 +39,7 @@
               <table>
                 <tr>
                   <td>Возраст домена:</td>
-                  <td><?= round( (time() - strtotime($site['domain_created'])) / (3600 * 24 * 365.259636), 1 ) ?> г.</td>
+                  <td><?= round( (time() - strtotime($site['domain_created'])) / (3600 * 24), 1 ) ?> дн.</td>
                 </tr>
                 <tr>
                   <td>Найдены контакты:</td>

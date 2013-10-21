@@ -8,7 +8,7 @@
       <th>Телефоны</th>
       <th>Email-ы</th>
       <th>Дата п. обр</th>
-      <th>В статусе</th>
+      <th>Возраст домена, дн.</th>
     </tr>
   </thead>
   <tbody>
@@ -38,7 +38,7 @@
       <td style="text-align: center;"><?= ($item->phones_count > 0) ? '<div class="popover" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-placement="right" src="/packages/icons/tick_6817.png" alt=""></div><img src="/packages/icons/tick_6817.png" alt="">' : '' ?></td>
       <td style="text-align: center;"><?= ($item->emails_count > 0) ? '<div class="popover" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-placement="right" src="/packages/icons/tick_6817.png" alt=""></div><img src="/packages/icons/tick_6817.png" alt="">' : '' ?></td>
       <td><?= $item->updated_at ?></td>
-      <td><?= $item->updated_at ?></td>
+      <td><?= round( (time() - strtotime($item['domain_created'])) / (3600 * 24), 1 ) ?></td>
     </tr>
           <?
       }
