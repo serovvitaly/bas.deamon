@@ -147,8 +147,6 @@ function one_query($mix, $is_redirect = false, $is_home = true) {
     $result    = NULL;
     $error     = NULL;
     
-    error_log('CONT: ' . $content);
-    
     if ($content) { error_log('cont - OK!');
         
         $http_code = $curl_info['http_code'];
@@ -290,7 +288,7 @@ while ($inworking) {
                         // ==============================================================
                         // ==============================================================
                         error_log('procc:: ' . $url);
-                        error_log('CT:: ' . $content);
+                        error_log($info);
                         $start_time = time();
                         //error_log("content::ok");
                         $output = one_query(array(
