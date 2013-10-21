@@ -27,7 +27,7 @@ class HomeController extends BaseController {
         $take = 50;
         
         if ($status === NULL) {
-            return Site::paginate($take);
+            return Site::orderBy('domain_created', 'DESC')->paginate($take);
         }
         
         return Site::where('status', $condition, $status)->orderBy('domain_created', 'DESC')->paginate($take);
