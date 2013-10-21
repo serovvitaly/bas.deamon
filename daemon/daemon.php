@@ -124,7 +124,7 @@ function one_query($mix, $is_redirect = false, $is_home = true) {
         if (isset($mix['content']) AND !empty($mix['content'])) {
             $content = $mix['content'];
         } else {
-            $content = curl_multi_getcontent($curl);
+            $content = '';
         }
     } else {
         if (!is_string($qurl) OR empty($qurl)) {
