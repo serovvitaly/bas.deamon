@@ -289,6 +289,8 @@ while ($inworking) {
                         $content = curl_multi_getcontent($ch);
                         // ==============================================================
                         // ==============================================================
+                        error_log('procc:: ' . $url);
+                        error_log('CT:: ' . $content);
                         $start_time = time();
                         //error_log("content::ok");
                         $output = one_query(array(
