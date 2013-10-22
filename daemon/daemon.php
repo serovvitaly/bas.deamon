@@ -40,13 +40,13 @@ if (!file_exists($config_file)) {
 $db = new mysqli($cfg['host'], $cfg['username'], $cfg['password'], $cfg['database']);
 
 $curl_opts = array(
-    CURLOPT_HEADER => 0,
+    CURLOPT_HEADER => 1,
     //CURLOPT_SSL_VERIFYPEER => 0,
     CURLOPT_RETURNTRANSFER => 1,
-    CURLOPT_CONNECTTIMEOUT => 10,
-    CURLOPT_TIMEOUT => 10,
+    CURLOPT_CONNECTTIMEOUT => 30,
+    CURLOPT_TIMEOUT => 30,
     //CURLOPT_HTTPHEADER => array('Expect:'),
-    //CURLOPT_USERAGENT  => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'
+    CURLOPT_USERAGENT  => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'
 );
 
 /** Functions */
