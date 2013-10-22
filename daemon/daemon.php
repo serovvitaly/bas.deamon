@@ -288,7 +288,7 @@ while ($inworking) {
                         // ==============================================================
                         // ==============================================================
                         error_log('procc:: ' . $url);
-                        error_log(json_encode($info));
+                        //error_log(json_encode($info));
                         $start_time = time();
                         //error_log("content::ok");
                         $output = one_query(array(
