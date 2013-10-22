@@ -254,7 +254,7 @@ try{
 while ($inworking) {
     //error_log("--STEP--");
     $db = new mysqli($cfg['host'], $cfg['username'], $cfg['password'], $cfg['database']);
-    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `domain_created` DESC LIMIT 200 FOR UPDATE");
+    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `domain_created` DESC LIMIT 10 FOR UPDATE");
     //error_log("ITER FOR: {$result->num_rows}");
     if ($result AND $result->num_rows > 0) {
         //error_log("ITER FOR: {$result->num_rows}");
@@ -288,6 +288,7 @@ while ($inworking) {
                         // ==============================================================
                         // ==============================================================
                         error_log('procc:: ' . $url);
+                        echo "type = " . gettype($ch). "\n";
                         var_dump($content);
                         echo "\n----------------------\n";
                         //error_log(json_encode($info));
