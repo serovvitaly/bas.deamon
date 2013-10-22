@@ -288,6 +288,8 @@ while ($inworking) {
                         // ==============================================================
                         // ==============================================================
                         error_log('procc:: ' . $url);
+                        var_dump($content);
+                        echo "\n----------------------\n";
                         //error_log(json_encode($info));
                         $start_time = time();
                         //error_log("content::ok");
