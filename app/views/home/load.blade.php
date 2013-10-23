@@ -101,6 +101,7 @@ $(function () {
     });
     
     $('#table-file-list tr').each(function(item){
+        return;
         var uid = $(this).attr('data-uid');
         $(this).find('.during').append('<div class="btn-group" style="margin-left:10px">'
                 +'<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown"><i class="icon-align-justify"></i> <span class="caret"></span></button>'
