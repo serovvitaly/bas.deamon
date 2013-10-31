@@ -314,7 +314,7 @@ while ($inworking) {
                         $content = curl_multi_getcontent($ch);
                         // ==============================================================
                         // ==============================================================
-                        error_log('procc:: ' . $url);
+                        //error_log('procc:: ' . $url);
                         //echo "type = " . gettype($ch). "\n";
                         //var_dump($content);
                         //echo "\n----------------------\n";
