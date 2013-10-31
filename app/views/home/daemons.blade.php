@@ -3,7 +3,7 @@ td.pattern span{
     border: 1px solid #FFF; 
 }
 td.pattern span, td.pattern input{
-    font-size: 22px;
+    font-size: 19px;
     width: 97%;
     padding: 4px;
     margin: 0;
