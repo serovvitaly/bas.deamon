@@ -83,6 +83,8 @@ class HomeController extends BaseController {
                ->orderBy('updated_at', 'DESC')
                ->get();
                
+        var_dump($res);
+               
         $slist = array(
             -1 => 'не отвечает',
             0  => 'не обработан',
