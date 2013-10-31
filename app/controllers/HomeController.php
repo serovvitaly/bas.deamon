@@ -94,13 +94,13 @@ class HomeController extends BaseController {
         
         $delta_mins = ceil( (time() - strtotime($updated_at_min)) / 60 );
         
-        $status_content = "<p>Статистика обработки за последние {$delta_mins} мин.:</p>";
+        $status_content = "<p style='padding:10px 0 0'>Статистика обработки за последние {$delta_mins} мин.:</p>";
         
         $all_counts = 0;       
         if (is_array($res) AND count($res) > 0) {
             foreach ($res AS $row) {
                 $status_content .= "{$slist[$row->status]} - {$row->count}<br>";
-                $all_counts++;
+                $all_counts += $row->count;
             }
         }
         $status_content .= "ИТОГО - {$all_counts}";
