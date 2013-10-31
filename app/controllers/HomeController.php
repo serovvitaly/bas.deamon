@@ -184,7 +184,7 @@ class HomeController extends BaseController {
                             if (!empty($p->pattern)) {
                                 
                                 $temp_ptn = trim($p->pattern);
-                                $temp_ptn = str_replace('*', '\d', $temp_ptn);
+                                $temp_ptn = str_replace('*', '[0-9]', $temp_ptn);
                                 $temp_ptn = str_replace('+', '\+', $temp_ptn);
                                 $temp_ptn = str_replace(array('(',')'), array('[(]','[)]'), $temp_ptn);
                                 
@@ -198,7 +198,7 @@ class HomeController extends BaseController {
                         $pattern = NULL;
                     }
                     
-                    echo $pattern . "\n";
+                    //echo $pattern . "\n";
                     //$pattern = '/((\\\\((8|7|\+7|\+\s7){0,1}(9){1}[0-9]{1}\\\\)[\s]{0,})|((8|7|\+7|\+\s7){0,1}[\s]{0,}[- \\\\(]{0,}([0-9]{3,4})[- \\\\)]{0,}))[0-9]{1,3}(-){0,}[0-9]{2}(-)[0-9]{2}/';
                     break;
                 case 'email':
@@ -634,7 +634,7 @@ class HomeController extends BaseController {
             if ($pattern AND !empty($pattern->pattern)) {
                 
                 $ptn = $pattern->pattern;
-                $ptn = str_replace('*', '\d', $ptn);
+                $ptn = str_replace('*', '[0-9]', $ptn);
                 $ptn = str_replace('+', '\+', $ptn);
                 $ptn = str_replace(array('(',')'), array('[(]','[)]'), $ptn);
                 $ptn = "/{$ptn}/";
