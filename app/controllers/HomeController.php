@@ -145,8 +145,22 @@ class HomeController extends BaseController {
             switch ($type) {
                 case 'phone':
                     $ptn = Pattern::all();
-                    var_dump($ptn);
-                    $pattern = '/((\\\\((8|7|\+7|\+\s7){0,1}(9){1}[0-9]{1}\\\\)[\s]{0,})|((8|7|\+7|\+\s7){0,1}[\s]{0,}[- \\\\(]{0,}([0-9]{3,4})[- \\\\)]{0,}))[0-9]{1,3}(-){0,}[0-9]{2}(-)[0-9]{2}/';
+                    $ptns = array();
+                    if ($ptn AND count($ptn) > 0) {
+                        foreach ($ptn AS $p) {
+                            if (!empty($p->pattern)) {
+                                $ptns[] = trim($p->pattern);
+                            }
+                        }
+                    }
+                    if (count($ptns) > 0) {
+                        $pattern = '(' . implode(')|(', $ptns) . ')';
+                    } else {
+                        $pattern = NULL;
+                    }
+                    
+                    print_r($ptns);
+                    //$pattern = '/((\\\\((8|7|\+7|\+\s7){0,1}(9){1}[0-9]{1}\\\\)[\s]{0,})|((8|7|\+7|\+\s7){0,1}[\s]{0,}[- \\\\(]{0,}([0-9]{3,4})[- \\\\)]{0,}))[0-9]{1,3}(-){0,}[0-9]{2}(-)[0-9]{2}/';
                     break;
                 case 'email':
                     $pattern = '/([a-zA-Z0-9-_.]{1,})@([a-z0-9-]{1,}\.[a-z]{2,4}\.?[a-z]{0,4})/';
