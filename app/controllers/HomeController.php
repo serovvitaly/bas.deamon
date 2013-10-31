@@ -80,7 +80,6 @@ class HomeController extends BaseController {
                ->select(DB::raw('status, COUNT(id) as count, updated_at'))
                ->where('updated_at', '>', $updated_at_min)
                ->groupBy('status')
-               ->orderBy('updated_at', 'DESC')
                ->get();
                        
         $slist = array(
@@ -96,12 +95,8 @@ class HomeController extends BaseController {
         
         $status_content = "<p style='margin:10px 0 0'>Статистика обработки за последние {$delta_mins} мин.:</p>";
         
-        $updated_at = 0;
-        
         $all_counts = 0;       
         if (is_array($res) AND count($res) > 0) {
-            
-            $updated_at = $res[0]->updated_at;
             
             foreach ($res AS $row) {
                 $status_content .= "{$slist[$row->status]} - {$row->count}<br>";
@@ -111,7 +106,9 @@ class HomeController extends BaseController {
         $status_content .= "ИТОГО - {$all_counts}";
         
         
-        $updated_at = (string) $updated_at;
+        $urow = BaseSite::orderBy('updated_at', 'DESC')->take(1)->get();
+        
+        $updated_at = (string) $urow[0]->updated_at;
         
         $delta = time() - strtotime($updated_at);
         
