@@ -149,12 +149,18 @@ class HomeController extends BaseController {
                     if ($ptn AND count($ptn) > 0) {
                         foreach ($ptn AS $p) {
                             if (!empty($p->pattern)) {
-                                $ptns[] = trim($p->pattern);
+                                
+                                $temp_ptn = trim($p->pattern);
+                                $temp_ptn = str_replace('*', '\d', $temp_ptn);
+                                $temp_ptn = str_replace('+', '\+', $temp_ptn);
+                                $temp_ptn = str_replace(array('(',')'), array('\(','\)'), $temp_ptn);
+                                
+                                $ptns[] = $temp_ptn;
                             }
                         }
                     }
                     if (count($ptns) > 0) {
-                        $pattern = '(' . implode(')|(', $ptns) . ')';
+                        $pattern = '/(' . implode(')|(', $ptns) . ')/';
                     } else {
                         $pattern = NULL;
                     }
