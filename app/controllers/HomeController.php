@@ -186,7 +186,7 @@ class HomeController extends BaseController {
                                 $temp_ptn = trim($p->pattern);
                                 $temp_ptn = str_replace('*', '\d', $temp_ptn);
                                 $temp_ptn = str_replace('+', '\+', $temp_ptn);
-                                $temp_ptn = str_replace(array('(',')'), array('\(','\)'), $temp_ptn);
+                                $temp_ptn = str_replace(array('(',')'), array('[(]','[)]'), $temp_ptn);
                                 
                                 $ptns[] = $temp_ptn;
                             }
@@ -636,7 +636,7 @@ class HomeController extends BaseController {
                 $ptn = $pattern->pattern;
                 $ptn = str_replace('*', '\d', $ptn);
                 $ptn = str_replace('+', '\+', $ptn);
-                $ptn = str_replace(array('(',')'), array('\(','\)'), $ptn);
+                $ptn = str_replace(array('(',')'), array('[(]','[)]'), $ptn);
                 $ptn = "/{$ptn}/";
                 
                 @preg_match_all($ptn, $list, $matches);
