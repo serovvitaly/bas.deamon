@@ -198,7 +198,6 @@ class HomeController extends BaseController {
                         $pattern = NULL;
                     }
                     
-                    $out['pattern'] = $pattern;
                     //$pattern = '/((\\\\((8|7|\+7|\+\s7){0,1}(9){1}[0-9]{1}\\\\)[\s]{0,})|((8|7|\+7|\+\s7){0,1}[\s]{0,}[- \\\\(]{0,}([0-9]{3,4})[- \\\\)]{0,}))[0-9]{1,3}(-){0,}[0-9]{2}(-)[0-9]{2}/';
                     break;
                 case 'email':
@@ -207,6 +206,8 @@ class HomeController extends BaseController {
                 default :
                     $pattern = NULL;
             }
+            
+            $out['pattern'] = $pattern;
             
             if ($pattern !== NULL) {
                 $content = @file_get_contents($url);
