@@ -97,7 +97,7 @@
               <li{{ (Request::is('conts')   ? ' class="active"' : '') }}><a href="/conts">Есть контакты</a></li>
               <li{{ (Request::is('checker') ? ' class="active"' : '') }}><a href="/checker">Проверка</a></li>
               <li{{ (Request::is('proven')  ? ' class="active"' : '') }}><a href="/proven">Проверенные</a></li>
-              <li{{ (Request::is('daemons') ? ' class="active"' : '') }}><a href="/daemons">Управление демонами</a></li>
+              <li{{ (Request::is('daemons') ? ' class="active"' : '') }}><a href="/daemons">Управление</a></li>
             </ul>
           </div>
         </div>
