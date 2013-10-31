@@ -534,8 +534,101 @@ class HomeController extends BaseController {
     
     
     public function getDaemons()
+    {        
+        $this->layout->content = View::make('home.daemons', array(
+            'patterns' => Pattern::all()
+        ));
+    }
+    
+    
+    public function postSavePattern()
     {
-        $this->layout->content = View::make('home.daemons');
+        $id = Input::get('pid');
+        $pattern = Input::get('pattern');
+        
+        $out = array(
+            'success' => false,
+            'result'  => NULL,
+        );
+        
+        if (!empty($pattern)) {
+            
+            $pt = ($id > 0) ? Pattern::find($id) : new Pattern;
+            $pt->pattern = $pattern;
+            $pt->save();
+            
+            $out = array(
+                'success' => true
+            );
+        }
+        
+        return json_encode($out);
+    }
+    
+    
+    public function postCheckReg()
+    {
+        $list   = Input::get('list');
+        $reg_id = Input::get('reg_id');
+        
+        $out['result'] = NULL;
+        
+        if (!empty($list) AND $reg_id > 0) {
+            $pattern = Pattern::find($reg_id);
+            
+            if ($pattern AND !empty($pattern->pattern)) {
+                
+                $ptn = $pattern->pattern;
+                $ptn = str_replace('*', '\d', $ptn);
+                $ptn = str_replace('+', '\+', $ptn);
+                $ptn = str_replace(array('(',')'), array('\(','\)'), $ptn);
+                $ptn = "/{$ptn}/";
+                
+                @preg_match_all($ptn, $list, $matches);
+                //echo $ptn . "\n";
+                //print_r($matches);
+                
+                if ($matches AND isset($matches[0]) AND count($matches[0]) > 0) {
+                    $results = array();
+                    
+                    foreach ($matches[0] AS $matche) {
+                        $matche = trim($matche);
+                        if (!empty($matche)) {
+                            $results[] = $matche;
+                        }
+                    }
+                    
+                    $out['result'] = $results;
+                }
+                
+            }
+        }
+        
+        return json_encode($out);
+    }
+    
+    
+    public function getRemovePattern()
+    {
+        $pid = Input::get('pid');
+        
+        if ($pid > 0) {
+            Pattern::find($pid)->delete();
+        }
+        
+        return Redirect::to('/daemons');
+    }
+    
+    
+    public function getEditPattern()
+    {
+        $pid = Input::get('pid');
+        
+        if ($pid > 0) {
+            //
+        }
+        
+        return Redirect::to('/daemons');
     }
     
     
