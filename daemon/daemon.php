@@ -39,6 +39,33 @@ if (!file_exists($config_file)) {
 
 $db = new mysqli($cfg['host'], $cfg['username'], $cfg['password'], $cfg['database']);
 
+
+$phone_pattern = NULL;
+
+$ptn = $db->query("SELECT `pattern` FROM `phone_patterns`");
+$ptns = array();
+if ($ptn AND $ptn->num_rows > 0) {
+    while ($p = $ptn->fetch_assoc()) {
+        if (!empty($p['pattern'])) {
+            
+            $temp_ptn = trim($p['pattern']);
+            $temp_ptn = str_replace('*', '\d', $temp_ptn);
+            $temp_ptn = str_replace('+', '\+', $temp_ptn);
+            $temp_ptn = str_replace(array('(',')'), array('\(','\)'), $temp_ptn);
+            
+            $ptns[] = $temp_ptn;
+        }
+    }
+}
+if (count($ptns) > 0) {
+    $pattern = '/(' . implode(')|(', $ptns) . ')/';
+} else {
+    $pattern = NULL;
+}
+
+define('PHONE_PATTERN', $pattern);
+                    
+
 $curl_opts = array(
     CURLOPT_HEADER => 1,
     //CURLOPT_SSL_VERIFYPEER => 0,
@@ -181,8 +208,8 @@ function one_query($mix, $is_redirect = false, $is_home = true) {
                         
                 } else { // если страница - внутренняя
                     preg_match_all('/([a-zA-Z0-9-_.]{1,})@([a-z0-9-]{1,}\.[a-z]{2,4}\.?[a-z]{0,4})/', $content, $emails);
-                    preg_match_all('/((\\\\((8|7|\+7|\+\s7){0,1}(9){1}[0-9]{1}\\\\)[\s]{0,})|((8|7|\+7|\+\s7){0,1}[\s]{0,}[- \\\\(]{0,}([0-9]{3,4})[- \\\\)]{0,}))[0-9]{1,3}(-){0,}[0-9]{2}(-)[0-9]{2}/', $content, $phones);
-                    preg_match_all('/((\\\\((8|7|\+7|\+\s7){0,1}(9){1}[0-9]{1}\\\\)[\s]{0,})|((8|7|\+7|\+\s7){0,1}[\s]{0,}[- \\\\(]{0,}([0-9]{3,4})[- \\\\)]{0,}))[0-9]{1,3}(-){0,}[0-9]{2}(-)[0-9]{2}/', strip_tags($content), $phones1);
+                    preg_match_all(PHONE_PATTERN, $content, $phones);
+                    preg_match_all(PHONE_PATTERN, strip_tags($content), $phones1);
                                         
                     $elist = array(); // список email
                     $plist = array(); // список телефонов
