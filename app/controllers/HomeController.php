@@ -82,9 +82,7 @@ class HomeController extends BaseController {
                ->groupBy('status')
                ->orderBy('updated_at', 'DESC')
                ->get();
-               
-        var_dump($res);
-               
+                       
         $slist = array(
             -1 => 'не отвечает',
             0  => 'не обработан',
@@ -94,13 +92,18 @@ class HomeController extends BaseController {
             4  => 'проверен',
         );
         
-        $status_content = '<p>Статистика обработки:</p>';
-               
+        $delta_mins = ceil( (time() - strtotime($updated_at_min)) / 60 );
+        
+        $status_content = "<p>Статистика обработки за последние {$delta_mins} мин.:</p>";
+        
+        $all_counts = 0;       
         if (is_array($res) AND count($res) > 0) {
             foreach ($res AS $row) {
-                $status_content . "{$slist[$row->status]} - {$row->count}<br>";
+                $status_content .= "{$slist[$row->status]} - {$row->count}<br>";
+                $all_counts++;
             }
         }
+        $status_content .= "ИТОГО - {$all_counts}";
         
         
         $updated_at = (string) date('Y-m-d H:i:00');
