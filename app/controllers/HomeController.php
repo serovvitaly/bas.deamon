@@ -207,10 +207,10 @@ class HomeController extends BaseController {
                     $pattern = NULL;
             }
             
-            $out['pattern'] = $pattern;
+            $out['pattern2'] = $pattern;
             
             if ($pattern !== NULL) {
-                $content = @file_get_contents($url);
+                $content = file_get_contents($url);
                 
                 if ($content) {
                     
