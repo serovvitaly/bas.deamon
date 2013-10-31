@@ -51,7 +51,7 @@ if ($ptn AND $ptn->num_rows > 0) {
             $temp_ptn = trim($p['pattern']);
             $temp_ptn = str_replace('*', '\d', $temp_ptn);
             $temp_ptn = str_replace('+', '\+', $temp_ptn);
-            $temp_ptn = str_replace(array('(',')'), array('\(','\)'), $temp_ptn);
+            $temp_ptn = str_replace(array('(',')'), array('[(]','[)]'), $temp_ptn);
             
             $ptns[] = $temp_ptn;
         }
