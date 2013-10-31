@@ -73,18 +73,41 @@ class HomeController extends BaseController {
     } 
     
     public function postCheckDaemon()
-    {
-        $result = 'не удалось проверить демон';
+    {        
+        $updated_at_min = date('Y-m-d H:i:s', time() - 3600);
         
-        $row = BaseSite::orderBy('updated_at', 'DESC')->take(1)->get();
+        $res = DB::table('sites_list')
+               ->select(DB::raw('status, COUNT(id) as count'))
+               ->where('updated_at', '>', $updated_at_min)
+               ->groupBy('status')
+               ->orderBy('updated_at', 'DESC')
+               ->get();
+               
+        $slist = array(
+            -1 => 'не отвечает',
+            0  => 'не обработан',
+            1  => 'отвечает',
+            2  => 'есть страницы',
+            3  => 'есть контакты',
+            4  => 'проверен',
+        );
         
-        $updated_at = (string) $row[0]->updated_at;
+        $status_content = '<p>Статистика обработки:</p>';
+               
+        if (is_array($res) AND count($res) > 0) {
+            foreach ($res AS $row) {
+                $status_content . "{$slist[$row->status]} - {$row->count}<br>";
+            }
+        }
         
-        $delte = time() - strtotime($updated_at);
         
-        $mins = floor($delte / 60);
+        $updated_at = (string) date('Y-m-d H:i:00');
         
-        $secs = $delte - $mins * 60;
+        $delta = time() - strtotime($updated_at);
+        
+        $mins = floor($delta / 60);
+        
+        $secs = $delta - $mins * 60;
         
         if ($mins >= 30) {
             $color = 'red';
@@ -94,8 +117,11 @@ class HomeController extends BaseController {
             $color = 'green';
         }
         
-        return "<span style='color:{$color}'>Демон обращался к базе {$mins} мин. {$secs}сек. назад</span>";
+        $content = "<span style='color:{$color}'>Демон обращался к базе {$mins} мин. {$secs}сек. назад</span>";
+        
+        return $content . $status_content;
     }
+    
     
     public function getLoad()
     {
