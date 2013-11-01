@@ -227,10 +227,12 @@ class HomeController extends BaseController {
                     
                     preg_match_all($pattern, $content, $matches1);
                     
+                    $out['content'] = $content;
+                    
                     $content = strip_tags($content);
                     preg_match_all($pattern, $content, $matches2);
                     
-                    $out['content'] = $content;
+                    
                     $out['data'] = array_merge_recursive($matches1, $matches2);
                     
                     $result = array();
