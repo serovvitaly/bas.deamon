@@ -180,7 +180,13 @@ class HomeController extends BaseController {
         );
 
         $context = stream_context_create($options);
-        return file_get_contents($url, false, $context);
+        
+        $output = file_get_contents($url, false, $context);
+       
+        $url = rtrim($url, '/');
+        $output = preg_replace('/(src|href)=\"\/?(?!(http:)|(https:))([a-zA-Z0-9а-яА-Я]+)/', '$1="'.$url.'/$4', $output);
+        
+        return $output;
     }
    
    
