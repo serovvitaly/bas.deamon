@@ -133,6 +133,9 @@
 
 <script>
 function checkPhones(){
+    
+    console.log( document.getElementById('load-container').contentWindow );
+    
     $('#check-phones-content').html('<i>выполнение операции...</i>');
     $.ajax({
         url: '/load-url-content',
