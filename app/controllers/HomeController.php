@@ -168,7 +168,7 @@ class HomeController extends BaseController {
     
     public function getGetUrlContent()
     {
-        $url = Input::gat('url');
+        $url = Input::get('url');
         
         $options = array(
           'http'=>array(
