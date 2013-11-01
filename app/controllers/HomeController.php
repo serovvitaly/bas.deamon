@@ -227,6 +227,7 @@ class HomeController extends BaseController {
                     
                     preg_match_all($pattern, $content, $matches1);
                     
+                    $out['url'] = $url;
                     $out['content'] = $content;
                     
                     $content = strip_tags($content);
