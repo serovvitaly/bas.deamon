@@ -630,7 +630,7 @@ class HomeController extends BaseController {
     public function getDaemons()
     {        
         $this->layout->content = View::make('home.daemons', array(
-            'patterns' => Pattern::all()
+            'patterns' => Pattern::orderBy('pattern', 'DESC')->get()
         ));
     }
     
