@@ -141,6 +141,7 @@ function checkPhones(){
         type: 'POST',
         data: {
             url: $('#load-container').attr('src'),
+            uid: '{{ $uid }}',
             type: 'phone'
         },
         success: function(data){
@@ -165,6 +166,7 @@ function checkEmails(){
         type: 'POST',
         data: {
             url: $('#load-container').attr('src'),
+            uid: '{{ $uid }}',
             type: 'email'
         },
         success: function(data){

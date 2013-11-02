@@ -193,11 +193,12 @@ class HomeController extends BaseController {
     public function postLoadUrlContent()
     {
         $url  = Input::get('url');
+        $uid  = Input::get('uid');
         $type = Input::get('type');
         
         $out['result'] = NULL;
         
-        if (!empty($url)) {
+        if ($uid > 0) {
             
             switch ($type) {
                 case 'phone':
@@ -234,6 +235,10 @@ class HomeController extends BaseController {
             //$out['pattern2'] = $pattern;
             
             if ($pattern !== NULL) {
+                
+                $data = Site::where('id', '=', $uid)->get('data');
+                
+                print_r($data); return;
                 
                 $options = array(
                   'http'=>array(
