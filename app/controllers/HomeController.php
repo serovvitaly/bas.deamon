@@ -238,13 +238,21 @@ class HomeController extends BaseController {
                 
                 $data = json_decode(Site::find($uid)->data);
                 
+                $urls = array();
+                
                 if ($data AND count($data) > 0) {
                     array_walk_recursive($data, function($item, $key){
-                        echo "\n:: {$key} ::\n";
-                        print_r($item);
-                        echo "\n-----------------------------------------\n";
+                        if ($key == 'url') {
+                            $urls[] = $item;
+                        } elseif (isset($item->url)) {
+                            $urls[] = $item->url;
+                        }
                     });
                 }
+                
+                $urls = array_unique($urls);
+                
+                print_r($urls);
                 
                 return;
                 
