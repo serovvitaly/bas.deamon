@@ -236,7 +236,7 @@ class HomeController extends BaseController {
             
             if ($pattern !== NULL) {
                 
-                $data = Site::where('id', '=', $uid)->get(array('data'));
+                $data = Site::find($uid)->data;
                 
                 print_r($data); return;
                 
