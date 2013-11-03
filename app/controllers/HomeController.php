@@ -238,9 +238,7 @@ class HomeController extends BaseController {
                 
                 $data = json_decode(Site::find($uid)->data);
                 
-                print_r($data);
-                
-                if (is_array($data) AND count($data) > 0) {
+                if ($data AND count($data) > 0) {
                     array_walk_recursive($data, function($item, $key){
                         print_r($item);
                     });
