@@ -308,8 +308,6 @@ class HomeController extends BaseController {
                     $out['result'] = $result;
                 }
                 
-                return;
-                
             }
             
         }
