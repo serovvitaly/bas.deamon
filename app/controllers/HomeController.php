@@ -192,7 +192,7 @@ class HomeController extends BaseController {
    
     public function postLoadUrlContent()
     {
-        $url  = Input::get('url');
+        //$url  = Input::get('url');
         $uid  = Input::get('uid');
         $type = Input::get('type');
         
@@ -252,9 +252,7 @@ class HomeController extends BaseController {
                 
                 $urls = array_unique($urls);
                 
-                print_r($urls);
                 
-                return;
                 
                 $options = array(
                   'http'=>array(
@@ -266,39 +264,52 @@ class HomeController extends BaseController {
                 );
 
                 $context = stream_context_create($options);
-                $content = file_get_contents($url, false, $context);
                 
-                if ($content) {
-                    
-                    preg_match_all($pattern, $content, $matches1);
-                    
-                    //$out['url'] = $url;
-                    //$out['content'] = $content;
-                    
-                    $content = strip_tags($content);
-                    preg_match_all($pattern, $content, $matches2);
-                    
-                    //$out['data'] = array_merge_recursive($matches1, $matches2);
+                if (count($urls) > 0) {
                     
                     $result = array();
                     
-                    if (isset($matches1[0]) AND count($matches1[0]) > 0) {
-                        foreach ($matches1[0] AS $mm) {
-                            if (!empty($mm)) {
-                                $result[] = $mm;
+                    foreach ($urls AS $url) {
+                        
+                        $content = file_get_contents($url, false, $context);
+                        
+                        if ($content) {
+                    
+                            preg_match_all($pattern, $content, $matches1);
+                            
+                            $content = strip_tags($content);
+                            preg_match_all($pattern, $content, $matches2);
+                            
+                            
+                            
+                            if (isset($matches1[0]) AND count($matches1[0]) > 0) {
+                                foreach ($matches1[0] AS $mm) {
+                                    if (!empty($mm)) {
+                                        $result[] = $mm;
+                                    }
+                                }
                             }
+                            if (isset($matches2[0]) AND count($matches2[0]) > 0) {
+                                foreach ($matches2[0] AS $mm) {
+                                    if (!empty($mm)) {
+                                        $result[] = $mm;
+                                    }
+                                }
+                            }
+                            
+                            
                         }
                     }
-                    if (isset($matches2[0]) AND count($matches2[0]) > 0) {
-                        foreach ($matches2[0] AS $mm) {
-                            if (!empty($mm)) {
-                                $result[] = $mm;
-                            }
-                        }
+                    
+                    if (count($result) > 0) {
+                        $result = array_unique($result);
                     }
                     
                     $out['result'] = $result;
                 }
+                
+                return;
+                
             }
             
         }
