@@ -301,13 +301,11 @@ class HomeController extends BaseController {
                         }
                     }
                     
-                    print_r($result);
-                    
-                    $result = array_values( (array) $result);
-                    
                     if (count($result) > 0) {
                         $result = array_unique($result);
                     }
+                    
+                    $result = array_values( (array) $result);
                     
                     $out['result'] = $result;
                 }
