@@ -250,7 +250,7 @@ class HomeController extends BaseController {
                     });
                 }
                 
-                //$urls = array_unique($urls);
+                $urls = array_unique($urls);
                 
                 print_r($urls);
                 
