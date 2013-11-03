@@ -301,6 +301,8 @@ class HomeController extends BaseController {
                         }
                     }
                     
+                    print_r($result);
+                    
                     $result = array_values( (array) $result);
                     
                     if (count($result) > 0) {
