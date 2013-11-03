@@ -240,6 +240,7 @@ class HomeController extends BaseController {
                 
                 if ($data AND count($data) > 0) {
                     array_walk_recursive($data, function($item, $key){
+                        echo "\n:: {$key} ::\n";
                         print_r($item);
                         echo "\n-----------------------------------------\n";
                     });
