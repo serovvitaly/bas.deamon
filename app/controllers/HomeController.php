@@ -252,7 +252,7 @@ class HomeController extends BaseController {
                 
                 //$urls = array_unique($urls);
                 
-                var_dump($urls);
+                print_r($urls);
                 
                 return;
                 
