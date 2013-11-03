@@ -242,7 +242,7 @@ class HomeController extends BaseController {
                 
                 if ($data AND count($data) > 0) {
                     array_walk_recursive($data, function($item, $key) use (&$urls) {
-                        if ($key == 'url') {
+                        if ($key == 'url' AND is_scalar($item)) {
                             $urls[] = $item;
                         } elseif (isset($item->url)) {
                             $urls[] = $item->url;
