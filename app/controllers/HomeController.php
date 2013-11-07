@@ -280,6 +280,7 @@ class HomeController extends BaseController {
                             $content = strip_tags($content);
                             preg_match_all($pattern, $content, $matches2);
                             
+                            echo "\n{$url}";
                             print_r($matches1);
                             //print_r($matches2);
                             
