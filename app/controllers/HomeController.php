@@ -218,7 +218,7 @@ class HomeController extends BaseController {
                         }
                     }
                     if (count($ptns) > 0) {
-                        $pattern = '/[^0-9]((' . implode('[^0-9])|([^0-9]', $ptns) . '))[^0-9]/';
+                        $pattern = '/[\D]((' . implode('[^0-9])|([^0-9]', $ptns) . '))[\D]/';
                     } else {
                         $pattern = NULL;
                     }
@@ -280,7 +280,7 @@ class HomeController extends BaseController {
                             $content = strip_tags($content);
                             preg_match_all($pattern, $content, $matches2);
                             
-                            echo "\n{$url}";
+                            echo "\n{$url}\n";
                             print_r($matches1);
                             //print_r($matches2);
                             
