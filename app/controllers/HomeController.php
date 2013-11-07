@@ -232,7 +232,7 @@ class HomeController extends BaseController {
                     $pattern = NULL;
             }
             
-            //$out['pattern2'] = $pattern;
+            $out['pattern'] = $pattern;
             
             if ($pattern !== NULL) {
                 
