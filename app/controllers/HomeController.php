@@ -303,9 +303,10 @@ class HomeController extends BaseController {
                         }
                     }
                     
-                    $result = array_values( (array) $result);
                     
                     $result = array_unique($result);
+                    
+                    $result = array_values( (array) $result);
                     
                     $out['result'] = $result;
                 }
