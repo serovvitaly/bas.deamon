@@ -218,7 +218,7 @@ class HomeController extends BaseController {
                         }
                     }
                     if (count($ptns) > 0) {
-                        $pattern = '/[\D]((' . implode('[^0-9])|([^0-9]', $ptns) . '))[\D]/';
+                        $pattern = '/[\D]((' . implode(')|(', $ptns) . '))[\D]/';
                     } else {
                         $pattern = NULL;
                     }
