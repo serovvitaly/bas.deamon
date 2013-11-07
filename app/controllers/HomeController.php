@@ -232,7 +232,7 @@ class HomeController extends BaseController {
                     $pattern = NULL;
             }
             
-            $out['pattern'] = $pattern;
+            //$out['pattern'] = $pattern;
             
             if ($pattern !== NULL) {
                 
@@ -280,8 +280,8 @@ class HomeController extends BaseController {
                             $content = strip_tags($content);
                             preg_match_all($pattern, $content, $matches2);
                             
-                            echo "\n{$url}\n";
-                            print_r($matches1);
+                            //echo "\n{$url}\n";
+                            //print_r($matches1);
                             //print_r($matches2);
                             
                             if (isset($matches1[0]) AND count($matches1[0]) > 0) {
