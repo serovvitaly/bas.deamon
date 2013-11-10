@@ -276,7 +276,7 @@ class HomeController extends BaseController {
                         
                         if ($content) {
                     
-                            //preg_match_all($pattern, $content, $matches1, PREG_SET_ORDER);
+                            preg_match_all($pattern, $content, $matches1, PREG_SET_ORDER);
                             
                             //preg_match_all($pattern, $content, $PREG_PATTERN_ORDER_1, PREG_PATTERN_ORDER);
                             //preg_match_all($pattern, $content, $PREG_SET_ORDER_1, PREG_SET_ORDER);
@@ -301,14 +301,14 @@ class HomeController extends BaseController {
                                 'PREG_SET_ORDER' => $PREG_SET_ORDER_2,
                                 'PREG_OFFSET_CAPTURE' => $PREG_OFFSET_CAPTURE_2,
                             ); */
-                            /*
+                            
                             if (isset($matches1[0]) AND count($matches1[0]) > 0) {
                                 foreach ($matches1[0] AS $mm) {
                                     if (!empty($mm)) {
                                         $result[] = $mm;
                                     }
                                 }
-                            } */
+                            }
                             if (isset($matches2[0]) AND count($matches2[0]) > 0) {
                                 foreach ($matches2[0] AS $mm) {
                                     if (!empty($mm)) {
