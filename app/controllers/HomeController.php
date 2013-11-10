@@ -280,8 +280,8 @@ class HomeController extends BaseController {
                             $content = strip_tags($content);
                             preg_match_all($pattern, $content, $matches2);
                             
-                            $out['matches1'] = $matches1;
-                            $out['matches2'] = $matches2;
+                            $out['matches1'][] = $matches1;
+                            $out['matches2'][] = $matches2;
                             
                             if (isset($matches1[0]) AND count($matches1[0]) > 0) {
                                 foreach ($matches1[0] AS $mm) {
