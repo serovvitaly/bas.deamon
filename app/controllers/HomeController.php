@@ -277,18 +277,26 @@ class HomeController extends BaseController {
                     
                             preg_match_all($pattern, $content, $matches1, PREG_SET_ORDER);
                             
+                            preg_match_all($pattern, $content, $PREG_PATTERN_ORDER_1, PREG_PATTERN_ORDER);
+                            preg_match_all($pattern, $content, $PREG_SET_ORDER_1, PREG_SET_ORDER);
+                            preg_match_all($pattern, $content, $PREG_OFFSET_CAPTURE_1, PREG_OFFSET_CAPTURE);
+                            
                             $content = strip_tags($content);
                             preg_match_all($pattern, $content, $matches2, PREG_SET_ORDER);
                             
+                            preg_match_all($pattern, $content, $PREG_PATTERN_ORDER_2, PREG_PATTERN_ORDER);
+                            preg_match_all($pattern, $content, $PREG_SET_ORDER_2, PREG_SET_ORDER);
+                            preg_match_all($pattern, $content, $PREG_OFFSET_CAPTURE_2, PREG_OFFSET_CAPTURE);
+                            
                             $out['matches1'][] = array(
-                                'PREG_PATTERN_ORDER' => preg_match_all($pattern, $content, $matches1, PREG_PATTERN_ORDER),
-                                'PREG_SET_ORDER' => preg_match_all($pattern, $content, $matches1, PREG_SET_ORDER),
-                                'PREG_OFFSET_CAPTURE' => preg_match_all($pattern, $content, $matches1, PREG_OFFSET_CAPTURE),
+                                'PREG_PATTERN_ORDER' => $PREG_PATTERN_ORDER_1,
+                                'PREG_SET_ORDER' => $PREG_SET_ORDER_1,
+                                'PREG_OFFSET_CAPTURE' => $PREG_OFFSET_CAPTURE_1,
                             );
                             $out['matches2'][] = array(
-                                'PREG_PATTERN_ORDER' => preg_match_all($pattern, $content, $matches2, PREG_PATTERN_ORDER),
-                                'PREG_SET_ORDER' => preg_match_all($pattern, $content, $matches2, PREG_SET_ORDER),
-                                'PREG_OFFSET_CAPTURE' => preg_match_all($pattern, $content, $matches2, PREG_OFFSET_CAPTURE),
+                                'PREG_PATTERN_ORDER' => $PREG_PATTERN_ORDER_2,
+                                'PREG_SET_ORDER' => $PREG_SET_ORDER_2,
+                                'PREG_OFFSET_CAPTURE' => $PREG_OFFSET_CAPTURE_2,
                             );
                             
                             if (isset($matches1[0]) AND count($matches1[0]) > 0) {
