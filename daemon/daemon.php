@@ -6,6 +6,11 @@ if ($child_pid) {
 }
 posix_setsid();
 
+// Время старта экземпляра демона
+define('START_TIME', time());
+// Время работы демона до перезапуска, в часах
+define('TIME_LIMIT', 1);
+
 
 $baseDir   = dirname(__FILE__);
 $root_path = dirname($baseDir);
@@ -278,8 +283,19 @@ function one_query($mix, $is_redirect = false, $is_home = true) {
 $inworking = true;
 try{
     
-
+error_log('Запущен экземпляр демона');
 while ($inworking) {
+    
+    if ( time() > (START_TIME + TIME_LIMIT * 3600) ) {
+        error_log('Перезапуск демона');
+        $_path = dirname(__FILE__);
+        $daemon_path = $_path . '/daemon.php';
+        $daemon_log_path = $_path . '/logs/daemon.log';
+        $command = "/usr/bin/php -f {$daemon_path} > {$daemon_log_path} &";
+        exec($command);
+        exit;
+    }
+    
     //error_log("--STEP--");
     $db = new mysqli($cfg['host'], $cfg['username'], $cfg['password'], $cfg['database']);
     $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `domain_created` DESC LIMIT 50 FOR UPDATE");
