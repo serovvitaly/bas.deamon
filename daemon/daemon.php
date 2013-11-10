@@ -58,7 +58,7 @@ if ($ptn AND $ptn->num_rows > 0) {
     }
 }
 if (count($ptns) > 0) {
-    $pattern = '/(' . implode(')|(', $ptns) . ')/';
+    $pattern = '/[\D]((' . implode(')|(', $ptns) . '))[\D]/';
 } else {
     $pattern = NULL;
 }
@@ -208,7 +208,7 @@ function one_query($mix, $is_redirect = false, $is_home = true) {
                         
                 } else { // если страница - внутренняя
                     preg_match_all('/([a-zA-Z0-9-_.]{1,})@([a-z0-9-]{1,}\.[a-z]{2,4}\.?[a-z]{0,4})/', $content, $emails);
-                    preg_match_all(PHONE_PATTERN, $content, $phones);
+                    //preg_match_all(PHONE_PATTERN, $content, $phones);
                     preg_match_all(PHONE_PATTERN, strip_tags($content), $phones1);
                                         
                     $elist = array(); // список email
@@ -222,6 +222,7 @@ function one_query($mix, $is_redirect = false, $is_home = true) {
                             }
                         }
                     }
+                    /*
                     if (is_array($phones) AND isset($phones[0]) AND is_array($phones[0]) AND count($phones[0]) > 0) {
                         $phones[0] = array_unique($phones[0]);
                         foreach ($phones[0] AS $phone) {
@@ -229,7 +230,7 @@ function one_query($mix, $is_redirect = false, $is_home = true) {
                                 $plist[] = trim($phone);
                             }
                         }
-                    }
+                    } */
                     if (is_array($phones1) AND isset($phones1[0]) AND is_array($phones1[0]) AND count($phones1[0]) > 0) {
                         $phones1[0] = array_unique($phones1[0]);
                         foreach ($phones1[0] AS $phone) {
