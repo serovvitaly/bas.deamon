@@ -231,7 +231,7 @@ class HomeController extends BaseController {
                 default :
                     $pattern = NULL;
             }
-            
+            echo $pattern;
             //$out['pattern'] = $pattern;
             
             if ($pattern !== NULL) {
