@@ -290,11 +290,13 @@ class HomeController extends BaseController {
                             preg_match_all($pattern, $content, $PREG_OFFSET_CAPTURE_2, PREG_OFFSET_CAPTURE);
                             
                             $out['matches1'][] = array(
+                                'url' => $url,
                                 'PREG_PATTERN_ORDER' => $PREG_PATTERN_ORDER_1,
                                 'PREG_SET_ORDER' => $PREG_SET_ORDER_1,
                                 'PREG_OFFSET_CAPTURE' => $PREG_OFFSET_CAPTURE_1,
                             );
                             $out['matches2'][] = array(
+                                'url' => $url,
                                 'PREG_PATTERN_ORDER' => $PREG_PATTERN_ORDER_2,
                                 'PREG_SET_ORDER' => $PREG_SET_ORDER_2,
                                 'PREG_OFFSET_CAPTURE' => $PREG_OFFSET_CAPTURE_2,
