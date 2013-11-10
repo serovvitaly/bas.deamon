@@ -275,13 +275,21 @@ class HomeController extends BaseController {
                         
                         if ($content) {
                     
-                            preg_match_all($pattern, $content, $matches1);
+                            preg_match_all($pattern, $content, $matches1, PREG_SET_ORDER);
                             
                             $content = strip_tags($content);
-                            preg_match_all($pattern, $content, $matches2);
+                            preg_match_all($pattern, $content, $matches2, PREG_SET_ORDER);
                             
-                            $out['matches1'][] = $matches1;
-                            $out['matches2'][] = $matches2;
+                            $out['matches1'][] = array(
+                                'PREG_PATTERN_ORDER' => preg_match_all($pattern, $content, $matches1, PREG_PATTERN_ORDER),
+                                'PREG_SET_ORDER' => preg_match_all($pattern, $content, $matches1, PREG_SET_ORDER),
+                                'PREG_OFFSET_CAPTURE' => preg_match_all($pattern, $content, $matches1, PREG_OFFSET_CAPTURE),
+                            );
+                            $out['matches2'][] = array(
+                                'PREG_PATTERN_ORDER' => preg_match_all($pattern, $content, $matches2, PREG_PATTERN_ORDER),
+                                'PREG_SET_ORDER' => preg_match_all($pattern, $content, $matches2, PREG_SET_ORDER),
+                                'PREG_OFFSET_CAPTURE' => preg_match_all($pattern, $content, $matches2, PREG_OFFSET_CAPTURE),
+                            );
                             
                             if (isset($matches1[0]) AND count($matches1[0]) > 0) {
                                 foreach ($matches1[0] AS $mm) {
