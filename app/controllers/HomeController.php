@@ -202,7 +202,7 @@ class HomeController extends BaseController {
             
             switch ($type) {
                 case 'phone':
-                    $ptn = Pattern::all();
+                    $ptn = Pattern::orderBy('pattern', 'DESC')->get();
                     $ptns = array();
                     if ($ptn AND count($ptn) > 0) {
                         foreach ($ptn AS $p) {
