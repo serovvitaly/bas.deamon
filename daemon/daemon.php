@@ -297,8 +297,9 @@ while ($inworking) {
     }
     
     //error_log("--STEP--");
-    $db = new mysqli($cfg['host'], $cfg['username'], $cfg['password'], $cfg['database']);
-    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `domain_created` DESC LIMIT 100 FOR UPDATE");
+    $db = new mysqli($cfg['host'], $cfg['username'], $cfg['password'], $cfg['database']); 
+    $db->query("START TRANSACTION");
+    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `domain_created` DESC LIMIT 100");
     //error_log("ITER FOR: {$result->num_rows}");
     if ($result AND $result->num_rows > 0) {
         //error_log("ITER FOR: {$result->num_rows}");
@@ -411,6 +412,7 @@ while ($inworking) {
         curl_multi_close($cmh);
     }
     
+    $db->query("COMMIT");
     $db->close();
     //$inworking = false;
 }
