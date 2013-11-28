@@ -224,7 +224,6 @@ class HomeController extends BaseController {
                         $pattern = NULL;
                     }
                     
-                    //$pattern = '/((\\\\((8|7|\+7|\+\s7){0,1}(9){1}[0-9]{1}\\\\)[\s]{0,})|((8|7|\+7|\+\s7){0,1}[\s]{0,}[- \\\\(]{0,}([0-9]{3,4})[- \\\\)]{0,}))[0-9]{1,3}(-){0,}[0-9]{2}(-)[0-9]{2}/';
                     break;
                 case 'email':
                     $pattern = '/([a-zA-Z0-9-_.]{1,})@([a-zA-Z0-9-]{1,}\.[a-zA-Z]{2,4})/s';
@@ -275,40 +274,10 @@ class HomeController extends BaseController {
                         $content = file_get_contents($url, false, $context);
                         
                         if ($content) {
-                    
-                            //preg_match_all($pattern, $content, $matches1, PREG_SET_ORDER);
-                            
-                            //preg_match_all($pattern, $content, $PREG_PATTERN_ORDER_1, PREG_PATTERN_ORDER);
-                            //preg_match_all($pattern, $content, $PREG_SET_ORDER_1, PREG_SET_ORDER);
-                            //preg_match_all($pattern, $content, $PREG_OFFSET_CAPTURE_1, PREG_OFFSET_CAPTURE);
                             
                             $content = strip_tags($content);
                             preg_match_all($pattern, $content, $matches2, PREG_SET_ORDER);
                             
-                            //preg_match_all($pattern, $content, $PREG_PATTERN_ORDER_2, PREG_PATTERN_ORDER);
-                            //preg_match_all($pattern, $content, $PREG_SET_ORDER_2, PREG_SET_ORDER);
-                            //preg_match_all($pattern, $content, $PREG_OFFSET_CAPTURE_2, PREG_OFFSET_CAPTURE);
-                            /*
-                            $out['matches1'][] = array(
-                                'url' => $url,
-                                'PREG_PATTERN_ORDER' => $PREG_PATTERN_ORDER_1,
-                                'PREG_SET_ORDER' => $PREG_SET_ORDER_1,
-                                'PREG_OFFSET_CAPTURE' => $PREG_OFFSET_CAPTURE_1,
-                            );
-                            $out['matches2'][] = array(
-                                'url' => $url,
-                                'PREG_PATTERN_ORDER' => $PREG_PATTERN_ORDER_2,
-                                'PREG_SET_ORDER' => $PREG_SET_ORDER_2,
-                                'PREG_OFFSET_CAPTURE' => $PREG_OFFSET_CAPTURE_2,
-                            ); */
-                            /*
-                            if (isset($matches1[0]) AND count($matches1[0]) > 0) {
-                                foreach ($matches1[0] AS $mm) {
-                                    if (!empty($mm)) {
-                                        $result[] = $mm;
-                                    }
-                                }
-                            } */
                             if (isset($matches2[0]) AND count($matches2[0]) > 0) {
                                 foreach ($matches2[0] AS $mm) {
                                     if (!empty($mm)) {
@@ -807,6 +776,7 @@ class HomeController extends BaseController {
         $token = '3246346257yterrtt3466rehjg45hdhkjg46557uvgmgtt4t56ygh67u46';
         
         file_get_contents("http://zwrk006.fvds.ru/control.php?token={$token}&action=run");
+        file_get_contents("http://d1.zwrk007.fvds.ru/control.php?token={$token}&action=run");
         
         return json_encode(array(
             'success' => true
