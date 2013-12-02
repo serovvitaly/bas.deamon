@@ -108,7 +108,7 @@
     <? if (isset($content)) echo $content ?>
   </div>
   
-  <footer style="height: 50px;">
+  <footer style="height: 20px;">
   
   </footer>
   

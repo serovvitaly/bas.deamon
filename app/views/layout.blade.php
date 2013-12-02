@@ -108,7 +108,7 @@
   @yield('content')
   </div>
   
-  <footer style="height: 10px;">
+  <footer style="height: 50px;">
   
   </footer>
   
