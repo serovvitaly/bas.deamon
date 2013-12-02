@@ -222,7 +222,7 @@ function loadByUrl(){
     });
 }
 function setIframeHeight(){
-    $('#load-container').height( $(window).height() - 120 );
+    $('#load-container').height( $(window).height() - 130 );
 }
 
 $('.check-table tr').on('mouseover', function(){
