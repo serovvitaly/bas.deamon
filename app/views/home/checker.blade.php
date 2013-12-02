@@ -80,14 +80,14 @@
               if (is_array($markers) AND count($markers) > 0) {
                   foreach ($markers AS $m_name) {
                       $checked = ($marker == $m_name) ? ' checked="checked"' : '';
-                  ?><li><label><input<?= $checked ?> name="marker" value="<?= $m_name ?>" type="radio"> - <?= $m_name ?></label></li><?
+                  ?><li style="display: inline; padding-right: 5px;"><label><input<?= $checked ?> name="marker" value="<?= $m_name ?>" type="radio"> - <?= $m_name ?></label></li><?
                   }
               }
               ?>
             </ul>
             <button style="margin-top: 10px;" class="btn btn-inverse">Сохранить и далее</button>
           </div>
-          <div class="span6">
+          <div class="span5">
             <div>Телефоны</div>
             <input type="text" name="phones[]" value="<?= isset($phones[0]) ? $phones[0] : '' ?>">
             <input type="text" name="phones[]" value="<?= isset($phones[1]) ? $phones[1] : '' ?>">
@@ -96,7 +96,7 @@
             <a class="btn btn-success" href="#" onclick="checkPhones(); return false;">Проверить</a>
             <div id="check-phones-content"></div>
           </div>
-          <div class="span6">
+          <div class="span5">
             <div>Email-ы</div>
             <input type="text" name="emails[]" value="<?= isset($emails[0]) ? $emails[0] : '' ?>">
             <input type="text" name="emails[]" value="<?= isset($emails[1]) ? $emails[1] : '' ?>">
