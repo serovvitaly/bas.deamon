@@ -87,7 +87,7 @@
             </ul>
             <button style="margin-top: 10px;" class="btn btn-inverse">Сохранить и далее</button>
           </div>
-          <div class="span8">
+          <div class="span6">
             <div>Телефоны</div>
             <input type="text" name="phones[]" value="<?= isset($phones[0]) ? $phones[0] : '' ?>">
             <input type="text" name="phones[]" value="<?= isset($phones[1]) ? $phones[1] : '' ?>">
@@ -96,7 +96,7 @@
             <a class="btn btn-success" href="#" onclick="checkPhones(); return false;">Проверить</a>
             <div id="check-phones-content"></div>
           </div>
-          <div class="span8">
+          <div class="span6">
             <div>Email-ы</div>
             <input type="text" name="emails[]" value="<?= isset($emails[0]) ? $emails[0] : '' ?>">
             <input type="text" name="emails[]" value="<?= isset($emails[1]) ? $emails[1] : '' ?>">
