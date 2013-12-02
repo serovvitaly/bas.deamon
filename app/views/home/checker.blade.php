@@ -234,4 +234,8 @@ $('.check-table tr').on('mouseover', function(){
 
 setIframeHeight();
 
+$(window).resize(function(){
+    setIframeHeight();
+});
+
 </script>
