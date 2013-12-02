@@ -80,7 +80,7 @@
               if (is_array($markers) AND count($markers) > 0) {
                   foreach ($markers AS $m_name) {
                       $checked = ($marker == $m_name) ? ' checked="checked"' : '';
-                  ?><li style="display: inline; padding-right: 5px;"><label><input<?= $checked ?> name="marker" value="<?= $m_name ?>" type="radio"> - <?= $m_name ?></label></li><?
+                  ?><li style="display: inline; padding-right: 5px;"><label style="display: inherit;"><input<?= $checked ?> name="marker" value="<?= $m_name ?>" type="radio"> - <?= $m_name ?></label></li><?
                   }
               }
               ?>
