@@ -71,27 +71,9 @@
         
     <form action="/save-data" method="POST">
         <input type="hidden" name="uid" value="{{ $uid }}">
-        <input type="hidden" name="next_uid" value="{{ $next_uid }}">
+        <input type="hidden" name="next_uid" value="{{ $next_uid }}"> 
         <div class="row-fluid">
-          <div class="span4">
-            <div>Телефоны</div>
-            <input type="text" name="phones[]" value="<?= isset($phones[0]) ? $phones[0] : '' ?>">
-            <input type="text" name="phones[]" value="<?= isset($phones[1]) ? $phones[1] : '' ?>">
-            <input type="text" name="phones[]" value="<?= isset($phones[2]) ? $phones[2] : '' ?>">
-            <br>
-            <a class="btn btn-success" href="#" onclick="checkPhones(); return false;">Проверить</a>
-            <div id="check-phones-content"></div>
-          </div>
-          <div class="span4">
-            <div>Email-ы</div>
-            <input type="text" name="emails[]" value="<?= isset($emails[0]) ? $emails[0] : '' ?>">
-            <input type="text" name="emails[]" value="<?= isset($emails[1]) ? $emails[1] : '' ?>">
-            <input type="text" name="emails[]" value="<?= isset($emails[2]) ? $emails[2] : '' ?>">
-            <br>
-            <a class="btn btn-success" href="#" onclick="checkEmails(); return false;">Проверить</a>
-            <div id="check-emails-content"></div>
-          </div>
-          <div class="span4">
+          <div class="span12">
             <ul style="margin: 0; list-style: none;">
               <?
               $markers = Config::get('bas_markers');
@@ -104,6 +86,24 @@
               ?>
             </ul>
             <button style="margin-top: 10px;" class="btn btn-inverse">Сохранить и далее</button>
+          </div>
+          <div class="span8">
+            <div>Телефоны</div>
+            <input type="text" name="phones[]" value="<?= isset($phones[0]) ? $phones[0] : '' ?>">
+            <input type="text" name="phones[]" value="<?= isset($phones[1]) ? $phones[1] : '' ?>">
+            <input type="text" name="phones[]" value="<?= isset($phones[2]) ? $phones[2] : '' ?>">
+            <br>
+            <a class="btn btn-success" href="#" onclick="checkPhones(); return false;">Проверить</a>
+            <div id="check-phones-content"></div>
+          </div>
+          <div class="span8">
+            <div>Email-ы</div>
+            <input type="text" name="emails[]" value="<?= isset($emails[0]) ? $emails[0] : '' ?>">
+            <input type="text" name="emails[]" value="<?= isset($emails[1]) ? $emails[1] : '' ?>">
+            <input type="text" name="emails[]" value="<?= isset($emails[2]) ? $emails[2] : '' ?>">
+            <br>
+            <a class="btn btn-success" href="#" onclick="checkEmails(); return false;">Проверить</a>
+            <div id="check-emails-content"></div>
           </div>
         </div>
         <div class="row-fluid">
