@@ -73,7 +73,7 @@
         <input type="hidden" name="uid" value="{{ $uid }}">
         <input type="hidden" name="next_uid" value="{{ $next_uid }}"> 
         <div class="row-fluid">
-          <div class="span12">
+          <div class="span12" style="padding-bottom: 10px;">
             <ul style="margin: 0; list-style: none;">
               <?
               $markers = Config::get('bas_markers');
@@ -221,6 +221,9 @@ function loadByUrl(){
         }
     });
 }
+function setIframeHeight(){
+    $('#load-container').height( $(window).height() - 100 );
+}
 
 $('.check-table tr').on('mouseover', function(){
     $('.check-table .popoverdzen').hide();
@@ -228,5 +231,7 @@ $('.check-table tr').on('mouseover', function(){
 }).on('mouseout', function(){
     $(this).find('.popoverdzen').hide();
 });
+
+setIframeHeight();
 
 </script>
