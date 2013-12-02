@@ -354,7 +354,7 @@ class HomeController extends BaseController {
         
         $next_uid = NULL;
         
-        $sites = Site::where('status', '>=', $_satus)->where('status', '<', 4)->whereIn('status', $filter_status)->orderBy('domain_created', 'DESC')->paginate(50);
+        $sites = Site::where('status', '>=', $_satus)->where('status', '<', 4)->whereIn('status', $filter_status)->orderBy('domain_created', 'DESC')->paginate(10);
         
         foreach ($filter_status AS $filter_stat) {
             $sites->appends('filter_status['.$filter_stat.']', $filter_stat);
