@@ -86,7 +86,7 @@
             <div id="check-phones-content"></div>
           </div>
           <div>
-            <div>Email-ы</div>
+            <div style="display: inline-block;">Email-ы:</div>
             <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[0]) ? trim($emails[0]) : '' ?>">
             <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[1]) ? trim($emails[1]) : '' ?>">
             <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[2]) ? trim($emails[2]) : '' ?>">
