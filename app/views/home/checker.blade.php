@@ -210,7 +210,7 @@ function loadByUrl(){
     });
 }
 function setIframeHeight(){
-    $('#load-container').height( $(document).height() - 140 );
+    $('#load-container').height( $(document).height() - 316 );
 }
 
 $('.check-table tr').on('mouseover', function(){
