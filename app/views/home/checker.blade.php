@@ -82,7 +82,7 @@
             <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[0]) ? $phones[0] : '' ?>">
             <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[1]) ? $phones[1] : '' ?>">
             <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[2]) ? $phones[2] : '' ?>">
-            <a class="btn btn-success" href="#" onclick="checkPhones(); return false;">Проверить</a>
+            <a style="display: inline-block;" class="btn btn-success" href="#" onclick="checkPhones(); return false;">Проверить</a>
             <div id="check-phones-content"></div>
           </div>
           <div>
@@ -90,21 +90,19 @@
             <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[0]) ? $emails[0] : '' ?>">
             <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[1]) ? $emails[1] : '' ?>">
             <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[2]) ? $emails[2] : '' ?>">
-            <a class="btn btn-success" href="#" onclick="checkEmails(); return false;">Проверить</a>
+            <a style="display: inline-block;" class="btn btn-success" href="#" onclick="checkEmails(); return false;">Проверить</a>
             <div id="check-emails-content"></div>
           </div>
           <div style="padding: 10px 0;">
-            <ul style="margin: 0; list-style: none;">
               <?
               $markers = Config::get('bas_markers');
               if (is_array($markers) AND count($markers) > 0) {
                   foreach ($markers AS $m_name) {
-                      $checked = ($marker == $m_name) ? ' checked="checked"' : '';
-                  ?><li style="display: inline; padding-right: 5px;"><label style="display: inherit;"><input<?= $checked ?> name="marker" value="<?= $m_name ?>" type="radio"> - <?= $m_name ?></label></li><?
+                      $checked = ($marker == $m_name) ? ' btn-primary' : '';
+                  ?><button style="margin-top: 10px;" class="btn<?= $checked ?>" name="marker" value="<?= $m_name ?>">Сохранить и далее</button><?
                   }
               }
               ?>
-            </ul>
             <button style="margin-top: 10px;" class="btn btn-inverse">Сохранить и далее</button>
           </div>
         </div>
