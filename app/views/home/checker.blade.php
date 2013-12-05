@@ -68,7 +68,11 @@
     </table>
     
     <?php echo $sites->links(); ?>
-        
+    
+  </div>
+  <div class="span8">
+    <h4>URL : {{ $url }}</h4>
+    
     <form action="/save-data" method="POST">
         <input type="hidden" name="uid" value="{{ $uid }}">
         <input type="hidden" name="next_uid" value="{{ $next_uid }}"> 
@@ -89,18 +93,18 @@
           </div>
           <div class="span5">
             <div>Телефоны</div>
-            <input type="text" name="phones[]" value="<?= isset($phones[0]) ? $phones[0] : '' ?>">
-            <input type="text" name="phones[]" value="<?= isset($phones[1]) ? $phones[1] : '' ?>">
-            <input type="text" name="phones[]" value="<?= isset($phones[2]) ? $phones[2] : '' ?>">
+            <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[0]) ? $phones[0] : '' ?>">
+            <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[1]) ? $phones[1] : '' ?>">
+            <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[2]) ? $phones[2] : '' ?>">
             <br>
             <a class="btn btn-success" href="#" onclick="checkPhones(); return false;">Проверить</a>
             <div id="check-phones-content"></div>
           </div>
           <div class="span5">
             <div>Email-ы</div>
-            <input type="text" name="emails[]" value="<?= isset($emails[0]) ? $emails[0] : '' ?>">
-            <input type="text" name="emails[]" value="<?= isset($emails[1]) ? $emails[1] : '' ?>">
-            <input type="text" name="emails[]" value="<?= isset($emails[2]) ? $emails[2] : '' ?>">
+            <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[0]) ? $emails[0] : '' ?>">
+            <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[1]) ? $emails[1] : '' ?>">
+            <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[2]) ? $emails[2] : '' ?>">
             <br>
             <a class="btn btn-success" href="#" onclick="checkEmails(); return false;">Проверить</a>
             <div id="check-emails-content"></div>
@@ -112,12 +116,6 @@
           </div>
         </div>
     </form>
-    
-    
-  
-  </div>
-  <div class="span8">
-    <h4>URL : {{ $url }}</h4>
 
     <div>
       <iframe sandbox src="{{ $url }}" id="load-container" style="width: 100%; height: 600px; border: 1px solid #CECECE;" onload="frameLoaded()"></iframe>
