@@ -82,7 +82,7 @@
             <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[0]) ? $phones[0] : '' ?>">
             <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[1]) ? $phones[1] : '' ?>">
             <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[2]) ? $phones[2] : '' ?>">
-            <a style="display: inline-block;" class="btn btn-success" href="#" onclick="checkPhones(); return false;">Проверить</a>
+            <a style="display: inline-block; margin-bottom: 10px;" class="btn btn-success" href="#" onclick="checkPhones(); return false;">Проверить</a>
             <div id="check-phones-content"></div>
           </div>
           <div>
@@ -90,7 +90,7 @@
             <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[0]) ? $emails[0] : '' ?>">
             <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[1]) ? $emails[1] : '' ?>">
             <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[2]) ? $emails[2] : '' ?>">
-            <a style="display: inline-block;" class="btn btn-success" href="#" onclick="checkEmails(); return false;">Проверить</a>
+            <a style="display: inline-block; margin-bottom: 10px;" class="btn btn-success" href="#" onclick="checkEmails(); return false;">Проверить</a>
             <div id="check-emails-content"></div>
           </div>
           <div style="padding: 10px 0;">
