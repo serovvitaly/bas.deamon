@@ -99,11 +99,11 @@
               if (is_array($markers) AND count($markers) > 0) {
                   foreach ($markers AS $m_name) {
                       $checked = ($marker == $m_name) ? ' btn-primary' : '';
-                  ?><button style="margin-top: 10px;" class="btn<?= $checked ?>" name="marker" value="<?= $m_name ?>">Сохранить и далее</button><?
+                  ?><button style="margin-right: 5px;" class="btn btn-small<?= $checked ?>" name="marker" value="<?= $m_name ?>"><?= $m_name ?></button><?
                   }
               }
               ?>
-            <button style="margin-top: 10px;" class="btn btn-inverse">Сохранить и далее</button>
+            <p><button style="margin-top: 10px;" class="btn btn-inverse">Сохранить и далее</button></p>
           </div>
         </div>
     </form>
