@@ -73,23 +73,23 @@
   <div class="span8">
     <h4>URL : {{ $url }}</h4>
     
-    <form action="/save-data" method="POST">
+    <form action="/save-data" method="POST" style="margin: 0;">
         <input type="hidden" name="uid" value="{{ $uid }}">
         <input type="hidden" name="next_uid" value="{{ $next_uid }}"> 
         <div>
           <div>
             <div>Телефоны</div>
-            <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[0]) ? $phones[0] : '' ?>">
-            <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[1]) ? $phones[1] : '' ?>">
-            <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[2]) ? $phones[2] : '' ?>">
+            <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[0]) ? trim($phones[0]) : '' ?>">
+            <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[1]) ? trim($phones[1]) : '' ?>">
+            <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[2]) ? trim($phones[2]) : '' ?>">
             <a style="display: inline-block; margin-bottom: 10px;" class="btn btn-success" href="#" onclick="checkPhones(); return false;">Проверить</a>
             <div id="check-phones-content"></div>
           </div>
           <div>
             <div>Email-ы</div>
-            <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[0]) ? $emails[0] : '' ?>">
-            <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[1]) ? $emails[1] : '' ?>">
-            <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[2]) ? $emails[2] : '' ?>">
+            <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[0]) ? trim($emails[0]) : '' ?>">
+            <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[1]) ? trim($emails[1]) : '' ?>">
+            <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[2]) ? trim($emails[2]) : '' ?>">
             <a style="display: inline-block; margin-bottom: 10px;" class="btn btn-success" href="#" onclick="checkEmails(); return false;">Проверить</a>
             <div id="check-emails-content"></div>
           </div>
@@ -132,7 +132,6 @@ function checkPhones(){
             type: 'phone'
         },
         success: function(data){
-            //console.log(data);
             if (data.result !== null && data.result.length > 0) {
                 var lines = '';
                 for (var i = 0; i < data.result.length; i++) {
