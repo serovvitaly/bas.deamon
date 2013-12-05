@@ -76,26 +76,24 @@
     <form action="/save-data" method="POST">
         <input type="hidden" name="uid" value="{{ $uid }}">
         <input type="hidden" name="next_uid" value="{{ $next_uid }}"> 
-        <div class="row-fluid">
-          <div class="span12">
+        <div>
+          <div>
             <div>Телефоны</div>
             <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[0]) ? $phones[0] : '' ?>">
             <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[1]) ? $phones[1] : '' ?>">
             <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[2]) ? $phones[2] : '' ?>">
-            <br>
             <a class="btn btn-success" href="#" onclick="checkPhones(); return false;">Проверить</a>
             <div id="check-phones-content"></div>
           </div>
-          <div class="span12">
+          <div>
             <div>Email-ы</div>
             <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[0]) ? $emails[0] : '' ?>">
             <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[1]) ? $emails[1] : '' ?>">
             <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[2]) ? $emails[2] : '' ?>">
-            <br>
             <a class="btn btn-success" href="#" onclick="checkEmails(); return false;">Проверить</a>
             <div id="check-emails-content"></div>
           </div>
-          <div class="span12" style="padding-bottom: 10px;">
+          <div style="padding: 10px 0;">
             <ul style="margin: 0; list-style: none;">
               <?
               $markers = Config::get('bas_markers');
