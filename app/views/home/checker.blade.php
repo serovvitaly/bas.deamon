@@ -78,7 +78,7 @@
         <input type="hidden" name="next_uid" value="{{ $next_uid }}"> 
         <div>
           <div>
-            <div>Телефоны</div>
+            <div style="display: inline-block;">Телефоны:</div>
             <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[0]) ? trim($phones[0]) : '' ?>">
             <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[1]) ? trim($phones[1]) : '' ?>">
             <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[2]) ? trim($phones[2]) : '' ?>">
