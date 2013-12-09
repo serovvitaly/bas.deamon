@@ -148,6 +148,7 @@ function checkPhones(){
                 setTimeout(function(){
                     $('#check-phones-content').fadeOut(3000, function(){
                         $('#check-phones-content').html('');
+                        $('#check-phones-content').show();
                     });
                 }, 3000);
             }
@@ -179,7 +180,8 @@ function checkEmails(){
                 $('#check-emails-content').html('ничего не найдено');
                 setTimeout(function(){
                     $('#check-emails-content').fadeOut(3000, function(){
-                        $('#check-emails-content').html('');  
+                        $('#check-emails-content').html('');
+                        $('#check-emails-content').show();    
                     });
                     
                 }, 3000);
