@@ -134,12 +134,15 @@ function checkPhones(){
         success: function(data){
             if (data.result !== null && data.result.length > 0) {
                 var lines = '';
-                var emptyFields = $('input[name="emails[]"]:not([value!=""])');
+                var emptyFields = $('input[name="phones[]"]:not([value!=""])');
                 console.log(emptyFields);
-                for (var i = 0; i < data.result.length; i++) {
-                    lines += '<p>'+data.result[i]+'</p>';
+                for (var i = 0; i < 4; i++) {
+                    //lines += '<p>'+data.result[i]+'</p>';
+                    if (data.result[i]) {
+                        emptyFields[i] = data.result[i];
+                    }
                 }
-                $('#check-phones-content').html(lines);
+                //$('#check-phones-content').html(lines);
             } else {
                 $('#check-phones-content').html('ничего не найдено');
             }
