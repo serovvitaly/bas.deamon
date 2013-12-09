@@ -42,6 +42,10 @@ if (!file_exists($config_file)) {
 }
 
 
+$limit = 100;
+$proc = 1;
+
+
 $db = new mysqli($cfg['host'], $cfg['username'], $cfg['password'], $cfg['database']);
 
 
@@ -297,9 +301,13 @@ while ($inworking) {
     }
     
     //error_log("--STEP--");
-    $db = new mysqli($cfg['host'], $cfg['username'], $cfg['password'], $cfg['database']); 
+    $db = new mysqli($cfg['host'], $cfg['username'], $cfg['password'], $cfg['database']);
     $db->query("START TRANSACTION");
-    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `status` = 0 ORDER BY `domain_created` DESC LIMIT 100");
+    $db->query("UPDATE `sites_list` SET `proc` = '{$proc}'  WHERE `proc` < 1 AND `status` = 0 ORDER BY `domain_created` DESC LIMIT {$limit}");
+    $db->query("COMMIT");
+    $result = $db->query("SELECT id,url FROM `sites_list` WHERE `proc` = '{$proc}' AND `status` = 0 ORDER BY `domain_created` DESC LIMIT {$limit}");
+    
+    
     //error_log("ITER FOR: {$result->num_rows}");
     if ($result AND $result->num_rows > 0) {
         //error_log("ITER FOR: {$result->num_rows}");
