@@ -146,10 +146,11 @@ function checkPhones(){
             } else {
                 $('#check-phones-content').html('ничего не найдено');
                 setTimeout(function(){
-                    $('#check-phones-content').fadeOut(3000);
-                    $('#check-phones-content').html('');
-                    $('#check-phones-content').show();
-                }, 1000);
+                    $('#check-phones-content').fadeOut(3000, function(){
+                        $('#check-phones-content').html('');
+                        $('#check-phones-content').show();
+                    });
+                }, 3000);
             }
         }
     });
@@ -183,7 +184,7 @@ function checkEmails(){
                         $('#check-emails-content').show();    
                     });
                     
-                }, 5000);
+                }, 3000);
             }
         }
     });
