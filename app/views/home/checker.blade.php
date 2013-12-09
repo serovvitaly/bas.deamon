@@ -159,6 +159,8 @@ function checkEmails(){
             //console.log(data);
             if (data.result !== null && data.result.length > 0) {
                 var lines = '';
+                var emptyFields = $('input[name="phones[]"]:not([value!=""])');
+                console.log(emptyFields);
                 for (var i = 0; i < data.result.length; i++) {
                     lines += '<p>'+data.result[i]+'</p>';
                 }
