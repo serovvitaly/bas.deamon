@@ -145,6 +145,11 @@ function checkPhones(){
                 $('#check-phones-content').html('');
             } else {
                 $('#check-phones-content').html('ничего не найдено');
+                setTimeout(function(){
+                    $('#check-phones-content').fadeOut(3000);
+                    $('#check-phones-content').html('');
+                    $('#check-phones-content').show();
+                }, 1000);
             }
         }
     });
@@ -172,6 +177,11 @@ function checkEmails(){
                 $('#check-emails-content').html('');
             } else {
                 $('#check-emails-content').html('ничего не найдено');
+                setTimeout(function(){
+                    $('#check-emails-content').fadeOut(3000);
+                    $('#check-emails-content').html('');
+                    $('#check-emails-content').show();
+                }, 1000);
             }
         }
     });
