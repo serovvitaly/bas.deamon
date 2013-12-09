@@ -290,6 +290,9 @@ class HomeController extends BaseController {
                         }
                     }
                     
+                    array_walk($result, function(&$item){
+                        $item = trim($item);
+                    });
                     
                     $result = array_unique($result);
                     
