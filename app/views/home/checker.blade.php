@@ -137,7 +137,7 @@ function checkPhones(){
                 console.log(emptyFields);
                 for (var i = 0; i < 4; i++) {                    
                     if (data.result[i]) {
-                        emptyFields[i].val(data.result[i]);
+                        $(emptyFields[i]).val(data.result[i]);
                     }
                 }
                 $('#check-phones-content').html('');
@@ -170,7 +170,7 @@ function checkEmails(){
                 console.log(emptyFields);
                 for (var i = 0; i < 4; i++) {
                     if (data.result[i]) {
-                        emptyFields[i].val(data.result[i]);
+                        $(emptyFields[i]).val(data.result[i]);
                     }
                 }
                 $('#check-emails-content').html('');
