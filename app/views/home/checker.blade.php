@@ -142,7 +142,7 @@ function checkPhones(){
                         emptyFields[i] = data.result[i];
                     }
                 }
-                //$('#check-phones-content').html(lines);
+                $('#check-phones-content').html('');
             } else {
                 $('#check-phones-content').html('ничего не найдено');
             }
@@ -169,7 +169,7 @@ function checkEmails(){
                 for (var i = 0; i < data.result.length; i++) {
                     lines += '<p>'+data.result[i]+'</p>';
                 }
-                $('#check-emails-content').html(lines);
+                $('#check-emails-content').html('');
             } else {
                 $('#check-emails-content').html('ничего не найдено');
             }
