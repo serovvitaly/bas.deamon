@@ -776,6 +776,7 @@ class HomeController extends BaseController {
         $token = '3246346257yterrtt3466rehjg45hdhkjg46557uvgmgtt4t56ygh67u46';
         
         file_get_contents("http://zwrk006.fvds.ru/control.php?token={$token}&action=run");
+        sleep(2);
         file_get_contents("http://d1.zwrk007.fvds.ru/control.php?token={$token}&action=run");
         
         return json_encode(array(
