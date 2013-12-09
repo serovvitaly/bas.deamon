@@ -83,7 +83,7 @@
             <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[1]) ? trim($phones[1]) : '' ?>">
             <input style="display: inline-block;" type="text" name="phones[]" value="<?= isset($phones[2]) ? trim($phones[2]) : '' ?>">
             <a style="display: inline-block; margin-bottom: 10px;" class="btn btn-success" href="#" onclick="checkPhones(); return false;">Проверить</a>
-            <div id="check-phones-content"></div>
+            <div id="check-phones-content" style="display: inline-block;"></div>
           </div>
           <div>
             <div style="display: inline-block; width: 64px;">Email-ы:</div>
@@ -91,7 +91,7 @@
             <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[1]) ? trim($emails[1]) : '' ?>">
             <input style="display: inline-block;" type="text" name="emails[]" value="<?= isset($emails[2]) ? trim($emails[2]) : '' ?>">
             <a style="display: inline-block; margin-bottom: 10px;" class="btn btn-success" href="#" onclick="checkEmails(); return false;">Проверить</a>
-            <div id="check-emails-content"></div>
+            <div id="check-emails-content" style="display: inline-block;"></div>
           </div>
           <div style="padding: 10px 0;">
               <?
