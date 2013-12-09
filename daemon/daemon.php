@@ -420,7 +420,6 @@ while ($inworking) {
         curl_multi_close($cmh);
     }
     
-    $db->query("COMMIT");
     $db->close();
     //$inworking = false;
 }
