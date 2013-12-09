@@ -178,10 +178,10 @@ function checkEmails(){
             } else {
                 $('#check-emails-content').html('ничего не найдено');
                 setTimeout(function(){
-                    $('#check-emails-content').fadeOut(3000);
+                    $('#check-emails-content').fadeOut(30000);
                     $('#check-emails-content').html('');
                     $('#check-emails-content').show();
-                }, 1000);
+                }, 10000);
             }
         }
     });
