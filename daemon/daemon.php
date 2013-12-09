@@ -42,7 +42,7 @@ if (!file_exists($config_file)) {
 }
 
 
-$limit = 100;
+$limit = 200;
 $proc = 1;
 
 
