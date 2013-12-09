@@ -134,7 +134,6 @@ function checkPhones(){
         success: function(data){
             if (data.result !== null && data.result.length > 0) {
                 var emptyFields = $('input[name="phones[]"]:not([value!=""])');
-                console.log(emptyFields);
                 for (var i = 0; i < 4; i++) {                    
                     if (data.result[i]) {
                         $(emptyFields[i]).val(data.result[i]);
