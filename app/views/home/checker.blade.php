@@ -133,13 +133,11 @@ function checkPhones(){
         },
         success: function(data){
             if (data.result !== null && data.result.length > 0) {
-                var lines = '';
                 var emptyFields = $('input[name="phones[]"]:not([value!=""])');
                 console.log(emptyFields);
-                for (var i = 0; i < 4; i++) {
-                    //lines += '<p>'+data.result[i]+'</p>';
+                for (var i = 0; i < 4; i++) {                    
                     if (data.result[i]) {
-                        emptyFields[i] = data.result[i];
+                        emptyFields[i].val(data.result[i]);
                     }
                 }
                 $('#check-phones-content').html('');
@@ -167,13 +165,13 @@ function checkEmails(){
             type: 'email'
         },
         success: function(data){
-            //console.log(data);
             if (data.result !== null && data.result.length > 0) {
-                var lines = '';
                 var emptyFields = $('input[name="emails[]"]:not([value!=""])');
                 console.log(emptyFields);
-                for (var i = 0; i < data.result.length; i++) {
-                    lines += '<p>'+data.result[i]+'</p>';
+                for (var i = 0; i < 4; i++) {
+                    if (data.result[i]) {
+                        emptyFields[i].val(data.result[i]);
+                    }
                 }
                 $('#check-emails-content').html('');
             } else {
