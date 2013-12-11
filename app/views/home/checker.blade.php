@@ -100,7 +100,7 @@
                   }
               }
               ?>
-              <button style="margin-top: 10px;" class="btn btn-inverse">Сохранить и далее</button>
+              <button style="margin-top: 10px;" class="btn btn-inverse btn-small">Сохранить и далее</button>
           </div>
         </div>
     </form>
