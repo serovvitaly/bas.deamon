@@ -6,7 +6,7 @@
 </div>
 
 <div class="row-fluid">
-  <div class="span4" style="overflow: auto;">
+  <div class="span3" style="overflow: auto;">
 
     <div class="statuses-filter">
       <form action="" method="GET">
@@ -70,7 +70,7 @@
     <?php echo $sites->links(); ?>
     
   </div>
-  <div class="span8">
+  <div class="span9">
     <h4>URL : {{ $url }}</h4>
     
     <form action="/save-data" method="POST" style="margin: 0;">
@@ -100,7 +100,7 @@
                   }
               }
               ?>
-            <p><button style="margin-top: 10px;" class="btn btn-inverse">Сохранить и далее</button></p>
+              <button style="margin-top: 10px;" class="btn btn-inverse">Сохранить и далее</button>
           </div>
         </div>
     </form>
