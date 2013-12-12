@@ -250,8 +250,8 @@ class HomeController extends BaseController {
                     });
                 }
                 
-                $urls = array_unique($urls);
                 
+                $urls = array_unique($urls);
                 
                 
                 $options = array(
@@ -290,7 +290,8 @@ class HomeController extends BaseController {
                         }
                     }
                     
-                    array_walk($result, function(&$item){
+                    array_walk($result, function(&$item) use ($pattern) {
+                        $item = str_replace(array(','), '', $item);
                         $item = trim($item);
                     });
                     
