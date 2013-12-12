@@ -226,7 +226,7 @@ class HomeController extends BaseController {
                     
                     break;
                 case 'email':
-                    $pattern = '/([a-zA-Z0-9-_.]{1,})@([a-zA-Z0-9-]{1,}\.[a-zA-Z]{2,4})/s';
+                    $pattern = '/([a-zA-Z0-9-_.]{1,}@[a-zA-Z0-9-]{1,}\.[a-zA-Z]{2,4})/s';
                     break;
                 default :
                     $pattern = NULL;
