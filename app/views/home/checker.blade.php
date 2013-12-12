@@ -75,7 +75,14 @@
     
     <form action="/save-data" method="POST" style="margin: 0;">
         <input type="hidden" name="uid" value="{{ $uid }}">
-        <input type="hidden" name="next_uid" value="{{ $next_uid }}"> 
+        <input type="hidden" name="next_uid" value="{{ $next_uid }}">
+        
+        <div style="display: none;">
+            <input<?= in_array(1, $filter_status) ? ' checked="checked"' : '' ?> type="checkbox" name="filter_status[]" value="1">
+            <input<?= in_array(2, $filter_status) ? ' checked="checked"' : '' ?> type="checkbox" name="filter_status[]" value="2">
+            <input<?= in_array(3, $filter_status) ? ' checked="checked"' : '' ?> type="checkbox" name="filter_status[]" value="3">
+        </div>
+         
         <div>
           <div>
           <div style="display: inline-block; width: 40%;">
