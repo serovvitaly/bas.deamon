@@ -293,6 +293,9 @@ class HomeController extends BaseController {
                     array_walk($result, function(&$item) use ($pattern) {
                         $item = str_replace(array(','), '', $item);
                         $item = trim($item);
+                        if (!preg_match($pattern, $item)) {
+                            unset($item);
+                        }
                     });
                     
                     $result = array_unique($result);
