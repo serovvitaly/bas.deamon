@@ -141,7 +141,7 @@ function checkPhones(){
         },
         success: function(data){
             if (data.result !== null && data.result.length > 0) {
-                var emptyFields = $('input[name="phones[]"]:not([value!=""])');
+                var emptyFields = $('input[name="phones[]"])');
                 for (var i = 0; i < 4; i++) {                    
                     if (data.result[i]) {
                         $(emptyFields[i]).val(data.result[i]);
@@ -173,7 +173,7 @@ function checkEmails(){
         },
         success: function(data){
             if (data.result !== null && data.result.length > 0) {
-                var emptyFields = $('input[name="emails[]"]:not([value!=""])');
+                var emptyFields = $('input[name="emails[]"])');
                 console.log(emptyFields);
                 for (var i = 0; i < 4; i++) {
                     if (data.result[i]) {
