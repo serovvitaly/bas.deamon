@@ -97,8 +97,8 @@
           </div>
           <a style="display: inline-block; margin-bottom: 10px;" class="btn btn-success" href="#" onclick="checkAll(); return false;">Проверить</a>
           <div style="display: inline;">
-            <div id="check-phones-content"></div>
-            <div id="check-emails-content"></div>
+            <div id="check-phones-content" style="font-size: 11px;"></div>
+            <div id="check-emails-content" style="font-size: 11px;"></div>
           </div>
           </div>
           <div style="padding: 10px 0;">
