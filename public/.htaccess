@@ -11,6 +11,6 @@ php_value memory_limit 256M
 
 	RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule (all|meet) pages.php [QSA]
+    RewriteRule (all|meet) pages.php [L]
     RewriteRule ^ index.php [L]
 </IfModule>
