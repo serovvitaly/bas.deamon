@@ -133,7 +133,7 @@ function checkAll(){
 }
 function checkPhones(){
     
-    $('#check-phones-content').html('<i>поиск телефонов...</i>');
+    $('#check-phones-content').html('поиск телефонов...');
     $.ajax({
         url: '/load-url-content',
         dataType: 'json',
@@ -165,7 +165,7 @@ function checkPhones(){
     });
 }
 function checkEmails(){
-    $('#check-emails-content').html('<i>поиск email-ов...</i>');
+    $('#check-emails-content').html('поиск email-ов...');
     $.ajax({
         url: '/load-url-content',
         dataType: 'json',
