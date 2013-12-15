@@ -2,6 +2,12 @@
 
 $db = new mysqli('localhost', 'root', 'Sy9YGKbG', 'test');
 
+$cont = 'all2';
+
+if (!in_array($cont, array('all','meet','pages','conts'))) {
+    die('Такой страницы нет');
+}
+
 $page = (isset($_GET['page']) AND $_GET['page'] > 0) ? $_GET['page'] : 1;
 
 $limit = 50;
