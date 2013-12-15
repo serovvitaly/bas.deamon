@@ -96,6 +96,10 @@
             <input style="display: inline-block; width: 28%;" type="text" name="emails[]" value="<?= isset($emails[2]) ? trim($emails[2]) : '' ?>">
           </div>
           <a style="display: inline-block; margin-bottom: 10px;" class="btn btn-success" href="#" onclick="checkAll(); return false;">Проверить</a>
+          <div style="display: inline;">
+            <div id="check-phones-content"></div>
+            <div id="check-emails-content"></div>
+          </div>
           </div>
           <div style="padding: 10px 0;">
               <?
@@ -129,7 +133,7 @@ function checkAll(){
 }
 function checkPhones(){
     
-    $('#check-phones-content').html('<i>выполнение операции...</i>');
+    $('#check-phones-content').html('<i>поиск телефонов...</i>');
     $.ajax({
         url: '/load-url-content',
         dataType: 'json',
@@ -149,7 +153,7 @@ function checkPhones(){
                 }
                 $('#check-phones-content').html('');
             } else {
-                $('#check-phones-content').html('ничего не найдено');
+                $('#check-phones-content').html('телевонов не найдено');
                 setTimeout(function(){
                     $('#check-phones-content').fadeOut(3000, function(){
                         $('#check-phones-content').html('');
@@ -161,7 +165,7 @@ function checkPhones(){
     });
 }
 function checkEmails(){
-    $('#check-emails-content').html('<i>выполнение операции...</i>');
+    $('#check-emails-content').html('<i>поиск email-ов...</i>');
     $.ajax({
         url: '/load-url-content',
         dataType: 'json',
@@ -182,7 +186,7 @@ function checkEmails(){
                 }
                 $('#check-emails-content').html('');
             } else {
-                $('#check-emails-content').html('ничего не найдено');
+                $('#check-emails-content').html('email-ов не найдено');
                 setTimeout(function(){
                     $('#check-emails-content').fadeOut(3000, function(){
                         $('#check-emails-content').html('');
