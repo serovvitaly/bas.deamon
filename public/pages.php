@@ -180,6 +180,21 @@ $items = $db->query("SELECT * FROM `final_sites_list` WHERE `status` >= 2 ORDER 
   </tbody>
 </table>
 
+<div class="pagination pagination-small">
+    <ul>
+        <li class="disabled"><span>«</span></li>
+        <li class="active"><span>1</span></li>
+        <li><a href="http://x1.zwrk00.fvds.ru/meet?page=2">2</a></li>
+        <li><a href="http://x1.zwrk00.fvds.ru/meet?page=3">3</a></li>
+        <li><a href="http://x1.zwrk00.fvds.ru/meet?page=4">4</a></li>
+        <li><a href="http://x1.zwrk00.fvds.ru/meet?page=5">5</a></li>
+        <li><a href="http://x1.zwrk00.fvds.ru/meet?page=6">6</a></li>
+        <li class="disabled"><span>...</span></li>
+        <li><a href="http://x1.zwrk00.fvds.ru/meet?page=8721">8721</a></li>
+        <li><a href="http://x1.zwrk00.fvds.ru/meet?page=2">»</a></li>
+    </ul>
+</div>
+
 <script>
 //$('.popover').popover();
 </script>
