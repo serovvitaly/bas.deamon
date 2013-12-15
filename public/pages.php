@@ -2,12 +2,11 @@
 
 $db = new mysqli('localhost', 'root', 'Sy9YGKbG', 'test');
 
-$cont = 'all';
+$allowPages = array('all','meet','pages','conts');
+
+$cont = (isset($_GET['cont']) AND in_array(strtolower($_GET['cont']), $allowPages)) ? $_GET['cont'] : 'all';
 $cont = strtolower($cont);
 
-if (!in_array($cont, array('all','meet','pages','conts'))) {
-    die('Page not found!');
-}
 
 $page = (isset($_GET['page']) AND $_GET['page'] > 0) ? $_GET['page'] : 1;
 
@@ -122,7 +121,7 @@ $items = $db->query("SELECT * FROM `final_sites_list` WHERE `status` >= 2 ORDER 
         </div>
       </div>
   </div>
-
+  <h1>PAGES</h1>
   <div class="container" style="padding-top: 20px;">
 
 <table id="main-grid" class="table table-condensed table-bordered table-striped table-hover">
