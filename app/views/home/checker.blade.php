@@ -85,12 +85,12 @@
          
         <div>
           <div>
-          <div style="display: inline-block; width: 40%;">
+          <div style="display: inline-block; width: 39%;">
             <input style="display: inline-block; width: 28%;" type="text" name="phones[]" value="<?= isset($phones[0]) ? trim($phones[0]) : '' ?>">
             <input style="display: inline-block; width: 28%;" type="text" name="phones[]" value="<?= isset($phones[1]) ? trim($phones[1]) : '' ?>">
             <input style="display: inline-block; width: 28%;" type="text" name="phones[]" value="<?= isset($phones[2]) ? trim($phones[2]) : '' ?>">
           </div>
-          <div style="display: inline-block; width: 40%;">
+          <div style="display: inline-block; width: 39%;">
             <input style="display: inline-block; width: 28%;" type="text" name="emails[]" value="<?= isset($emails[0]) ? trim($emails[0]) : '' ?>">
             <input style="display: inline-block; width: 28%;" type="text" name="emails[]" value="<?= isset($emails[1]) ? trim($emails[1]) : '' ?>">
             <input style="display: inline-block; width: 28%;" type="text" name="emails[]" value="<?= isset($emails[2]) ? trim($emails[2]) : '' ?>">
