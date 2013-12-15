@@ -418,10 +418,8 @@ class HomeController extends BaseController {
     
     
     public function getProven()
-    {
-        $sites = $this->_sites(4);
-        
-        $this->layout->content = View::make('home.proven', array('sites' => $sites));
+    {        
+        $this->layout->content = View::make('home.proven');
     }
     
     
