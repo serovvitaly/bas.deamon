@@ -96,7 +96,7 @@
             <input style="display: inline-block; width: 28%;" type="text" name="emails[]" value="<?= isset($emails[2]) ? trim($emails[2]) : '' ?>">
           </div>
           <a style="display: inline-block; margin-bottom: 10px;" class="btn btn-success" href="#" onclick="checkAll(); return false;">Проверить</a>
-          <div style="display: inline;">
+          <div style="display: inline-block;">
             <div id="check-phones-content" style="font-size: 11px;"></div>
             <div id="check-emails-content" style="font-size: 11px;"></div>
           </div>
