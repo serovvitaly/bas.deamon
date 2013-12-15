@@ -14,11 +14,8 @@ $page = (isset($_GET['page']) AND $_GET['page'] > 0) ? $_GET['page'] : 1;
 $limit = 50;
 $start = ($page - 1) * $limit;
 
-$res = $db->query("SELECT * FROM `final_sites_list` WHERE `status` >= 2 ORDER BY `domain_created` DESC LIMIT {$start},{$limit}");
+$items = $db->query("SELECT * FROM `final_sites_list` WHERE `status` >= 2 ORDER BY `domain_created` DESC LIMIT {$start},{$limit}");
 
-while ($row = $res->fetch_assoc()) {
-    echo "<p>{$row['url']}</p>\n";
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -127,7 +124,69 @@ while ($row = $res->fetch_assoc()) {
   </div>
 
   <div class="container" style="padding-top: 20px;">
-  <?= 'CONTENT' ?>
+
+<table id="main-grid" class="table table-condensed table-bordered table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Домен</th>
+      <th>Страницы</th>
+      <th>Делигирован</th>
+      <th style="width: 86px;">Статус</th>
+      <th>Телефоны</th>
+      <th>Email-ы</th>
+      <th>Дата п. обр</th>
+      <th>Возраст домена, дн.</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?
+  
+  $delegated = array(
+      'DELEGATED' => 'ДА',
+      'NOT DELEGATED' => 'НЕТ',
+  );
+  
+  $statuses = array(
+      0 => 'не обработан',
+      1 => 'отвечает',
+      2 => 'есть страницы',
+      3 => 'есть контакты',
+      4 => 'проверен',
+  );
+  
+  if ($items->num_rows > 0) {
+      while ($item = $items->fetch_assoc()) {
+          $item = (object) $item;
+          ?>
+    <tr>
+      <td><a href="/checker?uid=<?= $item->id ?>"><?= $item->url ?></a></td>
+      <td><?= $item->meet_links ?></td>
+      <td><?= $delegated[$item->delegated] ?></td>
+      <td><?= $statuses[$item->status] ?></td>
+      <td style="text-align: center;"><?= ($item->phones_count > 0) ? '<div class="popover" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-placement="right" src="/packages/icons/tick_6817.png" alt=""></div><img src="/packages/icons/tick_6817.png" alt="">' : '' ?></td>
+      <td style="text-align: center;"><?= ($item->emails_count > 0) ? '<div class="popover" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-placement="right" src="/packages/icons/tick_6817.png" alt=""></div><img src="/packages/icons/tick_6817.png" alt="">' : '' ?></td>
+      <td><?= $item->updated_at ?></td>
+      <td><?= ceil( (time() - strtotime($item['domain_created'])) / (3600 * 24)) ?></td>
+    </tr>
+          <?
+      }
+  } else {
+      ?>
+    <tr>
+      <td colspan="9" style="text-align: center; color: gray;">Список пуст</td>
+    </tr>
+      <?
+  }
+  ?>
+  </tbody>
+</table>
+
+<?php /* echo $items->links(); */?>
+
+<script>
+//$('.popover').popover();
+</script>
+  
   </div>
   
   <footer style="height: 50px;">
