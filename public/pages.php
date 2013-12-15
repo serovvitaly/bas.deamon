@@ -96,7 +96,7 @@ $items = $db->query("SELECT * FROM `final_sites_list` WHERE `status` >= 2 ORDER 
             
         });
     }
-    
+     
     </script>
     
 </head>
