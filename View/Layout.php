@@ -89,15 +89,15 @@
           <a class="brand" href="/">Загрузко 2.0</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li<?= $action == '/'       ? ' class="active"' : '' ?>><a href="/"><i class="icon-home icon-white" title="Главная"></i></a></li>
-              <li<?= $action == 'load'    ? ' class="active"' : '' ?>><a href="/load">Загрузка</a></li>
-              <li<?= $action == 'all'     ? ' class="active"' : '' ?>><a href="/all">Все</a></li>
-              <li<?= $action == 'meet'    ? ' class="active"' : '' ?>><a href="/meet">Отвечают</a></li>
-              <li<?= $action == 'pages'   ? ' class="active"' : '' ?>><a href="/pages">Есть странцы</a></li>
-              <li<?= $action == 'conts'   ? ' class="active"' : '' ?>><a href="/conts">Есть контакты</a></li>
-              <li<?= $action == 'checker' ? ' class="active"' : '' ?>><a href="/checker">Проверка</a></li>
-              <li<?= $action == 'proven'  ? ' class="active"' : '' ?>><a href="/proven">Проверенные</a></li>
-              <li<?= $action == 'daemons' ? ' class="active"' : '' ?>><a href="/daemons">Управление</a></li>
+              <li<?= $route == ''        ? ' class="active"' : '' ?>><a href="/"><i class="icon-home icon-white" title="Главная"></i></a></li>
+              <li<?= $route == 'load'    ? ' class="active"' : '' ?>><a href="/load">Загрузка</a></li>
+              <li<?= $route == 'all'     ? ' class="active"' : '' ?>><a href="/all">Все</a></li>
+              <li<?= $route == 'meet'    ? ' class="active"' : '' ?>><a href="/meet">Отвечают</a></li>
+              <li<?= $route == 'pages'   ? ' class="active"' : '' ?>><a href="/pages">Есть странцы</a></li>
+              <li<?= $route == 'conts'   ? ' class="active"' : '' ?>><a href="/conts">Есть контакты</a></li>
+              <li<?= $route == 'checker' ? ' class="active"' : '' ?>><a href="/checker">Проверка</a></li>
+              <li<?= $route == 'proven'  ? ' class="active"' : '' ?>><a href="/proven">Проверенные</a></li>
+              <li<?= $route == 'daemons' ? ' class="active"' : '' ?>><a href="/daemons">Управление</a></li>
             </ul>
           </div>
         </div>
@@ -105,7 +105,7 @@
   </div>
 
   <div class="container" style="padding-top: 20px;">
-  <!-- content -->
+  <?= $content ?>
   </div>
   
   <footer style="height: 50px;">

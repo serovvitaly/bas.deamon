@@ -22,10 +22,7 @@ class Index extends \MyController
 		// Set ORM database connection
 		//ORM::$db = $this->db;
 
-		// Load the theme sidebar since we don't need the full page
-		$this->sidebar = new \Micro\View('Sidebar');
-
 		// Load the welcome view
-		$this->content = new \Micro\View('Index/Index');
+		$this->content = new \Micro\View('home/index.blade');
 	}
 }

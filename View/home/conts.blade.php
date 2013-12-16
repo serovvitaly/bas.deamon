@@ -1,0 +1,1 @@
+<?= new \Micro\View('common/grid.blade', array('items'=>$sites)) ?>

@@ -24,10 +24,16 @@
 $config = array();
 
 $config['routes'] = array(
-	''					=> '\Controller\Index',
-	'404'				=> '\Controller\Page404',
-	'school'			=> '\Controller\School',
-	'form'				=> '\Controller\Form',
+    ''        => '\Controller\Index',
+    'load'    => '\Controller\Load',
+    'all'     => '\Controller\All',
+    'meet'    => '\Controller\Meet',
+    'pages'   => '\Controller\Pages',
+    'conts'   => '\Controller\Conts',
+    'checker' => '\Controller\Checker',
+    'proven'  => '\Controller\Proven',
+	'daemons' => '\Controller\Daemons',
+	'404'     => '\Controller\Page404',
 
 	// Example paths
 	//'example/path'		=> '\Controller\Example\Hander',
