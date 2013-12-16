@@ -1,0 +1,22 @@
+/* Typography defaults mostly... */
+body
+{
+	font-size:80%;
+	line-height:1.5em;
+	font-family:Helvetica,"Helvetica Neue",Arial,sans-serif;
+} /*IE*/
+html>body{font-size:13px}
+
+p, ul, ol, pre {
+	margin: 0 0 1.5em 0;
+}
+
+pre {
+	background: #ffe;
+	border: 1px solid #ddd;
+	padding: 1em;
+}
+
+pre,code {
+	font-family:"DejaVu Sans Mono","Bitstream Vera Sans Mono",Monaco,"Courier New",monospace;
+}
