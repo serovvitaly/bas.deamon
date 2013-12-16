@@ -24,6 +24,7 @@ abstract class MyController extends \Micro\Controller
 	{
 		\Micro\Session::start();
         
+        $this->load_database();
 	}
 
 
