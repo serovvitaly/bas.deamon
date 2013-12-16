@@ -1,52 +1,118 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8"/>
-	<title>MicroMVC</title>
-
-	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-
-	<link rel="stylesheet" media="all" href="/CSS/reset.css"/>
-	<link rel="stylesheet" media="all" href="/CSS/style.css"/>
-
-	<?php
-	//Print all CSS files
-	if( ! empty($css)) foreach($css as $file) print '<link rel="stylesheet" media="all" href="'. $file. '" />';
-
-	//Print all JS files
-	if( ! empty($javascript)) foreach($javascript as $file) print '<script type="text/javascript" src="'. $file. '"></script>';
-
-	//Print any other header data
-	if( ! empty($head_data)) print $head_data;
-	?>
-
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Untitled</title>
+    <link rel="stylesheet" type="text/css" href="/packages/bootstrap/css/docs.css">
+    <link rel="stylesheet" type="text/css" href="/packages/bootstrap/css/bootstrap.min.css">
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="/packages/jQuery-File-Upload-8.8.5/js/vendor/jquery.ui.widget.js"></script>
+    <script src="/packages/jQuery-File-Upload-8.8.5/js/jquery.iframe-transport.js"></script>
+    <script src="/packages/jQuery-File-Upload-8.8.5/js/jquery.fileupload.js"></script>
+    <script src="/packages/jquery.periodic.js"></script>
+    
+    <style>
+      .uloader{
+          height: 18px;
+          border: 1px solid #AEC7A5;
+          background: #EFF5ED;
+      }
+      .uloader .ufiller{
+          height: 18px;
+          background: #BDE6B0;
+      }
+      .uloader .ucounter {
+          margin-top: -19px;
+          text-align: center;
+      }
+      .uloader.blue{
+          border: 1px solid #6B94D3;
+          background: #EAEEF5;
+      }
+      .uloader.blue .ufiller{
+          background: #B3C9F0;
+      }
+      #informer{
+          padding-left: 10px;
+      }
+      #informer .loader{
+          background: url(/packages/dynatree/src/skin/loading.gif) no-repeat center left;
+          padding: 5px 10px;
+          display: none;
+      }
+      .cls-small{
+          font-size: 10px;
+      }
+      ul.dynatree-container {
+          border: none !important;
+      }
+      .check-table > tbody > tr > td{
+          overflow: hidden;
+      }
+      .popoverdzen{
+          position: absolute;
+          margin: -28px 0 0 209px;
+          border: 1px solid #AAA;
+          background: #FFF;
+          -webkit-box-shadow: 3px 4px 3px rgba(0, 0, 0, 0.23);
+             -moz-box-shadow: 3px 4px 3px rgba(0, 0, 0, 0.23);
+                  box-shadow: 3px 4px 3px rgba(0, 0, 0, 0.23);
+      }
+    </style>
+    
+    <script>
+    
+    function post(url, data, success){
+        
+        if (!data) data = {};
+        if (!success) success = function(){};
+        
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: data,
+            success: success
+            
+        });
+    }
+    
+    </script>
+    
 </head>
-<body lang="en">
-<?php if( ! empty($sidebar)) { ?>
+<body>
 
-	<div id="content">
-		<?php print $content; ?>
-	</div>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">Загрузко 2.0</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li<?= $action == '/'       ? ' class="active"' : '' ?>><a href="/"><i class="icon-home icon-white" title="Главная"></i></a></li>
+              <li<?= $action == 'load'    ? ' class="active"' : '' ?>><a href="/load">Загрузка</a></li>
+              <li<?= $action == 'all'     ? ' class="active"' : '' ?>><a href="/all">Все</a></li>
+              <li<?= $action == 'meet'    ? ' class="active"' : '' ?>><a href="/meet">Отвечают</a></li>
+              <li<?= $action == 'pages'   ? ' class="active"' : '' ?>><a href="/pages">Есть странцы</a></li>
+              <li<?= $action == 'conts'   ? ' class="active"' : '' ?>><a href="/conts">Есть контакты</a></li>
+              <li<?= $action == 'checker' ? ' class="active"' : '' ?>><a href="/checker">Проверка</a></li>
+              <li<?= $action == 'proven'  ? ' class="active"' : '' ?>><a href="/proven">Проверенные</a></li>
+              <li<?= $action == 'daemons' ? ' class="active"' : '' ?>><a href="/daemons">Управление</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+  </div>
 
-	<div id="sidebar">
-		<?php print $sidebar; ?>
-	</div>
-
-<?php } else { // Else they want to do the content layout themselves... ?>
-
-	<div id="page">
-		<?php print $content; ?>
-	</div>
-
-<?php } ?>
-
-<?php if(isset($pagination)) print $pagination;?>
-
-<?php if(isset($debug)) print '<div id="debug">'. $debug. '</div>';?>
-
+  <div class="container" style="padding-top: 20px;">
+  <!-- content -->
+  </div>
+  
+  <footer style="height: 50px;">
+  
+  </footer>
+  
+  <script type="text/javascript" src="/packages/bootstrap/js/bootstrap.min.js"></script>
+  <?php if(isset($debug)) print '<div id="debug">'. $debug. '</div>';?>
 </body>
 </html>
