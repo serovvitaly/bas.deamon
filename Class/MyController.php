@@ -79,7 +79,7 @@ abstract class MyController extends \Micro\Controller
     protected function _sites($status = NULL, $condition = '>=')
     {
         $take = 50;
-        return;
+        
         return \Model\Sites::fetch();
         
         if ($status === NULL) {
