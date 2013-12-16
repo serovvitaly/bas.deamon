@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /bootstrap/compiled.php
 /vendor
 composer.phar
@@ -5,3 +6,26 @@ composer.lock
 .DS_Store
 /public/data.log
 /daemon/logs/*
+=======
+# Linux
+.*
+!.gitignore
+*~
+
+# OS X
+.DS_Store
+# Thumbnails
+._*
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# MicroMVC
+*.cache
+*.log
+Uploads
+Storage
+Config
+!Config/Sample.*.php
+>>>>>>> 3776bfd3d93080e8f243eb8d855ca210743e8ec7

@@ -1,2 +1,0 @@
-install composer
-pause
