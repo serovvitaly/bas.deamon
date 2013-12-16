@@ -30,7 +30,16 @@
   if (isset($items) AND count($items) > 0) {
       foreach ($items AS $item) {
           ?>
-
+    <tr>
+      <td><a href="/checker?uid=<?= $item->id ?>"><?= $item->url ?></a></td>
+      <td><?= $item->meet_links ?></td>
+      <td><?= $delegated[$item->delegated] ?></td>
+      <td><?= $statuses[$item->status] ?></td>
+      <td style="text-align: center;"><?= ($item->phones_count > 0) ? '<div class="popover" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-placement="right" src="/packages/icons/tick_6817.png" alt=""></div><img src="/packages/icons/tick_6817.png" alt="">' : '' ?></td>
+      <td style="text-align: center;"><?= ($item->emails_count > 0) ? '<div class="popover" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-placement="right" src="/packages/icons/tick_6817.png" alt=""></div><img src="/packages/icons/tick_6817.png" alt="">' : '' ?></td>
+      <td><?= $item->updated_at ?></td>
+      <td><?= ceil( (time() - strtotime($item['domain_created'])) / (3600 * 24)) ?></td>
+    </tr>
           <?
       }
   } else {
