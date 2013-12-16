@@ -23,6 +23,7 @@ abstract class MyController extends \Micro\Controller
 	public function initialize($method)
 	{
 		\Micro\Session::start();
+        
 	}
 
 

@@ -30,9 +30,9 @@ $config['languages'] = array('en');
  * Visit http://us3.php.net/manual/en/pdo.drivers.php for more info.
  */
 $config['database'] = array(
-	'dns' => "mysql:host=127.0.0.1;port=3306;dbname=micromvc",
+	'dns' => "mysql:host=127.0.0.1;port=3306;dbname=test",
 	'username' => 'root',
-	'password' => '',
+	'password' => 'Sy9YGKbG',
 	//'dns' => "pgsql:host=localhost;port=5432;dbname=micromvc",
 	//'username' => 'postgres',
 	//'password' => 'postgres',
