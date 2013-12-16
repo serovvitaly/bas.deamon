@@ -75,6 +75,20 @@ abstract class MyController extends \Micro\Controller
 			print new \Micro\View('System/Debug');
 		}
 	}
+    
+    protected function _sites($status = NULL, $condition = '>=')
+    {
+        $take = 50;
+        return;
+        return \Model\Sites::fetch();
+        
+        if ($status === NULL) {
+            return Site::orderBy('domain_created', 'DESC')->paginate($take);
+        }
+        
+        
+        return Site::where('status', $condition, $status)->orderBy('domain_created', 'DESC')->paginate($take);
+    }
 
 }
 
