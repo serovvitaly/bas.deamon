@@ -151,7 +151,7 @@ function checkPhones(){
                         $(emptyFields[i]).val(data.result[i]);
                     }
                 }
-                $('#check-phones-content').html('найдено ' + data.result.length + ' телефонов');
+                $('#check-phones-content').html('найдено телефонов: ' + data.result.length);
             } else {
                 $('#check-phones-content').html('телевонов не найдено');
             }
@@ -184,7 +184,7 @@ function checkEmails(){
                         $(emptyFields[i]).val(data.result[i]);
                     }
                 }
-                $('#check-emails-content').html('найдено ' + data.result.length + ' email-ов');
+                $('#check-emails-content').html('найдено email-ов: ' + data.result.length);
             } else {
                 $('#check-emails-content').html('email-ов не найдено');
             }
