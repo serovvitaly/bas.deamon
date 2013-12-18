@@ -151,16 +151,16 @@ function checkPhones(){
                         $(emptyFields[i]).val(data.result[i]);
                     }
                 }
-                $('#check-phones-content').html('');
+                $('#check-phones-content').html('найдено ' + data.result.length + ' телефонов');
             } else {
                 $('#check-phones-content').html('телевонов не найдено');
-                setTimeout(function(){
-                    $('#check-phones-content').fadeOut(3000, function(){
-                        $('#check-phones-content').html('');
-                        $('#check-phones-content').show();
-                    });
-                }, 3000);
             }
+            setTimeout(function(){
+                $('#check-phones-content').fadeOut(3000, function(){
+                    $('#check-phones-content').html('');
+                    $('#check-phones-content').show();
+                });
+            }, 3000);
         }
     });
 }
@@ -184,17 +184,17 @@ function checkEmails(){
                         $(emptyFields[i]).val(data.result[i]);
                     }
                 }
-                $('#check-emails-content').html('');
+                $('#check-emails-content').html('найдено ' + data.result.length + ' email-ов');
             } else {
                 $('#check-emails-content').html('email-ов не найдено');
-                setTimeout(function(){
-                    $('#check-emails-content').fadeOut(3000, function(){
-                        $('#check-emails-content').html('');
-                        $('#check-emails-content').show();    
-                    });
-                    
-                }, 3000);
             }
+            setTimeout(function(){
+                $('#check-emails-content').fadeOut(3000, function(){
+                    $('#check-emails-content').html('');
+                    $('#check-emails-content').show();    
+                });
+                
+            }, 3000);
         }
     });
 }
