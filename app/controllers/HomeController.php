@@ -372,6 +372,14 @@ class HomeController extends BaseController {
         $phones   = Input::get('phones');
         $emails   = Input::get('emails');
         
+        $uriParams[] = 'page=' . Input::get('page', 1);
+        $filter_status = Input::get('filter_status');
+        if (is_array($filter_status) AND count($filter_status) > 0) {
+            foreach ($filter_status AS $_status) {
+                $uriParams[] = 'filter_status[]=' . $_status;
+            }
+        }
+        
         if ($uid > 0) {
             $site = Site::find($uid);
             if ($site) {
@@ -395,7 +403,7 @@ class HomeController extends BaseController {
             }
         }
         
-        return Redirect::to("/checker?uid={$next_uid}");
+        return Redirect::to("/checker?uid={$next_uid}&" . implode('&', $uriParams));
     }
     
     
