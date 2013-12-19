@@ -313,7 +313,7 @@ class HomeController extends BaseController {
             
         }
         
-        return json_encode($out);
+        return @json_encode($out);
     } 
     
     public function getChecker()
