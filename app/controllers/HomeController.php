@@ -238,6 +238,8 @@ class HomeController extends BaseController {
                 
                 $data = json_decode(Site::find($uid)->data);
                 
+                var_dump($data);
+                
                 $urls = array();
                 $out['data1'] = Site::find($uid)->data;
                 $out['data'] = $data;
