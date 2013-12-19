@@ -708,6 +708,8 @@ class HomeController extends BaseController {
                 $ptn = str_replace(array('(',')'), array('[(]','[)]'), $ptn);
                 $ptn = "/{$ptn}/";
                 
+                $out['ptn'] = $ptn;
+                
                 @preg_match_all($ptn, $list, $matches);
                 //echo $ptn . "\n";
                 //print_r($matches);
