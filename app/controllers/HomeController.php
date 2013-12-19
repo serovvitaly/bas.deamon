@@ -286,6 +286,9 @@ class HomeController extends BaseController {
                                                         
                             if (count($matches2) > 0) {
                                 foreach ($matches2 AS $matche) {
+                                    if (isset($matche[0])) {
+                                        unset($matche[0]);
+                                    }
                                     if (count($matche) > 0) {
                                         foreach ($matche AS $matcheItem) {
                                             $matcheItem = trim($matcheItem);
