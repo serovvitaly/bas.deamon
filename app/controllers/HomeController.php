@@ -296,7 +296,7 @@ class HomeController extends BaseController {
                             }
                         }
                     }
-                    
+                    $out['resultPRE'] = $result;
                     array_walk($result, function(&$item) use ($pattern) {
                         $item = str_replace(array(','), '', $item);
                         $item = trim($item);
