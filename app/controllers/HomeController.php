@@ -211,7 +211,7 @@ class HomeController extends BaseController {
                                 $temp_ptn = trim($p->pattern);
                                 $temp_ptn = str_replace('*', '[0-9]', $temp_ptn);
                                 $temp_ptn = str_replace('+', '\+', $temp_ptn);
-                                $temp_ptn = str_replace(array('(',')'), array('[(]','[)]'), $temp_ptn);
+                                $temp_ptn = str_replace(array('(',')'), array('\(','\)'), $temp_ptn);
                                 
                                 $ptns[] = $temp_ptn;
                             }
