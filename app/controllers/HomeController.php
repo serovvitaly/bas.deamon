@@ -272,7 +272,7 @@ class HomeController extends BaseController {
                     foreach ($urls AS $url) {
                         
                         $content = file_get_contents($url, false, $context);
-                        
+                        $out['content'] = $content;
                         if ($content) {
                             
                             $content = strip_tags($content);
