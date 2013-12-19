@@ -232,7 +232,7 @@ class HomeController extends BaseController {
                     $pattern = NULL;
             }
             
-            //$out['pattern'] = $pattern;
+            $out['pattern'] = $pattern;
             
             if ($pattern !== NULL) {
                 
@@ -707,8 +707,6 @@ class HomeController extends BaseController {
                 $ptn = str_replace('+', '\+', $ptn);
                 $ptn = str_replace(array('(',')'), array('[(]','[)]'), $ptn);
                 $ptn = "/{$ptn}/";
-                
-                $out['ptn'] = $ptn;
                 
                 @preg_match_all($ptn, $list, $matches);
                 //echo $ptn . "\n";
