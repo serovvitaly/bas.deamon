@@ -285,6 +285,7 @@ class HomeController extends BaseController {
                             $out['matches'][] = $matches2;
                                                         
                             if (isset($matches2[0]) AND count($matches2[0]) > 0) {
+                                unset($mm[0]);
                                 foreach ($matches2[0] AS $mm) {
                                     if (!empty($mm)) {
                                         $result[] = $mm;
