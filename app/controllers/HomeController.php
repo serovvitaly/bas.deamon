@@ -284,13 +284,14 @@ class HomeController extends BaseController {
                             
                             $out['matches'][] = $matches2;
                                                         
-                            if (isset($matches2[0]) AND count($matches2[0]) > 0) {
-                                //unset($matches2[0][0]);
-                                if (count($matches2[0]) > 0) {
-                                    $out['foo-0'] = $matches2;
-                                    foreach ($matches2[0] AS $mm) {
-                                        if (!empty($mm)) {
-                                            $result[] = $mm;
+                            if (count($matches2) > 0) {
+                                foreach ($matches2 AS $matche) {
+                                    if (count($matche) > 0) {
+                                        foreach ($matche AS $matcheItem) {
+                                            $matcheItem = trim($matcheItem);
+                                            if (!empty($matcheItem)) {
+                                                $result[] = $matcheItem;
+                                            }
                                         }
                                     }
                                 }
