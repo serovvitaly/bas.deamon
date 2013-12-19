@@ -236,15 +236,14 @@ class HomeController extends BaseController {
             
             if ($pattern !== NULL) {
                 
-                $data = json_decode(Site::find($uid)->data);
+                $contextData = Site::find($uid)->data;
                 
-                echo Site::find($uid)->data;
+                $contextData = str_replace('\"', '"', $contextData);
                 
-                echo "\n\n----------------------\n\n";
+                $data = json_decode($contextData);
                 
                 $urls = array();
-                $out['data1'] = Site::find($uid)->data;
-                $out['data'] = $data;
+                
                 if ($data AND count($data) > 0) {
                     array_walk_recursive($data, function($item, $key) use (&$urls) {
                         if ($key == 'url' AND is_scalar($item)) {
@@ -277,14 +276,12 @@ class HomeController extends BaseController {
                     foreach ($urls AS $url) {
                         
                         $content = file_get_contents($url, false, $context);
-                        $out['content'] = $content;
+                        
                         if ($content) {
                             
                             $content = strip_tags($content);
                             preg_match_all($pattern, $content, $matches2, PREG_SET_ORDER);
-                            
-                            $out['matches2'] = $matches2;
-                            
+                                                        
                             if (isset($matches2[0]) AND count($matches2[0]) > 0) {
                                 foreach ($matches2[0] AS $mm) {
                                     if (!empty($mm)) {
