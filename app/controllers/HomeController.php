@@ -264,7 +264,7 @@ class HomeController extends BaseController {
                 );
 
                 $context = stream_context_create($options);
-                
+                $out['urls'] = $urls;
                 if (count($urls) > 0) {
                     
                     $result = array();
