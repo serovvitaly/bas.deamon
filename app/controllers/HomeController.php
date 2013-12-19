@@ -239,7 +239,7 @@ class HomeController extends BaseController {
                 $data = json_decode(Site::find($uid)->data);
                 
                 $urls = array();
-                
+                $out['data'] = $data;
                 if ($data AND count($data) > 0) {
                     array_walk_recursive($data, function($item, $key) use (&$urls) {
                         if ($key == 'url' AND is_scalar($item)) {
