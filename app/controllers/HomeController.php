@@ -275,7 +275,7 @@ class HomeController extends BaseController {
                     
                     foreach ($urls AS $url) {
                         
-                        $content = file_get_contents($url, false, $context);
+                        $content = @file_get_contents($url, false, $context);
                         
                         if ($content) {
                             
